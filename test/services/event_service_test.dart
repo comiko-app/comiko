@@ -1,9 +1,5 @@
-import 'dart:io';
-
 import 'package:comiko/services.dart';
-import 'package:comiko/utils.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:path/path.dart' as path;
 
 main() {
   final service = new FakeEventService();
@@ -15,10 +11,11 @@ main() {
     expect(models[0].artist, 'Adib Alkhalidey');
   });
 
-  test('should load events from json file', () {
-    final filePath =
-    path.join(Directory.current.absolute.path, "lib/data/events.json");
-    List<Map<String, dynamic>> jsonObject = JsonParser.parseFile(filePath);
+  test('should init events from map', () {
+    List<Map<String, dynamic>> jsonObject = [
+      {"name": "chien", "artist": "Com Truise"},
+      {"name": "Chat", "artist": "Bruno Pierre"}
+    ];
     JsonEventService service = new JsonEventService();
 
     service.init(jsonObject);
