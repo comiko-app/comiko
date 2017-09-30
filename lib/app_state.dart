@@ -4,7 +4,7 @@ import 'package:comiko/widgets/event_card.dart';
 
 class AppState {
   List<EventCardViewModel> events;
-  EventsService eventsService = new FakeEventsService();
+  BaseEventService eventsService = ServiceProvider.getByType(Event);
 
   AppState.initial() {
     events = eventsService
