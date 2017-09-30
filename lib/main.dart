@@ -1,43 +1,64 @@
+import 'package:comiko/app_state.dart';
 import 'package:comiko/pages/comedian_page.dart';
 import 'package:comiko/pages/event_list_page.dart';
 import 'package:comiko/pages/event_page.dart';
 import 'package:comiko/pages/upcoming_events_page.dart';
-import 'package:comiko/services.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:meta/meta.dart';
+import 'package:redux/redux.dart';
 
 void main() {
   runApp(new MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  static final Store<AppState> store = new Store(
+    combineReducers([reducer as Reducer]),
+    initialState: new AppState.initial(),
+  );
+
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: 'Comiko',
-      theme: new ThemeData.dark(),
-      home: new MyHomePage(title: 'Flutter Demo Home Page'),
-      routes: <String, WidgetBuilder>{
-        '/event_list': (BuildContext context) => new EventListPage(),
-        '/event': (BuildContext context) => new EventPage(),
-        '/comedian': (BuildContext context) => new ComedianPage(),
-      },
+    return new StoreProvider(
+      store: store,
+      child: new MaterialApp(
+        title: 'Comiko',
+        theme: new ThemeData.dark(),
+        home: new MyHomePage(title: 'Flutter Demo Home Page', store: store),
+        routes: <String, WidgetBuilder>{
+          '/event_list': (BuildContext context) => new EventListPage(),
+          '/event': (BuildContext context) => new EventPage(),
+          '/comedian': (BuildContext context) => new ComedianPage(),
+        },
+      ),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
+  final Store<AppState> store;
   final String title;
 
+  MyHomePage({
+    Key key,
+    this.title,
+    @required this.store,
+  })
+      : super(key: key);
+
   @override
-  _MyHomePageState createState() => new _MyHomePageState();
+  _MyHomePageState createState() => new _MyHomePageState(store: store);
 }
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   int _currentIndex = 0;
   List<NavigationIconView> _navigationViews;
-  final EventsService _eventsService = new FakeEventsService();
+  final Store<AppState> store;
+
+  _MyHomePageState({
+    @required this.store,
+  });
 
   @override
   void initState() {
@@ -59,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       ),
       new NavigationIconView(
         icon: const Icon(Icons.cloud),
-        body: new UpcomingEventsPage(_eventsService.getAll()),
+        body: new UpcomingEventsPage(store: store),
         title: const Text('Cloud'),
         color: Colors.teal,
         vsync: this,
