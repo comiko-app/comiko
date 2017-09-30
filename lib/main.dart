@@ -2,9 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:comiko/app_state.dart';
-import 'package:comiko/pages/comedian_page.dart';
-import 'package:comiko/pages/event_list_page.dart';
-import 'package:comiko/pages/event_page.dart';
 import 'package:comiko/pages/upcoming_events_page.dart';
 import 'package:comiko/services.dart';
 import 'package:flutter/material.dart';
@@ -31,11 +28,6 @@ class MyApp extends StatelessWidget {
         title: 'Comiko',
         theme: new ThemeData.dark(),
         home: new MyHomePage(title: 'Flutter Demo Home Page', store: store),
-        routes: <String, WidgetBuilder>{
-          '/event_list': (BuildContext context) => new EventListPage(),
-          '/event': (BuildContext context) => new EventPage(),
-          '/comedian': (BuildContext context) => new ComedianPage(),
-        },
       ),
     );
   }

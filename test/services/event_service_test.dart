@@ -12,7 +12,7 @@ main() {
 
     service.orderByDate(models);
 
-    expect(models[0].name, 'Adib Alkhalidey');
+    expect(models[0].artist, 'Adib Alkhalidey');
   });
 
   test('should load events from json file', () {

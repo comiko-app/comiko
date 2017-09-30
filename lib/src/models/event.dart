@@ -1,8 +1,7 @@
 library comiko.models.event;
 
-import 'package:meta/meta.dart';
-
 import 'package:json_annotation/json_annotation.dart';
+import 'package:meta/meta.dart';
 
 part 'event.g.dart';
 
@@ -38,4 +37,12 @@ class Event extends Object with _$EventSerializerMixin {
   });
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
+
+  String get fullName {
+    if (artist == null) {
+      return name;
+    }
+
+    return "$artist - $name";
+  }
 }

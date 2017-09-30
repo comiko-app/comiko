@@ -1,4 +1,7 @@
 import 'package:comiko/app_state.dart';
+import 'package:comiko/routing_assistant.dart';
+import 'package:comiko/src/models/event.dart';
+import 'package:comiko/app_state.dart';
 import 'package:comiko/models.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -19,9 +22,16 @@ class EventCard extends StatelessWidget {
   final EventCardViewModel eventCardViewModel;
   final Store<AppState> store;
 
-  EventCard(this.eventCardViewModel, {
+  EventCard(
+    this.eventCardViewModel, {
     @required this.store,
   });
+
+  void navigateToEvent(BuildContext context) {
+    Navigator
+        .of(context)
+        .push(RoutingAssistant.eventPage(eventCardViewModel.event));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,25 +39,42 @@ class EventCard extends StatelessWidget {
 
     return new GridTile(
       footer: new GestureDetector(
-          onTap: () =>
-              store.dispatch(new ToggleFavoriteAction(eventCardViewModel)),
-          child: new Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              new Container(
-                margin: new EdgeInsets.only(left: 16.0, bottom: 8.0),
+        onTap: () => navigateToEvent(context),
+        child: new Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            new Container(
+              margin: new EdgeInsets.only(left: 16.0, bottom: 8.0),
+              child: new FittedBox(
+                fit: BoxFit.scaleDown,
+                alignment: FractionalOffset.centerLeft,
                 child: new Text(
-                  eventCardViewModel.event.name,
+                  eventCardViewModel.event.artist,
                   style: Theme.of(context).textTheme.headline,
                 ),
               ),
-              new GridTileBar(
-                backgroundColor: Colors.black54,
-                title: new _GridTitleText(eventCardViewModel.event.place),
-                subtitle: new _GridTitleText(
-                    formatter.format(eventCardViewModel.event.start)),
-                trailing: new Container(
-                  margin: new EdgeInsets.only(right: 8.0),
+            ),
+            new Container(
+              margin: new EdgeInsets.only(left: 16.0, bottom: 8.0),
+              child: new FittedBox(
+                fit: BoxFit.scaleDown,
+                alignment: FractionalOffset.centerLeft,
+                child: new Text(
+                  eventCardViewModel.event.name,
+                  style: Theme.of(context).textTheme.subhead,
+                ),
+              ),
+            ),
+            new GridTileBar(
+              backgroundColor: Colors.black54,
+              title: new _GridTitleText(eventCardViewModel.event.place ?? ""),
+              subtitle: new _GridTitleText(
+                  formatter.format(eventCardViewModel.event.start)),
+              trailing: new Container(
+                margin: new EdgeInsets.only(right: 8.0),
+                child: new GestureDetector(
+                  onTap: () => store
+                      .dispatch(new ToggleFavoriteAction(eventCardViewModel)),
                   child: new Icon(
                     eventCardViewModel.isFavorite
                         ? Icons.favorite
@@ -56,23 +83,28 @@ class EventCard extends StatelessWidget {
                   ),
                 ),
               ),
-            ],
-          )),
-      child: new Stack(
-        fit: StackFit.expand,
-        children: <Widget>[
-          new Image.asset(
-            "lib/assets/${eventCardViewModel.event.image}",
-            fit: BoxFit.cover,
-          ),
-          new Container(
-            decoration: new BoxDecoration(
-              gradient: new LinearGradient(
-                  colors: <Color>[Colors.black54, Colors.transparent],
-                  begin: FractionalOffset.bottomCenter),
             ),
-          ),
-        ],
+          ],
+        ),
+      ),
+      child: new GestureDetector(
+        onTap: () => navigateToEvent(context),
+        child: new Stack(
+          fit: StackFit.expand,
+          children: <Widget>[
+            new Image.asset(
+              eventCardViewModel.event.image,
+              fit: BoxFit.cover,
+            ),
+            new Container(
+              decoration: new BoxDecoration(
+                gradient: new LinearGradient(
+                    colors: <Color>[Colors.black54, Colors.transparent],
+                    begin: FractionalOffset.bottomCenter),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
