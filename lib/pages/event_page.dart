@@ -87,7 +87,10 @@ class EventPage extends StatelessWidget {
                       ),
                       new Text(
                         "Information",
-                        style: Theme.of(context).textTheme.title,
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .title,
                       ),
                     ],
                   ),
@@ -96,7 +99,10 @@ class EventPage extends StatelessWidget {
                   margin: new EdgeInsets.only(left: 72.0, right: 16.0),
                   child: new Text(
                     event.description ?? "",
-                    style: Theme.of(context).textTheme.subhead,
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .subhead,
                   ),
                 ),
                 new Container(
