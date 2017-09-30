@@ -34,68 +34,153 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => new _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
+  int _currentIndex = 0;
+  List<NavigationIconView> _navigationViews;
 
-  void _incrementCounter() {
+  @override
+  void initState() {
+    super.initState();
+    _navigationViews = <NavigationIconView>[
+      new NavigationIconView(
+        icon: const Icon(Icons.access_alarm),
+        body: new Text("1"),
+        title: const Text('Alarm'),
+        color: Colors.deepPurple,
+        vsync: this,
+      ),
+      new NavigationIconView(
+        icon: new Icon(Icons.card_travel),
+        body: new Text("2"),
+        title: const Text('Box'),
+        color: Colors.deepOrange,
+        vsync: this,
+      ),
+      new NavigationIconView(
+        icon: const Icon(Icons.cloud),
+        body: new Text("3"),
+        title: const Text('Cloud'),
+        color: Colors.teal,
+        vsync: this,
+      ),
+      new NavigationIconView(
+        icon: const Icon(Icons.favorite),
+        body: new Text("4"),
+        title: const Text('Favorites'),
+        color: Colors.indigo,
+        vsync: this,
+      ),
+    ];
+
+    for (NavigationIconView view in _navigationViews) {
+      view.controller.addListener(_rebuild);
+    }
+
+    _navigationViews[_currentIndex].controller.value = 1.0;
+  }
+
+  @override
+  void dispose() {
+    for (NavigationIconView view in _navigationViews) {
+      view.controller.dispose();
+    }
+
+    super.dispose();
+  }
+
+  void _rebuild() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+      // Rebuild in order to animate views.
     });
+  }
+
+  Widget _buildTransitionsStack() {
+    final List<FadeTransition> transitions = <FadeTransition>[];
+
+    for (NavigationIconView view in _navigationViews) {
+      transitions.add(view.transition(context));
+    }
+
+    // We want to have the newly animating (fading in) views on top.
+    transitions.sort((FadeTransition a, FadeTransition b) {
+      final Animation<double> aAnimation = a.listenable;
+      final Animation<double> bAnimation = b.listenable;
+      final double aValue = aAnimation.value;
+      final double bValue = bAnimation.value;
+      return aValue.compareTo(bValue);
+    });
+
+    return new Stack(children: transitions);
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+    final BottomNavigationBar botNavBar = new BottomNavigationBar(
+      items: _navigationViews
+          .map((NavigationIconView navigationView) => navigationView.item)
+          .toList(),
+      currentIndex: _currentIndex,
+      type: BottomNavigationBarType.shifting,
+      onTap: (int index) {
+        setState(() {
+          _navigationViews[_currentIndex].controller.reverse();
+          _currentIndex = index;
+          _navigationViews[_currentIndex].controller.forward();
+        });
+      },
+    );
+
     return new Scaffold(
       appBar: new AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: new Text(widget.title),
+        title: const Text('Comiko'),
       ),
-      body: new Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: new Column(
-          // Column is also layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug paint" (press "p" in the console where you ran
-          // "flutter run", or select "Toggle Debug Paint" from the Flutter tool
-          // window in IntelliJ) to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            new Text(
-              'You have pushed the button this many times:',
-            ),
-            new Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
+      body: new Center(child: _buildTransitionsStack()),
+      bottomNavigationBar: botNavBar,
+    );
+  }
+}
+
+class NavigationIconView {
+  NavigationIconView({
+    Widget icon,
+    Widget body,
+    Widget title,
+    Color color,
+    TickerProvider vsync,
+  })
+      : _body = body,
+        item = new BottomNavigationBarItem(
+          icon: icon,
+          title: title,
+          backgroundColor: color,
         ),
+        controller = new AnimationController(
+          duration: kThemeAnimationDuration,
+          vsync: vsync,
+        ) {
+    _animation = new CurvedAnimation(
+      parent: controller,
+      curve: const Interval(0.5, 1.0, curve: Curves.fastOutSlowIn),
+    );
+  }
+
+  final Widget _body;
+  final BottomNavigationBarItem item;
+  final AnimationController controller;
+  CurvedAnimation _animation;
+
+  FadeTransition transition(BuildContext context) {
+    return new FadeTransition(
+      opacity: _animation,
+      child: new SlideTransition(
+        position: new FractionalOffsetTween(
+          begin: const FractionalOffset(0.0, 0.02),
+          // Small offset from the top.
+          end: FractionalOffset.topLeft,
+        )
+            .animate(_animation),
+        child: _body,
       ),
-      floatingActionButton: new FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: new Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
