@@ -7,6 +7,11 @@ import 'package:comiko/pages/comedian_page.dart';
 import 'package:comiko/pages/event_list_page.dart';
 import 'package:comiko/pages/event_page.dart';
 import 'package:comiko/pages/upcoming_events_page.dart';
+import 'package:comiko/widgets/filter_popup_menu.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:meta/meta.dart';
+import 'package:redux/redux.dart';
 import 'package:comiko/services.dart';
 import 'package:comiko/models.dart';
 
