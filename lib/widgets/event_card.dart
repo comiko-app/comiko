@@ -1,11 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
-import 'package:intl/intl.dart';
+import 'package:comiko/app_state.dart';
 import 'package:comiko/src/models/event.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:meta/meta.dart';
+import 'package:redux/redux.dart';
 
 class EventCardViewModel {
   final Event event;
-  final bool isFavorite;
+  bool isFavorite;
 
   EventCardViewModel({
     @required this.event,
@@ -15,8 +17,11 @@ class EventCardViewModel {
 
 class EventCard extends StatelessWidget {
   final EventCardViewModel eventCardViewModel;
+  final Store<AppState> store;
 
-  EventCard(this.eventCardViewModel);
+  EventCard(this.eventCardViewModel, {
+    @required this.store,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +29,8 @@ class EventCard extends StatelessWidget {
 
     return new GridTile(
       footer: new GestureDetector(
-          onTap: () {},
+          onTap: () =>
+              store.dispatch(new ToggleFavoriteAction(eventCardViewModel)),
           child: new Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
