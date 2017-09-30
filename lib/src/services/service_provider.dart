@@ -6,7 +6,7 @@ typedef BaseService ServiceInstanciator();
 
 class ServiceProvider {
   static final Map<Type, ServiceInstanciator> _providers = {
-    EventService: () => new FakeEventService(),
+    EventService: () => new JsonEventService(),
     ArtistService: () => new FakeArtistService()
   };
 

@@ -1,9 +1,22 @@
 import 'package:comiko/models.dart' show Event;
+
 import 'base_service.dart';
 
 abstract class EventService implements BaseService<Event> {
   void orderByDate(final List<Event> models) =>
       models.sort((a, b) => a.start.compareTo(b.start));
+}
+
+class JsonEventService extends EventService {
+  List<Event> events = new List<Event>();
+
+  init(List<Map<String, dynamic>> eventJson) {
+    events = eventJson.map((e) => new Event.fromJson(e)).toList();
+  }
+
+  List<Event> getAll() => events;
+
+  void orderByDate(final List<Event> models) {}
 }
 
 class FakeEventService extends EventService {
