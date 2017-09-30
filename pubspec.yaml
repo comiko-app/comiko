@@ -8,6 +8,7 @@ dependencies:
   json_annotation: 0.2.0
   redux: "^2.0.1"
   flutter_redux: "^0.3.1"
+  path: "^1.4.2"
 
 dev_dependencies:
   flutter_test:
@@ -44,6 +45,7 @@ flutter:
     - lib/assets/pierre-hbert1.jpg
     - lib/assets/ral-bland1.jpg
     - lib/assets/simon-leblanc1.jpg
+    - lib/data/events.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

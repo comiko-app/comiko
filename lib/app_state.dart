@@ -57,6 +57,20 @@ class UpdateSortingCriteriaAction extends IsAction {
   }
 }
 
+class FetchEventsAction extends IsAction {
+  @override
+  AppState handle(AppState state) {
+    EventService eventService = ServiceProvider.get(EventService);
+    state = state.clone();
+    state.events = eventService
+        .getAll()
+        .map((Event e) => new EventCardViewModel(event: e))
+        .toList();
+
+    return state;
+  }
+}
+
 abstract class IsAction {
   AppState handle(AppState state);
 }
