@@ -1,11 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:comiko/pages/comedian_page.dart';
 import 'package:comiko/pages/event_list_page.dart';
 import 'package:comiko/pages/event_page.dart';
 import 'package:comiko/pages/comedian_page.dart';
 import 'package:comiko/src/models/event.dart';
 import 'package:comiko/widgets/event_card_info_list.dart';
 import 'package:comiko/pages/upcoming_events_page.dart';
-import 'package:comiko/widgets/event_card.dart';
+import 'package:comiko/services.dart';
+import 'package:flutter/material.dart';
 
 void main() {
   runApp(new MyApp());
@@ -16,14 +17,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: 'Comiko',
-      theme: new ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: new ThemeData.dark(),
       home: new MyHomePage(title: 'Flutter Demo Home Page'),
       routes: <String, WidgetBuilder>{
         '/event_list': (BuildContext context) => new EventListPage(),
         '/event': (BuildContext context) => new EventPage(),
-        '/comedian': (BuildContext context) => new MainMenu(null),
       },
     );
   }
@@ -41,6 +39,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   int _currentIndex = 0;
   List<NavigationIconView> _navigationViews;
+  final EventsService _eventsService = new FakeEventsService();
 
   @override
   void initState() {
@@ -62,12 +61,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       ),
       new NavigationIconView(
         icon: const Icon(Icons.cloud),
-        body: new MainMenu([
-          new EventCard("Martin", "Much fun", "lib/assets/martin-matte1.jpg"),
-          new EventCard("Martin", "Much fun", "lib/assets/martin-matte1.jpg"),
-          new EventCard("Martin", "Much fun", "lib/assets/martin-matte1.jpg"),
-          new EventCard("Martin", "Much fun", "lib/assets/martin-matte1.jpg"),
-        ]),
+        body: new UpcomingEventsPage(_eventsService.getAll()),
         title: const Text('Cloud'),
         color: Colors.teal,
         vsync: this,
