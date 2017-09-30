@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/event_list': (BuildContext context) => new EventListPage(),
         '/event': (BuildContext context) => new EventPage(),
-        '/comedian': (BuildContext context) => new ComedianPage(),
+        '/comedian': (BuildContext context) => new MainMenu(),
       },
     );
   }
@@ -58,7 +58,12 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       ),
       new NavigationIconView(
         icon: const Icon(Icons.cloud),
-        body: new Text("3"),
+        body: new MainMenu([
+          new MenuCard("Martin", "Much fun", "lib/assets/martin-matte1.jpg"),
+          new MenuCard("Martin", "Much fun", "lib/assets/martin-matte1.jpg"),
+          new MenuCard("Martin", "Much fun", "lib/assets/martin-matte1.jpg"),
+          new MenuCard("Martin", "Much fun", "lib/assets/martin-matte1.jpg"),
+        ]),
         title: const Text('Cloud'),
         color: Colors.teal,
         vsync: this,
