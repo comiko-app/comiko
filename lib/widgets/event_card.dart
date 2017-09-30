@@ -1,8 +1,7 @@
 import 'package:comiko/app_state.dart';
+import 'package:comiko/models.dart';
 import 'package:comiko/routing_assistant.dart';
 import 'package:comiko/src/models/event.dart';
-import 'package:comiko/app_state.dart';
-import 'package:comiko/models.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
@@ -22,8 +21,7 @@ class EventCard extends StatelessWidget {
   final EventCardViewModel eventCardViewModel;
   final Store<AppState> store;
 
-  EventCard(
-    this.eventCardViewModel, {
+  EventCard(this.eventCardViewModel, {
     @required this.store,
   });
 
@@ -61,7 +59,10 @@ class EventCard extends StatelessWidget {
                 alignment: FractionalOffset.centerLeft,
                 child: new Text(
                   eventCardViewModel.event.name,
-                  style: Theme.of(context).textTheme.subhead,
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .subhead,
                 ),
               ),
             ),
@@ -73,8 +74,10 @@ class EventCard extends StatelessWidget {
               trailing: new Container(
                 margin: new EdgeInsets.only(right: 8.0),
                 child: new GestureDetector(
-                  onTap: () => store
-                      .dispatch(new ToggleFavoriteAction(eventCardViewModel)),
+                  onTap: () =>
+                      store
+                          .dispatch(
+                          new ToggleFavoriteAction(eventCardViewModel)),
                   child: new Icon(
                     eventCardViewModel.isFavorite
                         ? Icons.favorite
