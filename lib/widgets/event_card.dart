@@ -1,30 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:meta/meta.dart';
+import 'package:comiko/src/models/event.dart';
+
+class EventCardViewModel {
+  final Event event;
+  final bool isFavorite;
+
+  EventCardViewModel({
+    @required this.event,
+    this.isFavorite = false,
+  });
+}
 
 class EventCard extends StatelessWidget {
-  final String photoUri;
-  final String title;
-  final String description;
-  final String route;
+  final EventCardViewModel eventCardViewModel;
 
-  EventCard(this.title, this.description, this.photoUri, {this.route});
+  EventCard(this.eventCardViewModel);
 
   @override
   Widget build(BuildContext context) {
     return new GestureDetector(
-      onTap: () {
-        if (route != null) {
-          Navigator.pushNamed(context, route);
-        }
-      },
+      onTap: () {},
       child: new GridTile(
         child: new Container(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(0.0),
             decoration: new BoxDecoration(color: Colors.black54),
-            child: new Image.asset(photoUri)),
+            child: new Image.asset(
+              eventCardViewModel.event.image,
+              fit: BoxFit.cover,
+            )),
         footer: new GridTileBar(
           backgroundColor: Colors.black54,
-          title: new _GridTitleText(title, false, null),
-          subtitle: new Text(description),
+          title: new _GridTitleText(eventCardViewModel.event.name,
+              eventCardViewModel.isFavorite, null),
+          subtitle: new Text(eventCardViewModel.event.description),
         ),
       ),
     );

@@ -2,6 +2,7 @@ import 'package:meta/meta.dart';
 
 class Event {
   final String name;
+  final String description;
   final String address;
   final String city;
   final DateTime start;
@@ -11,6 +12,7 @@ class Event {
 
   const Event({
     @required this.name,
+    this.description,
     this.address,
     this.city,
     @required this.start,

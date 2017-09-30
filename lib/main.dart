@@ -4,6 +4,7 @@ import 'package:comiko/pages/event_page.dart';
 import 'package:comiko/pages/comedian_page.dart';
 import 'package:comiko/pages/upcoming_events_page.dart';
 import 'package:comiko/widgets/event_card.dart';
+import 'package:comiko/models.dart';
 
 void main() {
   runApp(new MyApp());
@@ -61,10 +62,46 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       new NavigationIconView(
         icon: const Icon(Icons.cloud),
         body: new MainMenu([
-          new EventCard("Martin", "Much fun", "lib/assets/martin-matte1.jpg"),
-          new EventCard("Martin", "Much fun", "lib/assets/martin-matte1.jpg"),
-          new EventCard("Martin", "Much fun", "lib/assets/martin-matte1.jpg"),
-          new EventCard("Martin", "Much fun", "lib/assets/martin-matte1.jpg"),
+          new EventCard(
+            new EventCardViewModel(
+              event: new Event(
+                name: "Martin",
+                description: "Much fun",
+                start: new DateTime(2017, 11, 15),
+                image: "lib/assets/martin-matte1.jpg",
+              ),
+            ),
+          ),
+          new EventCard(
+            new EventCardViewModel(
+              event: new Event(
+                name: "Martin",
+                description: "Much fun",
+                start: new DateTime(2017, 11, 15),
+                image: "lib/assets/martin-matte1.jpg",
+              ),
+            ),
+          ),
+          new EventCard(
+            new EventCardViewModel(
+              event: new Event(
+                name: "Martin",
+                description: "Much fun",
+                start: new DateTime(2017, 11, 15),
+                image: "lib/assets/martin-matte1.jpg",
+              ),
+            ),
+          ),
+          new EventCard(
+            new EventCardViewModel(
+              event: new Event(
+                name: "Martin",
+                description: "Much fun",
+                start: new DateTime(2017, 11, 15),
+                image: "lib/assets/martin-matte1.jpg",
+              ),
+            ),
+          ),
         ]),
         title: const Text('Cloud'),
         color: Colors.teal,
