@@ -1,4 +1,5 @@
 import 'package:comiko/app_state.dart';
+import 'package:comiko/routing_assistant.dart';
 import 'package:comiko/src/models/event.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -19,7 +20,8 @@ class EventCard extends StatelessWidget {
   final EventCardViewModel eventCardViewModel;
   final Store<AppState> store;
 
-  EventCard(this.eventCardViewModel, {
+  EventCard(
+    this.eventCardViewModel, {
     @required this.store,
   });
 
@@ -37,13 +39,13 @@ class EventCard extends StatelessWidget {
               new Container(
                 margin: new EdgeInsets.only(left: 16.0, bottom: 8.0),
                 child: new Text(
-                  eventCardViewModel.event.name,
+                  eventCardViewModel.event.artist,
                   style: Theme.of(context).textTheme.headline,
                 ),
               ),
               new GridTileBar(
                 backgroundColor: Colors.black54,
-                title: new _GridTitleText(eventCardViewModel.event.address),
+                title: new _GridTitleText(eventCardViewModel.event.place ?? ""),
                 subtitle: new _GridTitleText(
                     formatter.format(eventCardViewModel.event.start)),
                 trailing: new Container(
@@ -58,21 +60,26 @@ class EventCard extends StatelessWidget {
               ),
             ],
           )),
-      child: new Stack(
-        fit: StackFit.expand,
-        children: <Widget>[
-          new Image.asset(
-            eventCardViewModel.event.image,
-            fit: BoxFit.cover,
-          ),
-          new Container(
-            decoration: new BoxDecoration(
-              gradient: new LinearGradient(
-                  colors: <Color>[Colors.black54, Colors.transparent],
-                  begin: FractionalOffset.bottomCenter),
+      child: new GestureDetector(
+        onTap: () => Navigator
+            .of(context)
+            .push(RoutingAssistant.eventPage(eventCardViewModel.event)),
+        child: new Stack(
+          fit: StackFit.expand,
+          children: <Widget>[
+            new Image.asset(
+              eventCardViewModel.event.image,
+              fit: BoxFit.cover,
             ),
-          ),
-        ],
+            new Container(
+              decoration: new BoxDecoration(
+                gradient: new LinearGradient(
+                    colors: <Color>[Colors.black54, Colors.transparent],
+                    begin: FractionalOffset.bottomCenter),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

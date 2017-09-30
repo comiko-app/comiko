@@ -1,6 +1,4 @@
 import 'package:comiko/app_state.dart';
-import 'package:comiko/pages/comedian_page.dart';
-import 'package:comiko/pages/event_list_page.dart';
 import 'package:comiko/pages/event_page.dart';
 import 'package:comiko/pages/upcoming_events_page.dart';
 import 'package:flutter/material.dart';
@@ -26,11 +24,6 @@ class MyApp extends StatelessWidget {
         title: 'Comiko',
         theme: new ThemeData.dark(),
         home: new MyHomePage(title: 'Flutter Demo Home Page', store: store),
-        routes: <String, WidgetBuilder>{
-          '/event_list': (BuildContext context) => new EventListPage(),
-          '/event': (BuildContext context) => new EventPage(),
-          '/comedian': (BuildContext context) => new ComedianPage(),
-        },
       ),
     );
   }
@@ -73,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       ),
       new NavigationIconView(
         icon: new Icon(Icons.card_travel),
-        body: new EventPage(),
+        body: new Text("2"),
         title: const Text('Box'),
         color: Colors.deepOrange,
         vsync: this,

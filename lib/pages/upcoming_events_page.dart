@@ -21,10 +21,10 @@ class UpcomingEventsPage extends StatelessWidget {
         crossAxisSpacing: 4.0,
         children: store.state.events
             .map((EventCardViewModel vm) =>
-        new StoreConnector<AppState, EventCardViewModel>(
-          converter: (_) => vm,
-          builder: (context, vm) => new EventCard(vm, store: store),
-        ))
+                new StoreConnector<AppState, EventCardViewModel>(
+                  converter: (_) => vm,
+                  builder: (context, vm) => new EventCard(vm, store: store),
+                ))
             .toList(),
       ),
     );
