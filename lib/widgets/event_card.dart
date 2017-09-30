@@ -1,6 +1,8 @@
 import 'package:comiko/app_state.dart';
 import 'package:comiko/routing_assistant.dart';
 import 'package:comiko/src/models/event.dart';
+import 'package:comiko/app_state.dart';
+import 'package:comiko/models.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';

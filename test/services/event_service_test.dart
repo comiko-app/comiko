@@ -1,10 +1,9 @@
 import 'dart:io';
 
+import 'package:comiko/services.dart';
 import 'package:comiko/utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path/path.dart' as path;
-
-import 'package:comiko/services.dart';
 
 main() {
   final service = new FakeEventService();

@@ -1,6 +1,6 @@
+import 'artist_service.dart';
 import 'base_service.dart';
 import 'event_service.dart';
-import 'artist_service.dart';
 
 typedef BaseService ServiceInstanciator();
 
