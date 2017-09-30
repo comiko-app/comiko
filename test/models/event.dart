@@ -18,7 +18,7 @@ main() {
         "image": "martin-matte1.jpg",
         "styles": ""
       }
-  """;
+    """;
     var jsonMap = JSON.decode(json);
     var model = new Event.fromJson(jsonMap);
 
