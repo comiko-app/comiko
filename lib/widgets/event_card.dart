@@ -46,9 +46,7 @@ class _GridTitleText extends StatelessWidget {
       alignment: FractionalOffset.centerLeft,
       child: new Row(children: <Widget>[
         new Text(text),
-        new Checkbox(
-            value: value,
-            onChanged: (_) => onChanged()),
+        new Checkbox(value: value, onChanged: (_) => onChanged()),
       ]),
     );
   }

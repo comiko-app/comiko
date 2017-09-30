@@ -3,6 +3,7 @@ import 'package:comiko/widgets/event_card.dart';
 
 class MainMenu extends StatelessWidget {
   MainMenu(this.menuContent);
+
   final List<EventCard> menuContent;
 
   @override
