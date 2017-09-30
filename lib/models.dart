@@ -1,1 +1,1 @@
-export 'src/models/show.dart';
+export 'src/models/event.dart';
