@@ -19,32 +19,41 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new GestureDetector(
-      onTap: () {},
-      child: new GridTile(
-        child: new Container(
-            padding: const EdgeInsets.all(0.0),
-            decoration: new BoxDecoration(color: Colors.black54),
-            child: new Image.asset(
-              eventCardViewModel.event.image,
-              fit: BoxFit.cover,
-            )),
-        footer: new GridTileBar(
-          backgroundColor: Colors.black54,
-          title: new _GridTitleText(eventCardViewModel.event.name,
-              eventCardViewModel.isFavorite, null),
-          subtitle: new Text(eventCardViewModel.event.description),
-        ),
+    return new GridTile(
+      footer: new GestureDetector(
+          onTap: () {},
+          child: new Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              new Container(
+                margin: new EdgeInsets.only(left: 16.0, bottom: 8.0),
+                child: new Text(
+                  eventCardViewModel.event.name,
+                  style: Theme.of(context).accentTextTheme.title,
+                ),
+              ),
+              new GridTileBar(
+                backgroundColor: Colors.black54,
+                title: new _GridTitleText(eventCardViewModel.event.name),
+                subtitle: new _GridTitleText(
+                    eventCardViewModel.event.start.toString()),
+                trailing: new Icon(
+                  Icons.star,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          )),
+      child: new Image.asset(
+        eventCardViewModel.event.image,
+        fit: BoxFit.cover,
       ),
     );
   }
 }
 
 class _GridTitleText extends StatelessWidget {
-  final bool value;
-  final void Function() onChanged;
-
-  _GridTitleText(this.text, this.value, this.onChanged);
+  const _GridTitleText(this.text);
 
   final String text;
 
@@ -53,10 +62,7 @@ class _GridTitleText extends StatelessWidget {
     return new FittedBox(
       fit: BoxFit.scaleDown,
       alignment: FractionalOffset.centerLeft,
-      child: new Row(children: <Widget>[
-        new Text(text),
-        new Checkbox(value: value, onChanged: (_) => onChanged()),
-      ]),
+      child: new Text(text),
     );
   }
 }
