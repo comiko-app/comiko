@@ -8,5 +8,5 @@ final List<BuildAction> buildActions = [
         const JsonSerializableGenerator(),
       ]),
       'comiko',
-      inputs: const ['lib/src/*.dart'])
+      inputs: const ['lib/src/**/*.dart'])
 ];

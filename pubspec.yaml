@@ -5,6 +5,7 @@ dependencies:
   flutter:
     sdk: flutter
   json_serializable: "^0.2.3+1"
+  json_annotation: 0.2.0
 
 dev_dependencies:
   flutter_test:
@@ -29,7 +30,18 @@ flutter:
     - lib/assets/guillaume-wagner1.jpg
     - lib/assets/jean-marc-parent-v3.jpg
     - lib/assets/adib-alkhalidey-1.jpg
-  #  - images/a_dot_ham.jpeg
+    - lib/assets/dominic-et-martin1.jpg
+    - lib/assets/dominic-paquet1.jpg
+    - lib/assets/fabien-cloutier1.jpg
+    - lib/assets/jean-michel-anctil1.jpg
+    - lib/assets/jrmy-demay1.jpg
+    - lib/assets/katerine-levac1.jpg
+    - lib/assets/les-grandes-crues1.jpg
+    - lib/assets/louis-t1.jpg
+    - lib/assets/marianna-mazza1.jpg
+    - lib/assets/pierre-hbert1.jpg
+    - lib/assets/ral-bland1.jpg
+    - lib/assets/simon-leblanc1.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
