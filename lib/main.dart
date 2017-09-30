@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:comiko/pages/event_list_page.dart';
 import 'package:comiko/pages/event_page.dart';
 import 'package:comiko/pages/comedian_page.dart';
+import 'package:comiko/pages/upcoming_events_page.dart';
+import 'package:comiko/widgets/event_card.dart';
 
 void main() {
   runApp(new MyApp());
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/event_list': (BuildContext context) => new EventListPage(),
         '/event': (BuildContext context) => new EventPage(),
-        /*'/comedian': (BuildContext context) => new MainMenu(),*/
+        '/comedian': (BuildContext context) => new ComedianPage(),
       },
     );
   }
@@ -59,10 +61,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       new NavigationIconView(
         icon: const Icon(Icons.cloud),
         body: new MainMenu([
-          new MenuCard("Martin", "Much fun", "lib/assets/martin-matte1.jpg"),
-          new MenuCard("Martin", "Much fun", "lib/assets/martin-matte1.jpg"),
-          new MenuCard("Martin", "Much fun", "lib/assets/martin-matte1.jpg"),
-          new MenuCard("Martin", "Much fun", "lib/assets/martin-matte1.jpg"),
+          new EventCard("Martin", "Much fun", "lib/assets/martin-matte1.jpg"),
+          new EventCard("Martin", "Much fun", "lib/assets/martin-matte1.jpg"),
+          new EventCard("Martin", "Much fun", "lib/assets/martin-matte1.jpg"),
+          new EventCard("Martin", "Much fun", "lib/assets/martin-matte1.jpg"),
         ]),
         title: const Text('Cloud'),
         color: Colors.teal,
