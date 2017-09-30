@@ -96,7 +96,7 @@ class EventCard extends StatelessWidget {
           fit: StackFit.expand,
           children: <Widget>[
             new Image.asset(
-              eventCardViewModel.event.image,
+              eventCardViewModel.event.imageUri,
               fit: BoxFit.cover,
             ),
             new Container(
