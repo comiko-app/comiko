@@ -11,9 +11,9 @@ class Event {
 
   const Event({
     @required this.name,
+    @required this.start,
     this.address,
     this.city,
-    @required this.start,
     this.end,
     this.image,
     this.price,
