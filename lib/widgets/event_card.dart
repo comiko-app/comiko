@@ -1,9 +1,9 @@
-import 'package:comiko/app_state.dart';
-import 'package:comiko/src/models/event.dart';
+import 'package:meta/meta.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
+import 'package:comiko/app_state.dart';
+import 'package:comiko/models.dart';
 
 class EventCardViewModel {
   final Event event;
