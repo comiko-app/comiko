@@ -72,15 +72,19 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       ),
     ];
 
-    for (NavigationIconView view in _navigationViews)
+    for (NavigationIconView view in _navigationViews) {
       view.controller.addListener(_rebuild);
+    }
 
     _navigationViews[_currentIndex].controller.value = 1.0;
   }
 
   @override
   void dispose() {
-    for (NavigationIconView view in _navigationViews) view.controller.dispose();
+    for (NavigationIconView view in _navigationViews) {
+      view.controller.dispose();
+    }
+
     super.dispose();
   }
 
@@ -93,8 +97,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   Widget _buildTransitionsStack() {
     final List<FadeTransition> transitions = <FadeTransition>[];
 
-    for (NavigationIconView view in _navigationViews)
+    for (NavigationIconView view in _navigationViews) {
       transitions.add(view.transition(context));
+    }
 
     // We want to have the newly animating (fading in) views on top.
     transitions.sort((FadeTransition a, FadeTransition b) {
