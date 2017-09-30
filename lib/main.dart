@@ -173,9 +173,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     );
 
     return new Scaffold(
-      appBar: new AppBar(
-        title: const Text('Comiko'),
-      ),
       body: new Center(child: _buildTransitionsStack()),
       bottomNavigationBar: botNavBar,
     );
