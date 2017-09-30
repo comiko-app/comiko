@@ -1,5 +1,6 @@
 import 'package:comiko/app_state.dart';
 import 'package:comiko/widgets/event_card.dart';
+import 'package:comiko/widgets/filter_popup_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:meta/meta.dart';
@@ -14,6 +15,12 @@ class UpcomingEventsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var orientation = MediaQuery.of(context).orientation;
     return new Scaffold(
+      appBar: new AppBar(
+        title: const Text('À venir'),
+        actions: [
+          new FilterPopupMenu(store: store),
+        ],
+      ),
       body: new GridView.count(
         padding: const EdgeInsets.all(8.0),
         crossAxisCount: orientation == Orientation.portrait ? 1 : 3,
@@ -21,10 +28,10 @@ class UpcomingEventsPage extends StatelessWidget {
         crossAxisSpacing: 4.0,
         children: store.state.events
             .map((EventCardViewModel vm) =>
-        new StoreConnector<AppState, EventCardViewModel>(
-          converter: (_) => vm,
-          builder: (context, vm) => new EventCard(vm, store: store),
-        ))
+                new StoreConnector<AppState, EventCardViewModel>(
+                  converter: (_) => vm,
+                  builder: (context, vm) => new EventCard(vm, store: store),
+                ))
             .toList(),
       ),
     );

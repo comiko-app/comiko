@@ -1,23 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:comiko/app_state.dart';
+import 'package:comiko/pages/upcoming_events_page.dart';
+import 'package:comiko/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
-import 'package:comiko/app_state.dart';
-import 'package:comiko/pages/comedian_page.dart';
-import 'package:comiko/pages/event_list_page.dart';
-import 'package:comiko/pages/event_page.dart';
-import 'package:comiko/pages/upcoming_events_page.dart';
-import 'package:comiko/widgets/filter_popup_menu.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:meta/meta.dart';
-import 'package:redux/redux.dart';
-import 'package:comiko/services.dart';
-import 'package:comiko/models.dart';
 
 void main() {
   runApp(new MyApp());
@@ -37,11 +28,6 @@ class MyApp extends StatelessWidget {
         title: 'Comiko',
         theme: new ThemeData.dark(),
         home: new MyHomePage(title: 'Flutter Demo Home Page', store: store),
-        routes: <String, WidgetBuilder>{
-          '/event_list': (BuildContext context) => new EventListPage(),
-          '/event': (BuildContext context) => new EventPage(),
-          '/comedian': (BuildContext context) => new ComedianPage(),
-        },
       ),
     );
   }
@@ -173,9 +159,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     );
 
     return new Scaffold(
-      appBar: new AppBar(
-        title: const Text('Comiko'),
-      ),
       body: new Center(child: _buildTransitionsStack()),
       bottomNavigationBar: botNavBar,
     );

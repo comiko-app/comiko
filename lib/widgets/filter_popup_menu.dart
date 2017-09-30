@@ -1,28 +1,39 @@
+import 'package:comiko/app_state.dart';
+import 'package:comiko/models.dart';
 import 'package:flutter/material.dart';
-
-enum filterType { Distance, Price, Date }
+import 'package:meta/meta.dart';
+import 'package:redux/redux.dart';
 
 class FilterPopupMenu extends StatelessWidget {
-  FilterPopupMenu();
+  final Store<AppState> store;
 
-  var _selection;
+  FilterPopupMenu({
+    @required this.store,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return new PopupMenuButton<filterType>(
-      onSelected: (filterType result) {},
-      itemBuilder: (BuildContext context) => <PopupMenuEntry<filterType>>[
-        const PopupMenuItem<filterType>(
-          value: filterType.Distance,
+    return new PopupMenuButton<SortingCriteria>(
+      icon: const Icon(Icons.sort),
+      onSelected: (SortingCriteria result) {
+        store.dispatch(new UpdateSortingCriteriaAction(result));
+      },
+      itemBuilder: (BuildContext context) =>
+      <PopupMenuEntry<SortingCriteria>>[
+        new CheckedPopupMenuItem<SortingCriteria>(
+          checked: store.state.sortingCriteria == SortingCriteria.date,
+          value: SortingCriteria.date,
+          child: const Text('Date'),
+        ),
+        new CheckedPopupMenuItem<SortingCriteria>(
+          checked: store.state.sortingCriteria == SortingCriteria.distance,
+          value: SortingCriteria.distance,
           child: const Text('Distance'),
         ),
-        const PopupMenuItem<filterType>(
-          value: filterType.Price,
+        new CheckedPopupMenuItem<SortingCriteria>(
+          checked: store.state.sortingCriteria == SortingCriteria.price,
+          value: SortingCriteria.price,
           child: const Text('Price'),
-        ),
-        const PopupMenuItem<filterType>(
-          value: filterType.Date,
-          child: const Text('Date'),
         ),
       ],
     );
