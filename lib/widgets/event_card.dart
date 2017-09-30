@@ -43,7 +43,9 @@ class EventCard extends StatelessWidget {
                 trailing: new Container(
                   margin: new EdgeInsets.only(right: 8.0),
                   child: new Icon(
-                    eventCardViewModel.isFavorite ? Icons.favorite : Icons.favorite_border,
+                    eventCardViewModel.isFavorite
+                        ? Icons.favorite
+                        : Icons.favorite_border,
                     color: Colors.white,
                   ),
                 ),
