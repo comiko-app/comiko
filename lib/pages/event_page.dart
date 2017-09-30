@@ -28,7 +28,7 @@ class EventPage extends StatelessWidget {
             floating: false,
             snap: false,
             flexibleSpace: new FlexibleSpaceBar(
-              title: new Text(event.name),
+              title: new Text(event.artist),
               background: new Stack(
                 fit: StackFit.expand,
                 children: <Widget>[
@@ -52,17 +52,12 @@ class EventPage extends StatelessWidget {
             delegate: new SliverChildListDelegate(
               <Widget>[
                 new ListTile(
-                  leading: const Icon(Icons.date_range),
-                  title: new Text("$startTime$endTime"),
-                ),
-                new ListTile(
                   leading: const Icon(Icons.slideshow),
                   title: new Text(event.name),
-                  subtitle: new Text(event.artist ?? ""),
                 ),
                 new ListTile(
-                  leading: const Icon(Icons.description),
-                  title: new Text(event.description ?? ""),
+                  leading: const Icon(Icons.date_range),
+                  title: new Text("$startTime$endTime"),
                 ),
                 new ListTile(
                   leading: const Icon(Icons.location_city),
@@ -79,6 +74,33 @@ class EventPage extends StatelessWidget {
                   title: new Text(event.price != null
                       ? "${event.price.toStringAsFixed(2)}\$"
                       : ""),
+                ),
+                new Divider(height: 32.0),
+                new Container(
+                  margin: new EdgeInsets.all(16.0),
+                  child: new Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      new Container(
+                        margin: new EdgeInsets.only(right: 32.0),
+                        child: new Icon(Icons.description),
+                      ),
+                      new Text(
+                        "Information",
+                        style: Theme.of(context).textTheme.title,
+                      ),
+                    ],
+                  ),
+                ),
+                new Container(
+                  margin: new EdgeInsets.only(left: 72.0, right: 16.0),
+                  child: new Text(
+                    event.description ?? "",
+                    style: Theme.of(context).textTheme.subhead,
+                  ),
+                ),
+                new Container(
+                  height: 64.0,
                 ),
               ],
             ),

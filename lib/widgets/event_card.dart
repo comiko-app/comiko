@@ -25,31 +25,54 @@ class EventCard extends StatelessWidget {
     @required this.store,
   });
 
+  void navigateToEvent(BuildContext context) {
+    Navigator
+        .of(context)
+        .push(RoutingAssistant.eventPage(eventCardViewModel.event));
+  }
+
   @override
   Widget build(BuildContext context) {
     var formatter = new DateFormat('d MMMM yyyy HH:mm');
 
     return new GridTile(
       footer: new GestureDetector(
-          onTap: () =>
-              store.dispatch(new ToggleFavoriteAction(eventCardViewModel)),
-          child: new Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              new Container(
-                margin: new EdgeInsets.only(left: 16.0, bottom: 8.0),
+        onTap: () => navigateToEvent(context),
+        child: new Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            new Container(
+              margin: new EdgeInsets.only(left: 16.0, bottom: 8.0),
+              child: new FittedBox(
+                fit: BoxFit.scaleDown,
+                alignment: FractionalOffset.centerLeft,
                 child: new Text(
                   eventCardViewModel.event.artist,
                   style: Theme.of(context).textTheme.headline,
                 ),
               ),
-              new GridTileBar(
-                backgroundColor: Colors.black54,
-                title: new _GridTitleText(eventCardViewModel.event.place ?? ""),
-                subtitle: new _GridTitleText(
-                    formatter.format(eventCardViewModel.event.start)),
-                trailing: new Container(
-                  margin: new EdgeInsets.only(right: 8.0),
+            ),
+            new Container(
+              margin: new EdgeInsets.only(left: 16.0, bottom: 8.0),
+              child: new FittedBox(
+                fit: BoxFit.scaleDown,
+                alignment: FractionalOffset.centerLeft,
+                child: new Text(
+                  eventCardViewModel.event.name,
+                  style: Theme.of(context).textTheme.subhead,
+                ),
+              ),
+            ),
+            new GridTileBar(
+              backgroundColor: Colors.black54,
+              title: new _GridTitleText(eventCardViewModel.event.place ?? ""),
+              subtitle: new _GridTitleText(
+                  formatter.format(eventCardViewModel.event.start)),
+              trailing: new Container(
+                margin: new EdgeInsets.only(right: 8.0),
+                child: new GestureDetector(
+                  onTap: () => store
+                      .dispatch(new ToggleFavoriteAction(eventCardViewModel)),
                   child: new Icon(
                     eventCardViewModel.isFavorite
                         ? Icons.favorite
@@ -58,12 +81,12 @@ class EventCard extends StatelessWidget {
                   ),
                 ),
               ),
-            ],
-          )),
+            ),
+          ],
+        ),
+      ),
       child: new GestureDetector(
-        onTap: () => Navigator
-            .of(context)
-            .push(RoutingAssistant.eventPage(eventCardViewModel.event)),
+        onTap: () => navigateToEvent(context),
         child: new Stack(
           fit: StackFit.expand,
           children: <Widget>[
