@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:comiko/widgets/event_card.dart';
 
-class MainMenu extends StatelessWidget {
-  MainMenu(this.menuContent);
-
+class UpcomingEventsPage extends StatelessWidget {
   final List<EventCard> menuContent;
+
+  UpcomingEventsPage(this.menuContent);
 
   @override
   Widget build(BuildContext context) {

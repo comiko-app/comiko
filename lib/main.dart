@@ -61,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       ),
       new NavigationIconView(
         icon: const Icon(Icons.cloud),
-        body: new MainMenu([
+        body: new UpcomingEventsPage([
           new EventCard(
             new EventCardViewModel(
               event: new Event(
