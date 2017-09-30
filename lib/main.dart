@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       store: store,
       child: new MaterialApp(
         title: 'Comiko',
-        theme: new ThemeData.light(),
+        theme: new ThemeData.dark(),
         home: new MyHomePage(title: 'Flutter Demo Home Page', store: store),
       ),
     );
