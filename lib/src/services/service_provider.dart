@@ -12,10 +12,10 @@ class ServiceProvider {
 
   static Map<Type, BaseService> _cache = <Type, BaseService>{};
 
-  static BaseService get(Type serviceType) {
+  static T get<T>(Type serviceType) {
     if (_cache.containsKey(serviceType)) {
-      return _cache[serviceType];
+      return _cache[serviceType] as T;
     }
-    return _cache[serviceType] = _providers[serviceType]();
+    return (_cache[serviceType] = _providers[serviceType]()) as T;
   }
 }
