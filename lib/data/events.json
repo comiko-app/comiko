@@ -1,0 +1,52 @@
+{
+  "Sheet1" : [
+    {
+      "id" : 1,
+      "name" : "Eh lala..!",
+      "comedian" : "Martin Matte",
+      "Place" : "Théâtre du Palais municipal",
+      "address" : "",
+      "city" : "La baie",
+      "date" : "2018-04-12T00:00:00.000Z",
+      "description" : "Après sept ans d’absence sur scène, Martin Matte est enfin de retour avec un troisième spectacle solo. Intitulé Eh la la..! — le ton est donné — ce nouveau one-man-show voit le populaire humoriste revenir en force et en très grande forme. Toujours provocateur, mais non moins chaleureux et humain, l’auteur aguerri de la légendaire série Les beaux malaises réserve des émotions de toutes les couleurs. Fin observateur de ce qui l’entoure, il signe les textes avec le fidèle François Avard, bénéficiant aussi de la complicité du public alors qu’il rodait le contenu dans quelques villes québécoises. Place maintenant aux toutes nouvelles histoires du seul et unique Martin Matte, chroniques savoureuses de son époque, dans lesquelles un public toujours plus vaste se reconnaît immanquablement.",
+      "image" : "martin-matte1.jpg",
+      "Styles" : ""
+    },
+    {
+      "id" : 2,
+      "name" : "Utopie",
+      "comedian" : "Jean-Marc Parent",
+      "Place" : "Théâtre du Palais municipal",
+      "address" : "",
+      "city" : "La baie",
+      "date" : "2018-12-07T01:00:00.000Z",
+      "description" : "Avec ses 30 ans de carrière en poche, Jean-Marc Parent est de retour avec un 11e one-man show : UTOPIE.\nAyant vendu plus de 300 000 billets lors de sa dernière tournée avec le spectacle Torture, l’humoriste revient sur scène avec une toute nouvelle mouture d’anecdotes et d’histoires hilarantes comme lui seul sait les conter.\nPour ce nouveau spectacle, Jean-Marc Parent nous emmène dans un univers utopique… que ce soit un monde où la vieillesse et la maladie n’existent pas, un monde de paix où le jugement et la mauvaise foi n’ont pas de place ou un gâteau au chocolat qui fait maigrir… À chacun sa vision!\nC’est dans une ambiance festive et à l’aide de son talent de conteur inimitable que Jean-Marc vous fera réaliser que nous nous créons tous de petites utopies quotidiennes! Quelle est la vôtre?",
+      "image" : "jean-marc-parent-v3.jpg",
+      "Styles" : ""
+    },
+    {
+      "id" : 3,
+      "name" : "Guillaume Wagner",
+      "comedian" : "Guillaume Wagner",
+      "Place" : "Au Vieux Théâtre",
+      "address" : "",
+      "city" : "La baie",
+      "date" : "2017-10-14T00:00:00.000Z",
+      "description" : "Malgré son jeune âge, il compte à son actif deux tournées, plus de 100 000 billets vendus, des révélations aux festivals Juste Pour Rire et Grand Rire, un Olivier « découverte » ainsi que de nombreuses prestations lors d’événements télévisés.\nSon humour est souvent incisif, sans toutefois compromettre l’idée et la réflexion qui s’y cachent. Chaque numéro est réfléchi afin que le public s’amuse tout en stimulant son sens critique. Dans ce spectacle, Guillaume vous proposera du matériel inédit qu’il compose depuis les derniers mois : l’actualité et le plaisir seront de mise !",
+      "image" : "guillaume-wagner1.jpg",
+      "Styles" : ""
+    },
+    {
+      "id" : 4,
+      "name" : "Ingénu",
+      "comedian" : "Adib Alkhalidey",
+      "Place" : "Salle Pierrette-Gaudreault",
+      "address" : "",
+      "city" : "Jonquiere",
+      "date" : "2017-12-16T01:00:00.000Z",
+      "description" : "Dès sa sortie de l’École Nationale de l’Humour, Adib Alkhalidey travaille autant sur scène que dans les coulisses à titre d’auteur. Il enchaîne un projet après l’autre, puis, en 2013, après avoir été encensé par la critique, il parcourt la province du Québec pour y présenter son tout premier one-man show, Je t’aime. Après le succès de ce premier spectacle solo, il nous revient cette année, en force, avec son deuxième spectacle intitulé Ingénu.",
+      "image" : "adib-alkhalidey-1.jpg",
+      "Styles" : ""
+    }
+  ]
+}
