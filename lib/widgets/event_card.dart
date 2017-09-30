@@ -32,7 +32,7 @@ class EventCard extends StatelessWidget {
                 margin: new EdgeInsets.only(left: 16.0, bottom: 8.0),
                 child: new Text(
                   eventCardViewModel.event.name,
-                  style: Theme.of(context).accentTextTheme.title,
+                  style: Theme.of(context).textTheme.headline,
                 ),
               ),
               new GridTileBar(
@@ -52,9 +52,21 @@ class EventCard extends StatelessWidget {
               ),
             ],
           )),
-      child: new Image.asset(
-        eventCardViewModel.event.image,
-        fit: BoxFit.cover,
+      child: new Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          new Image.asset(
+            eventCardViewModel.event.image,
+            fit: BoxFit.cover,
+          ),
+          new Container(
+            decoration: new BoxDecoration(
+              gradient: new LinearGradient(
+                  colors: <Color>[Colors.black54, Colors.transparent],
+                  begin: FractionalOffset.bottomCenter),
+            ),
+          ),
+        ],
       ),
     );
   }

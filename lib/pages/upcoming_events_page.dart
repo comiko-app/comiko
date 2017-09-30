@@ -13,7 +13,7 @@ class UpcomingEventsPage extends StatelessWidget {
     return new Scaffold(
       body: new GridView.count(
         padding: const EdgeInsets.all(8.0),
-        crossAxisCount: orientation == Orientation.portrait ? 1 : 2,
+        crossAxisCount: orientation == Orientation.portrait ? 1 : 3,
         mainAxisSpacing: 4.0,
         crossAxisSpacing: 4.0,
         children: events
