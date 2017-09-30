@@ -38,11 +38,5 @@ class Event extends Object with _$EventSerializerMixin {
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
 
-  String get fullName {
-    if (artist == null) {
-      return name;
-    }
-
-    return "$artist - $name";
-  }
+  String get imageUri => 'lib/assets/$image';
 }

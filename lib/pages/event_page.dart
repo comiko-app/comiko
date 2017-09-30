@@ -33,7 +33,7 @@ class EventPage extends StatelessWidget {
                 fit: StackFit.expand,
                 children: <Widget>[
                   new Image.asset(
-                    event.image,
+                    event.imageUri,
                     fit: BoxFit.cover,
                     height: _appBarHeight,
                   ),
@@ -71,9 +71,7 @@ class EventPage extends StatelessWidget {
                 ),
                 new ListTile(
                   leading: const Icon(Icons.monetization_on),
-                  title: new Text(event.price != null
-                      ? "${event.price.toStringAsFixed(2)}\$"
-                      : ""),
+                  title: new Text("${50.00.toStringAsFixed(2)}\$"),
                 ),
                 new Divider(height: 32.0),
                 new Container(
