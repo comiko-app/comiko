@@ -1,9 +1,9 @@
-import 'package:comiko/app_state.dart';
-import 'package:comiko/src/models/event.dart';
+import 'package:meta/meta.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
+import 'package:comiko/app_state.dart';
+import 'package:comiko/models.dart';
 
 class EventCardViewModel {
   final Event event;
@@ -43,7 +43,7 @@ class EventCard extends StatelessWidget {
               ),
               new GridTileBar(
                 backgroundColor: Colors.black54,
-                title: new _GridTitleText(eventCardViewModel.event.address),
+                title: new _GridTitleText(eventCardViewModel.event.place),
                 subtitle: new _GridTitleText(
                     formatter.format(eventCardViewModel.event.start)),
                 trailing: new Container(
@@ -62,7 +62,7 @@ class EventCard extends StatelessWidget {
         fit: StackFit.expand,
         children: <Widget>[
           new Image.asset(
-            eventCardViewModel.event.image,
+            "lib/assets/${eventCardViewModel.event.image}",
             fit: BoxFit.cover,
           ),
           new Container(

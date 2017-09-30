@@ -1,3 +1,11 @@
+import 'dart:async';
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:meta/meta.dart';
+import 'package:redux/redux.dart';
 import 'package:comiko/app_state.dart';
 import 'package:comiko/pages/comedian_page.dart';
 import 'package:comiko/pages/event_list_page.dart';
@@ -8,6 +16,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
+import 'package:comiko/services.dart';
+import 'package:comiko/models.dart';
 
 void main() {
   runApp(new MyApp());
@@ -61,9 +71,18 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     @required this.store,
   });
 
+  Future<Null> initServices() async {
+    String eventString = await rootBundle.loadString('lib/data/events.json');
+    List<Map<String, dynamic>> eventJson = JSON.decode(eventString);
+    JsonEventService service = ServiceProvider.get(EventService);
+    service.init(eventJson);
+    store.dispatch(new FetchEventsAction());
+  }
+
   @override
   void initState() {
     super.initState();
+    initServices();
     _navigationViews = <NavigationIconView>[
       new NavigationIconView(
         icon: const Icon(Icons.access_alarm),

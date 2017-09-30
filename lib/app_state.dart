@@ -4,7 +4,7 @@ import 'package:comiko/widgets/event_card.dart';
 
 class AppState {
   List<EventCardViewModel> events;
-  EventsService eventsService = new FakeEventsService();
+  EventService eventsService = ServiceProvider.get<EventService>(EventService);
 
   AppState.initial() {
     events = eventsService
@@ -34,6 +34,20 @@ class ToggleFavoriteAction extends IsAction {
   @override
   AppState handle(AppState state) {
     viewModel.isFavorite = !viewModel.isFavorite;
+
+    return state;
+  }
+}
+
+class FetchEventsAction extends IsAction {
+  @override
+  AppState handle(AppState state) {
+    EventService eventService = ServiceProvider.get(EventService);
+    state = state.clone();
+    state.events = eventService
+        .getAll()
+        .map((Event e) => new EventCardViewModel(event: e))
+        .toList();
 
     return state;
   }
