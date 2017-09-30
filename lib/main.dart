@@ -1,11 +1,8 @@
-import 'package:comiko/pages/comedian_page.dart';
 import 'package:comiko/pages/event_list_page.dart';
 import 'package:comiko/pages/event_page.dart';
-import 'package:comiko/pages/comedian_page.dart';
-import 'package:comiko/src/models/event.dart';
-import 'package:comiko/widgets/event_card_info_list.dart';
 import 'package:comiko/pages/upcoming_events_page.dart';
 import 'package:comiko/services.dart';
+import 'package:comiko/widgets/event_card_info_list.dart';
 import 'package:flutter/material.dart';
 
 void main() {
