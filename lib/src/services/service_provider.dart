@@ -1,23 +1,21 @@
-import 'package:comiko/models.dart';
-
 import 'base_service.dart';
-import 'events_service.dart';
-import 'artists_service.dart';
+import 'event_service.dart';
+import 'artist_service.dart';
 
 typedef BaseService ServiceInstanciator();
 
 class ServiceProvider {
   static final Map<Type, ServiceInstanciator> _providers = {
-    Event: () => new FakeEventsService(),
-    Artist: () => new FakeArtistService()
+    EventService: () => new FakeEventService(),
+    ArtistService: () => new FakeArtistService()
   };
 
   static Map<Type, BaseService> _cache = <Type, BaseService>{};
 
-  static BaseService getByType(Type modelType) {
-    if (_cache.containsKey(modelType)) {
-      return _cache[modelType];
+  static BaseService get(Type serviceType) {
+    if (_cache.containsKey(serviceType)) {
+      return _cache[serviceType];
     }
-    return _cache[modelType] = _providers[modelType]();
+    return _cache[serviceType] = _providers[serviceType]();
   }
 }

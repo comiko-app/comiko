@@ -2,9 +2,9 @@ import 'package:comiko/models.dart' show Event;
 import 'base_service.dart';
 
 
-abstract class BaseEventService extends BaseService<Event>{}
+abstract class EventService implements BaseService<Event>{}
 
-class FakeEventsService extends BaseEventService {
+class FakeEventService extends EventService {
   List<Event> getAll() => [
         new Event(
           name: "Martin Matte",
