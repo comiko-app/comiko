@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:comiko/pages/comedian_page.dart';
 import 'package:comiko/pages/event_list_page.dart';
 import 'package:comiko/pages/event_page.dart';
-import 'package:comiko/pages/comedian_page.dart';
 import 'package:comiko/pages/upcoming_events_page.dart';
-import 'package:comiko/widgets/event_card.dart';
-import 'package:comiko/models.dart';
+import 'package:comiko/services.dart';
+import 'package:flutter/material.dart';
 
 void main() {
   runApp(new MyApp());
@@ -40,6 +39,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   int _currentIndex = 0;
   List<NavigationIconView> _navigationViews;
+  final EventsService _eventsService = new FakeEventsService();
 
   @override
   void initState() {
@@ -61,48 +61,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       ),
       new NavigationIconView(
         icon: const Icon(Icons.cloud),
-        body: new UpcomingEventsPage([
-          new EventCard(
-            new EventCardViewModel(
-              event: new Event(
-                name: "Martin",
-                description: "Much fun",
-                start: new DateTime(2017, 11, 15),
-                image: "lib/assets/martin-matte1.jpg",
-              ),
-            ),
-          ),
-          new EventCard(
-            new EventCardViewModel(
-              event: new Event(
-                name: "Martin",
-                description: "Much fun",
-                start: new DateTime(2017, 11, 15),
-                image: "lib/assets/martin-matte1.jpg",
-              ),
-            ),
-          ),
-          new EventCard(
-            new EventCardViewModel(
-              event: new Event(
-                name: "Martin",
-                description: "Much fun",
-                start: new DateTime(2017, 11, 15),
-                image: "lib/assets/martin-matte1.jpg",
-              ),
-            ),
-          ),
-          new EventCard(
-            new EventCardViewModel(
-              event: new Event(
-                name: "Martin",
-                description: "Much fun",
-                start: new DateTime(2017, 11, 15),
-                image: "lib/assets/martin-matte1.jpg",
-              ),
-            ),
-          ),
-        ]),
+        body: new UpcomingEventsPage(_eventsService.getAll()),
         title: const Text('Cloud'),
         color: Colors.teal,
         vsync: this,

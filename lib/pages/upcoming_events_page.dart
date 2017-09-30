@@ -1,10 +1,11 @@
+import 'package:comiko/models.dart';
 import 'package:flutter/material.dart';
 import 'package:comiko/widgets/event_card.dart';
 
 class UpcomingEventsPage extends StatelessWidget {
-  final List<EventCard> menuContent;
+  final List<Event> events;
 
-  UpcomingEventsPage(this.menuContent);
+  UpcomingEventsPage(this.events);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,10 @@ class UpcomingEventsPage extends StatelessWidget {
         crossAxisCount: orientation == Orientation.portrait ? 1 : 2,
         mainAxisSpacing: 4.0,
         crossAxisSpacing: 4.0,
-        children: menuContent,
+        children: events
+            .map((Event e) => new EventCardViewModel(event: e))
+            .map((EventCardViewModel vm) => new EventCard(vm))
+            .toList(),
       ),
     );
   }
