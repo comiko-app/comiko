@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/event_list': (BuildContext context) => new EventListPage(),
         '/event': (BuildContext context) => new EventPage(),
-        '/comedian': (BuildContext context) => new MainMenu(),
+        /*'/comedian': (BuildContext context) => new MainMenu(),*/
       },
     );
   }
