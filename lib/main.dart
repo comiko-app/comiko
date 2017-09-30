@@ -73,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       ),
       new NavigationIconView(
         icon: new Icon(Icons.card_travel),
-        body: new Text("2"),
+        body: new EventPage(),
         title: const Text('Box'),
         color: Colors.deepOrange,
         vsync: this,
