@@ -1,8 +1,7 @@
 import 'package:comiko/models.dart' show Artist;
 import 'base_service.dart';
 
-
-abstract class ArtistService implements BaseService<Artist>{}
+abstract class ArtistService implements BaseService<Artist> {}
 
 class FakeArtistService extends ArtistService {
   List<Artist> getAll() => [
