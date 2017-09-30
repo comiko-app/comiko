@@ -1,7 +1,8 @@
 import 'dart:convert';
 
-import 'package:comiko/models.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'package:comiko/models.dart';
 
 main() {
   test('JSON deserialization works for event', () {
