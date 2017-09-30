@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
+import 'package:intl/intl.dart';
 import 'package:comiko/src/models/event.dart';
 
 class EventCardViewModel {
@@ -19,6 +20,8 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var formatter = new DateFormat('d MMMM yyyy HH:mm');
+
     return new GridTile(
       footer: new GestureDetector(
           onTap: () {},
@@ -34,12 +37,15 @@ class EventCard extends StatelessWidget {
               ),
               new GridTileBar(
                 backgroundColor: Colors.black54,
-                title: new _GridTitleText(eventCardViewModel.event.name),
+                title: new _GridTitleText(eventCardViewModel.event.address),
                 subtitle: new _GridTitleText(
-                    eventCardViewModel.event.start.toString()),
-                trailing: new Icon(
-                  Icons.star,
-                  color: Colors.white,
+                    formatter.format(eventCardViewModel.event.start)),
+                trailing: new Container(
+                  margin: new EdgeInsets.only(right: 8.0),
+                  child: new Icon(
+                    eventCardViewModel.isFavorite ? Icons.favorite : Icons.favorite_border,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ],

@@ -14,9 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: 'Comiko',
-      theme: new ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: new ThemeData.dark(),
       home: new MyHomePage(title: 'Flutter Demo Home Page'),
       routes: <String, WidgetBuilder>{
         '/event_list': (BuildContext context) => new EventListPage(),
