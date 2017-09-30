@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:comiko/pages/event_list_page.dart';
 import 'package:comiko/pages/event_page.dart';
 import 'package:comiko/pages/comedian_page.dart';
+import 'package:comiko/src/models/event.dart';
+import 'package:comiko/widgets/event_card_info_list.dart';
 import 'package:comiko/pages/upcoming_events_page.dart';
 import 'package:comiko/widgets/event_card.dart';
 
@@ -72,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       ),
       new NavigationIconView(
         icon: const Icon(Icons.favorite),
-        body: new Text("4"),
+        body: new EventInfoWidget(),
         title: const Text('Favorites'),
         color: Colors.indigo,
         vsync: this,
