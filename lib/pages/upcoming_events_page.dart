@@ -22,18 +22,20 @@ class UpcomingEventsPage extends StatelessWidget {
           new FilterPopupMenu(store: store),
         ],
       ),
-      body: new GridView.count(
-        padding: const EdgeInsets.all(8.0),
-        crossAxisCount: orientation == Orientation.portrait ? 1 : 3,
-        mainAxisSpacing: 4.0,
-        crossAxisSpacing: 4.0,
-        children: store.state.events
-            .map((Event e) =>
-        new StoreConnector<AppState, EventCardViewModel>(
-          converter: (store) => store.state.createViewModel(e),
-          builder: (context, vm) => new EventCard(vm, store: store),
-        ))
+      body: new StoreConnector<AppState, List<EventCardViewModel>>(
+        converter: (store) => store.state.events
+            .map((Event e) => store.state.createViewModel(e))
             .toList(),
+        builder: (context, vms) => new GridView.count(
+              crossAxisCount: orientation == Orientation.portrait ? 1 : 3,
+              padding: const EdgeInsets.all(8.0),
+              mainAxisSpacing: 4.0,
+              crossAxisSpacing: 4.0,
+              children: vms
+                  .map((EventCardViewModel vm) =>
+                      new EventCard(vm, store: store))
+                  .toList(),
+            ),
       ),
     );
   }
