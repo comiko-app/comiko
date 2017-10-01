@@ -11,12 +11,16 @@ class SearchPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Filtres"),
-      ),
-      body: new ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+    return new AlertDialog(
+      actions: [
+        new FlatButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('OK'),
+        ),
+      ],
+      title: const Text('Filtres'),
+      content: new Column(
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           new ListTile(
               leading: new Icon(Icons.location_city),
@@ -55,8 +59,7 @@ class SearchPopup extends StatelessWidget {
                     max: 500.0,
                     label: '${value}km',
                     onChanged: (value) =>
-                        store
-                            .dispatch(
+                        store.dispatch(
                             new UpdateDistanceFilterAction(value.round()))),
                 converter: (store) => store.state.distanceFilter),
           ),
