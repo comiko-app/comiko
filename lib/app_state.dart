@@ -9,7 +9,7 @@ class AppState {
   EventService eventsService = ServiceProvider.get<EventService>(EventService);
 
   AppState.initial() {
-    events = eventsService.getAll().toList();
+    events = eventsService.getAll();
 
     for (var event in events) {
       eventsFavoriteState[event] = false;
@@ -80,7 +80,7 @@ class FetchEventsAction extends IsAction {
   @override
   AppState handle(AppState state) {
     state = state.clone();
-    state.events = eventService.getAll().toList();
+    state.events = eventService.getAll();
 
     for (var event in state.events) {
       state.eventsFavoriteState[event] = false;
