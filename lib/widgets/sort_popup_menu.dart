@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
 
-class FilterPopupMenu extends StatelessWidget {
+class SortPopupMenu extends StatelessWidget {
   final Store<AppState> store;
 
-  FilterPopupMenu({
+  SortPopupMenu({
     @required this.store,
   });
 
@@ -33,7 +33,7 @@ class FilterPopupMenu extends StatelessWidget {
         new CheckedPopupMenuItem<SortingCriteria>(
           checked: store.state.sortingCriteria == SortingCriteria.price,
           value: SortingCriteria.price,
-          child: const Text('Price'),
+          child: const Text('Prix'),
         ),
       ],
     );
