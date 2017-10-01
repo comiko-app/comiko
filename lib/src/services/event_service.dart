@@ -1,14 +1,15 @@
 import 'package:comiko/models.dart';
+
 import 'base_service.dart';
 
 int _orderEventByDate(final Event a, final Event b) =>
-    a.start.compareTo(b.start);
+    a.start?.compareTo(b.start) ?? 0;
 
 // TODO implement distance sort
 int _orderEventByDistance(final Event a, final Event b) => 0;
 
 int _orderEventByPrice(final Event a, final Event b) =>
-    a.price.compareTo(b.price);
+    a.price?.compareTo(b.price) ?? 0;
 
 abstract class EventService implements BaseService<Event> {
   static const Map<SortingCriteria, Comparator> _sortComparators =
@@ -17,6 +18,11 @@ abstract class EventService implements BaseService<Event> {
     SortingCriteria.distance: _orderEventByDistance,
     SortingCriteria.price: _orderEventByPrice
   };
+
+  List<Event> getAll({
+    final SortingCriteria sort = SortingCriteria.date,
+    final bool asc = true,
+  });
 
   List<Event> orderBy(
     final List<Event> models, {
@@ -30,7 +36,7 @@ abstract class EventService implements BaseService<Event> {
 
   List<Event> filterBy(
     final List<Event> models, {
-    final FilteringCriteria sort = FilteringCriteria.distance,
+    final FilteringCriteria filter = FilteringCriteria.distance,
     final int distance,
     final DateTime from,
     final DateTime to,
@@ -38,20 +44,23 @@ abstract class EventService implements BaseService<Event> {
     final double price,
   }) {
     // TODO clean this
-    switch (sort) {
+    switch (filter) {
       case FilteringCriteria.distance:
         // TODO implement distance filtering
         return models;
       case FilteringCriteria.date:
         return models
             .where((final Event event) =>
-                event.start.isBefore(to) && event.start.isAfter(from))
+                event.start?.isBefore(to) && event.start.isAfter(from))
             .toList();
       case FilteringCriteria.city:
-        return models.where((final Event event) => event.city == city).toList();
+        return models
+            .where((final Event event) =>
+        event.city.toLowerCase() == city.toLowerCase())
+            .toList();
       case FilteringCriteria.price:
         return models
-            .where((final Event event) => event.price <= price)
+            .where((final Event event) => (event.price ?? 0) <= price)
             .toList();
       default:
         break;
@@ -61,11 +70,15 @@ abstract class EventService implements BaseService<Event> {
 }
 
 class JsonEventService extends EventService {
-  List<Event> events = new List<Event>();
+  List<Event> _events = <Event>[];
 
   init(List<Map<String, dynamic>> eventJson) {
-    events = eventJson.map((e) => new Event.fromJson(e)).toList();
+    _events = eventJson.map((e) => new Event.fromJson(e)).toList();
   }
 
-  List<Event> getAll() => events;
+  List<Event> getAll({
+    final SortingCriteria sort = SortingCriteria.date,
+    final bool asc = true,
+  }) =>
+      orderBy(_events, sort: sort, asc: asc);
 }
