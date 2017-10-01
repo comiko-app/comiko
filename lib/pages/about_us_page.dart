@@ -29,11 +29,10 @@ class AboutUsPage extends StatelessWidget {
           ),
           new Container(
               child: new Text(
-            """Bacon ipsum dolor amet t-bone andouille meatball filet mignon, chicken bacon leberkas. Capicola shoulder hamburger short ribs, shank pork belly pastrami burgdoggen drumstick bresaola strip steak leberkas corned beef cow venison. Filet mignon andouille ground round picanha brisket. Filet mignon turducken jerky t-bone, corned beef capicola landjaeger rump turkey pork chop porchetta tongue kevin short ribs ham.
+                """Comiko est une idée venue de quelques "geeks" d'humour, avec l'ambition de faciliter la vie de la communauté humoristique du Québec. \n\nLe but est de promouvoir l'humour et de donner une vitrine aux humoristes de la relève, ainsi qu'à ceux déjà établis. \n\nPar les fans d'humour, pour les fans d'humour.""",
 
-Ribeye cow picanha, doner pig strip steak turkey. Pastrami pig beef ribs landjaeger kevin strip steak. Pastrami doner rump corned beef pork chop turkey shoulder. Drumstick shankle boudin hamburger ball tip pork chop chuck. Tongue brisket pork belly beef ribs pig spare ribs. Tri-tip rump venison ball tip cow biltong shoulder ham hock.""",
             style: Theme.of(context).textTheme.subhead,
-            textAlign: TextAlign.justify,
+                textAlign: TextAlign.left,
           )),
         ],
       ),
