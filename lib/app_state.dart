@@ -6,12 +6,18 @@ class AppState {
   List<Event> events;
   Map<Event, bool> eventsFavoriteState = {};
   SortingCriteria sortingCriteria;
+  String cityFilter;
+  double priceFilter;
+  int distanceFilter;
   EventService eventsService = ServiceProvider.get<EventService>(EventService);
 
   AppState.initial() {
     sortingCriteria = SortingCriteria.date;
     events = [];
     eventsFavoriteState = {};
+    cityFilter = "";
+    priceFilter = 100.0;
+    distanceFilter = 1000;
   }
 
   EventCardViewModel createViewModel(Event event) => new EventCardViewModel(
@@ -24,10 +30,30 @@ class AppState {
       .map((Event e) => new EventCardViewModel(event: e, isFavorite: true))
       .toList();
 
+  void filterEventsWithActiveFilters() {
+    var allEvent = eventsService.getAll();
+    var sorted = eventsService.orderBy(allEvent, sort: sortingCriteria);
+
+    if (cityFilter != null && cityFilter != "") {
+      sorted = eventsService.filterBy(sorted,
+          sort: FilteringCriteria.city, city: cityFilter);
+    }
+
+    if (priceFilter != null) {
+      sorted = eventsService.filterBy(sorted,
+          sort: FilteringCriteria.price, price: priceFilter);
+    }
+
+    events = sorted;
+  }
+
   AppState._(
     this.events,
     this.sortingCriteria,
     this.eventsFavoriteState,
+    this.cityFilter,
+    this.priceFilter,
+    this.distanceFilter,
   );
 
   AppState clone() {
@@ -35,6 +61,9 @@ class AppState {
       new List.from(events),
       sortingCriteria,
       new Map.from(eventsFavoriteState),
+      cityFilter,
+      priceFilter,
+      distanceFilter,
     );
 
     return newState;
@@ -66,6 +95,38 @@ class UpdateSortingCriteriaAction extends IsAction {
   AppState handle(AppState state) {
     state.sortingCriteria = criteria;
     state.events = eventService.orderBy(state.events, sort: criteria);
+
+    return state;
+  }
+}
+
+class UpdateCityFilterAction extends IsAction {
+  final String value;
+  EventService eventService = ServiceProvider.get(EventService);
+
+  UpdateCityFilterAction(this.value);
+
+  @override
+  AppState handle(AppState state) {
+    state.cityFilter = value;
+
+    state.filterEventsWithActiveFilters();
+
+    return state;
+  }
+}
+
+class UpdatePriceFilterAction extends IsAction {
+  final double value;
+  EventService eventService = ServiceProvider.get(EventService);
+
+  UpdatePriceFilterAction(this.value);
+
+  @override
+  AppState handle(AppState state) {
+    state.priceFilter = value;
+
+    state.filterEventsWithActiveFilters();
 
     return state;
   }

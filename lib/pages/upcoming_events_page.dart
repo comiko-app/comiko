@@ -1,7 +1,8 @@
 import 'package:comiko/app_state.dart';
 import 'package:comiko/models.dart';
+import 'package:comiko/routing_assistant.dart';
 import 'package:comiko/widgets/event_card.dart';
-import 'package:comiko/widgets/filter_popup_menu.dart';
+import 'package:comiko/widgets/sort_popup_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:meta/meta.dart';
@@ -19,7 +20,10 @@ class UpcomingEventsPage extends StatelessWidget {
       appBar: new AppBar(
         title: const Text('À venir'),
         actions: [
-          new FilterPopupMenu(store: store),
+          new SortPopupMenu(store: store),
+          new IconButton(
+              icon: new Icon(Icons.search),
+              onPressed: () => RoutingAssistant.searchPopup(context, store)),
         ],
       ),
       body: new StoreConnector<AppState, List<EventCardViewModel>>(
