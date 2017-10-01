@@ -45,6 +45,10 @@ flutter:
     - lib/assets/pierre-hbert1.jpg
     - lib/assets/ral-bland1.jpg
     - lib/assets/simon-leblanc1.jpg
+    - lib/assets/alexroof.jpg
+    - lib/assets/mathieucyr.jpg
+    - lib/assets/julienlacroix.jpg
+    - lib/assets/jaydutemple.jpg
     - lib/data/events.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
