@@ -18,7 +18,14 @@ class UpcomingEventsPage extends StatelessWidget {
     var orientation = MediaQuery.of(context).orientation;
     return new Scaffold(
       appBar: new AppBar(
-        title: const Text('À venir'),
+        leading: new Container(
+          margin: new EdgeInsets.all(12.0),
+          child: new Image(
+            image: const AssetImage('lib/assets/comiko_logo.png'),
+            fit: BoxFit.contain,
+          ),
+        ),
+        title: const Text('Spectacles à venir'),
         actions: [
           new SortPopupMenu(store: store),
           new IconButton(
