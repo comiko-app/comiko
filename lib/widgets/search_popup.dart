@@ -6,6 +6,7 @@ import 'package:redux/redux.dart';
 
 class SearchPopup extends StatelessWidget {
   final Store<AppState> store;
+  final TextEditingController _textController = new TextEditingController();
 
   SearchPopup({@required this.store});
 
@@ -22,13 +23,20 @@ class SearchPopup extends StatelessWidget {
               leading: new Icon(Icons.location_city),
               title: new StoreConnector<AppState, String>(
                 converter: (store) => store.state.cityFilter,
-                builder: (context, filter) => new TextField(
+                builder: (context, filter) {
+                  _textController.text = filter;
+
+                  return new TextField(
+                      controller: _textController,
                       decoration: const InputDecoration(
                         hintText: 'Entrer le nom de la ville',
                       ),
-                      onChanged: (String value) =>
+                      onSubmitted: (String value) =>
                           store.dispatch(new UpdateCityFilterAction(value)),
-                    ),
+                      //onChanged: (String value) =>
+                      //    store.dispatch(new UpdateCityFilterAction(value)),
+                    );
+                },
               )),
           new ListTile(
             leading: new Icon(Icons.attach_money),

@@ -74,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _navigationViews = <NavigationIconView>[
       new NavigationIconView(
         icon: const Icon(Icons.access_alarm),
-        body: new SearchPopup(store: store),
+        body: new Text("1"),
         title: const Text('Alarm'),
         color: Colors.deepPurple,
         vsync: this,
