@@ -24,6 +24,12 @@ class AppState {
         isFavorite: eventsFavoriteState[event],
       );
 
+  List<EventCardViewModel> getFavoriteEvents() =>
+      events
+          .where((Event e) => eventsFavoriteState[e])
+          .map((Event e) => new EventCardViewModel(event: e, isFavorite: true))
+          .toList();
+
   AppState._(
     this.events,
       this.sortingCriteria,

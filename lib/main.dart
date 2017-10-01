@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:comiko/app_state.dart';
+import 'package:comiko/pages/liked_events_page.dart';
 import 'package:comiko/pages/upcoming_events_page.dart';
 import 'package:comiko/services.dart';
 import 'package:flutter/material.dart';
@@ -93,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       ),
       new NavigationIconView(
         icon: const Icon(Icons.favorite),
-        body: new Text("4"),
+        body: new LikedEventsPage(store: store),
         title: const Text('Favorites'),
         color: Colors.indigo,
         vsync: this,
