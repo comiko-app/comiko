@@ -71,13 +71,13 @@ class EventCard extends StatelessWidget {
               title: new _GridTitleText(eventCardViewModel.event.place ?? ""),
               subtitle: new _GridTitleText(
                   formatter.format(eventCardViewModel.event.start)),
-              trailing: new Container(
-                margin: new EdgeInsets.only(right: 8.0),
-                child: new GestureDetector(
-                  onTap: () =>
-                      store
-                          .dispatch(
-                          new ToggleFavoriteAction(eventCardViewModel)),
+              trailing: new GestureDetector(
+                onTap: () =>
+                    store.dispatch(
+                        new ToggleFavoriteAction(eventCardViewModel.event)),
+                child: new Container(
+                  padding: const EdgeInsets.all(22.0),
+                  color: Colors.transparent,
                   child: new Icon(
                     eventCardViewModel.isFavorite
                         ? Icons.favorite
