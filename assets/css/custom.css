@@ -1,0 +1,39 @@
+body {
+    font-family: "Quicksand", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.page-header {
+    color: #fff;
+    text-align: center;
+    background-color: #159957;
+    background-image: linear-gradient(120deg, #D32F2F, #F44336);
+}
+
+.project-name {
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.grid {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+}
+
+.grid>.row {
+    display: table-row;
+}
+
+.grid>.row>.col {
+    padding: 30px;
+    display: table-cell;
+}
+
+.main-content h1, .main-content h2, .main-content h3, .main-content h4, .main-content h5, .main-content h6 {
+    color: #00BCD4;
+}
