@@ -7,7 +7,6 @@ import 'package:comiko/pages/artists_page.dart';
 import 'package:comiko/pages/liked_events_page.dart';
 import 'package:comiko/pages/upcoming_events_page.dart';
 import 'package:comiko/services.dart';
-import 'package:comiko/widgets/search_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';

@@ -17,6 +17,13 @@ class LikedEventsPage extends StatelessWidget {
     var orientation = MediaQuery.of(context).orientation;
     return new Scaffold(
       appBar: new AppBar(
+        leading: new Container(
+          margin: new EdgeInsets.all(12.0),
+          child: new Image(
+            image: const AssetImage('lib/assets/comiko_logo.png'),
+            fit: BoxFit.contain,
+          ),
+        ),
         title: const Text('Favoris'),
       ),
       body: new StoreConnector<AppState, List<EventCardViewModel>>(
