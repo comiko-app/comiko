@@ -13,11 +13,6 @@ class RoutingAssistant {
   }
 
   static void searchPopup(BuildContext context, Store<AppState> store) {
-//    var route = new MaterialPageRoute(
-//      builder: (_) => new SearchPopup(store: store),
-//      fullscreenDialog: true,
-//    );
-//    Navigator.of(context).push(route);
     showDialog(context: context, child: new SearchPopup(store: store));
   }
 }
