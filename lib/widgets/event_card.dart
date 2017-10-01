@@ -77,7 +77,7 @@ class EventCard extends StatelessWidget {
                   onTap: () =>
                       store
                           .dispatch(
-                          new ToggleFavoriteAction(eventCardViewModel)),
+                          new ToggleFavoriteAction(eventCardViewModel.event)),
                   child: new Icon(
                     eventCardViewModel.isFavorite
                         ? Icons.favorite

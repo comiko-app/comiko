@@ -39,4 +39,15 @@ class Event extends Object with _$EventSerializerMixin {
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
 
   String get imageUri => 'lib/assets/$image';
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is Event &&
+              runtimeType == other.runtimeType &&
+              name == other.name &&
+              start == other.start;
+
+  @override
+  int get hashCode => name.hashCode ^ start.hashCode;
 }

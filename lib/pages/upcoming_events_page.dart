@@ -1,4 +1,5 @@
 import 'package:comiko/app_state.dart';
+import 'package:comiko/models.dart';
 import 'package:comiko/widgets/event_card.dart';
 import 'package:comiko/widgets/filter_popup_menu.dart';
 import 'package:flutter/material.dart';
@@ -27,9 +28,9 @@ class UpcomingEventsPage extends StatelessWidget {
         mainAxisSpacing: 4.0,
         crossAxisSpacing: 4.0,
         children: store.state.events
-            .map((EventCardViewModel vm) =>
+            .map((Event e) =>
         new StoreConnector<AppState, EventCardViewModel>(
-          converter: (_) => vm,
+          converter: (store) => store.state.createViewModel(e),
           builder: (context, vm) => new EventCard(vm, store: store),
         ))
             .toList(),

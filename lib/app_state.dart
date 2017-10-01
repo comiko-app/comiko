@@ -3,18 +3,26 @@ import 'package:comiko/services.dart';
 import 'package:comiko/widgets/event_card.dart';
 
 class AppState {
-  List<EventCardViewModel> events;
+  List<Event> events;
+  Map<Event, bool> eventsFavoriteState = {};
   SortingCriteria sortingCriteria;
   EventService eventsService = ServiceProvider.get<EventService>(EventService);
 
   AppState.initial() {
-    events = eventsService
-        .getAll()
-        .map((Event e) => new EventCardViewModel(event: e))
-        .toList();
+    events = eventsService.getAll().toList();
+
+    for (var event in events) {
+      eventsFavoriteState[event] = false;
+    }
 
     sortingCriteria = SortingCriteria.date;
   }
+
+  EventCardViewModel createViewModel(Event event) =>
+      new EventCardViewModel(
+        event: event,
+        isFavorite: eventsFavoriteState[event],
+      );
 
   AppState._(
     this.events,
@@ -32,13 +40,14 @@ class AppState {
 }
 
 class ToggleFavoriteAction extends IsAction {
-  final EventCardViewModel viewModel;
+  final Event event;
 
-  ToggleFavoriteAction(this.viewModel);
+  ToggleFavoriteAction(this.event);
 
   @override
   AppState handle(AppState state) {
-    viewModel.isFavorite = !viewModel.isFavorite;
+    var eventsFavoriteState = state.eventsFavoriteState[event];
+    state.eventsFavoriteState[event] = !eventsFavoriteState;
 
     return state;
   }
@@ -58,14 +67,16 @@ class UpdateSortingCriteriaAction extends IsAction {
 }
 
 class FetchEventsAction extends IsAction {
+  EventService eventService = ServiceProvider.get(EventService);
+
   @override
   AppState handle(AppState state) {
-    EventService eventService = ServiceProvider.get(EventService);
     state = state.clone();
-    state.events = eventService
-        .getAll()
-        .map((Event e) => new EventCardViewModel(event: e))
-        .toList();
+    state.events = eventService.getAll().toList();
+
+    for (var event in state.events) {
+      state.eventsFavoriteState[event] = false;
+    }
 
     return state;
   }
