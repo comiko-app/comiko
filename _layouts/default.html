@@ -65,7 +65,7 @@
 
 <body>
     <section class="page-header">
-        <img class="logo" src="/assets/images/comiko_smile_light.png" />
+        <img class="logo" src="{{ '/assets/images/comiko_smile_light.png' }}" />
         <h1 class="project-name">{{ site.title | default: site.github.repository_name }}</h1>
         <h2 class="project-tagline">{{ site.description | default: site.github.project_tagline }}</h2> {% if site.github.is_project_page %}
         <!-- <a class="google-play-badge" href='https://play.google.com/store/apps/details?id=com.totemastudio.gameofthumbs&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a> -->
@@ -75,76 +75,80 @@
     </section>
 
     <section class="main-content">
-        <div class="grid text-center">
-            <div class="row">
-                <div class="col">test1</div>
-                <div class="col">
-                    <h2>Trouvez les spectables</h2>
-                    <p>
-                        Tous les spectables d'humour sont à portée de main dans l'application.
-                    </p>
-                </div>
+        <!-- <div class="grid text-center"> -->
+        <div class="row">
+            <div class="col"><img src="{{ '/assets/images/screenshot/cap1.png' }}" /></div>
+            <div class="col">
+                <h2>Trouvez les spectables</h2>
+                <p>
+                    Tous les spectables d'humour sont à portée de main dans l'application.
+                </p>
             </div>
-            <div class="row">
-                <div class="col">
-                    <h2>À proximité</h2>
-                    <p>
-                        Découvrez des événements près de chez vous.
-                    </p>
-                </div>
-                <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h2>À proximité</h2>
+                <p>
+                    Découvrez des événements près de chez vous.
+                </p>
             </div>
-            <div class="row">
-                <div class="col"></div>
-                <div class="col">
-                    <h2>Selon vos goûts</h2>
-                    <p>
-                        Filtrez les événements selon vos préférences, selon vos humoristes favoris.
-                    </p>
+            <div class="col">
+                <div>
+                    <img src="{{ '/assets/images/screenshot/cap3.png' }}" />
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col"><img src="{{ '/assets/images/screenshot/cap5.png' }}" /></div>
+            <div class="col">
+                <h2>Selon vos goûts</h2>
+                <p>
+                    Filtrez les événements selon vos préférences, selon vos humoristes favoris.
+                </p>
+            </div>
+        </div>
+        <!-- </div> -->
 
         <h1 class="text-center">L'équipe derrière</h1>
-        <div class="grid text-center">
-            <div class="row">
-                <div class="col">
-                    <div class="card">
-                        <img class="logo" src="/assets/images/team/emile-bergeron.jpg" />
-                        <h3>Émile Bergeron</h3>
-                        <p>Porte-parole et développeur</p>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card">
-                        <img class="logo" src="/assets/images/team/joel_trottier-1024.jpeg" />
-                        <h3>Joel Trottier-Hébert</h3>
-                        <p>Lead développeur</p>
-                    </div>
+        <!-- <div class="grid text-center"> -->
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <img class="logo" src="{{ '/assets/images/team/emile-bergeron.jpg' }}" />
+                    <h3>Émile Bergeron</h3>
+                    <p>Porte-parole et développeur</p>
                 </div>
             </div>
-
+            <div class="col">
+                <div class="card">
+                    <img class="logo" src="{{ '/assets/images/team/joel_trottier-1024.jpeg' }}" />
+                    <h3>Joel Trottier-Hébert</h3>
+                    <p>Lead développeur</p>
+                </div>
+            </div>
         </div>
+
+        <!-- </div> -->
 
         <div class="grid text-center">
             <div class="row">
                 <div class="col">
                     <div class="card">
-                        <img class="logo" src="/assets/images/team/kaven-1024.jpeg" />
+                        <img class="logo" src="{{ '/assets/images/team/kaven-1024.jpeg' }}" />
                         <h3>Kaven Thériault</h3>
                         <p>Développeur difficile</p>
                     </div>
                 </div>
                 <div class="col">
                     <div class="card">
-                        <img class="logo" src="/assets/images/team/kim-desrosiers.jpg" />
+                        <img class="logo" src="{{ '/assets/images/team/kim-desrosiers.jpg' }}" />
                         <h3>Kim Desrosiers</h3>
                         <p>Développeur et expert en communication</p>
                     </div>
                 </div>
                 <div class="col">
                     <div class="card">
-                        <img class="logo" src="/assets/images/team/math_auclair-1024.jpeg" />
+                        <img class="logo" src="{{ '/assets/images/team/math_auclair-1024.jpeg' }}" />
                         <h3>Mathieu Auclair</h3>
                         <p>Développeur et étudiant</p>
                     </div>

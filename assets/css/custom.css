@@ -8,7 +8,7 @@ body {
 
 
 /* Grid */
-
+/*
 .grid {
     display: table;
     table-layout: fixed;
@@ -33,6 +33,19 @@ body {
     }
     .grid>.row>.col {
         display: block;
+    }
+}*/
+
+@media (min-width: 30em) {
+    .row {
+        text-align: center;
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+    }
+    .col {
+        display: table-cell;
+        padding: 30px;
     }
 }
 
