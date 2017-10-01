@@ -1,4 +1,5 @@
 import 'package:comiko/models.dart';
+
 import 'base_service.dart';
 
 int _orderEventByDate(final Event a, final Event b) =>
@@ -48,7 +49,10 @@ abstract class EventService implements BaseService<Event> {
                 event.start.isBefore(to) && event.start.isAfter(from))
             .toList();
       case FilteringCriteria.city:
-        return models.where((final Event event) => event.city == city).toList();
+        return models
+            .where((final Event event) =>
+        event.city.toLowerCase() == city.toLowerCase())
+            .toList();
       case FilteringCriteria.price:
         return models
             .where((final Event event) => event.price <= price)
