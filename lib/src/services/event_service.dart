@@ -1,10 +1,63 @@
-import 'package:comiko/models.dart' show Event;
-
+import 'package:comiko/models.dart';
 import 'base_service.dart';
 
+int _orderEventByDate(final Event a, final Event b) =>
+    a.start.compareTo(b.start);
+
+// TODO implement distance sort
+int _orderEventByDistance(final Event a, final Event b) => 0;
+
+int _orderEventByPrice(final Event a, final Event b) =>
+    a.price.compareTo(b.price);
+
 abstract class EventService implements BaseService<Event> {
-  void orderByDate(final List<Event> models) =>
-      models.sort((a, b) => a.start.compareTo(b.start));
+  static const Map<SortingCriteria, Comparator> _sortComparators =
+      const <SortingCriteria, Comparator>{
+    SortingCriteria.date: _orderEventByDate,
+    SortingCriteria.distance: _orderEventByDistance,
+    SortingCriteria.price: _orderEventByPrice
+  };
+
+  List<Event> orderBy(
+    final List<Event> models, {
+    final SortingCriteria sort = SortingCriteria.date,
+    final bool asc = true,
+  }) {
+    final sorted = new List<Event>.from(models);
+    sorted.sort(EventService._sortComparators[sort]);
+    return asc ? sorted : sorted.reversed.toList();
+  }
+
+  List<Event> filterBy(
+    final List<Event> models, {
+    final FilteringCriteria sort = FilteringCriteria.distance,
+    final int distance,
+    final DateTime from,
+    final DateTime to,
+    final String city,
+    final double price,
+  }) {
+    // TODO clean this
+    switch (sort) {
+      case FilteringCriteria.distance:
+        // TODO implement distance filtering
+        return models;
+      case FilteringCriteria.date:
+        return models
+            .where((final Event event) =>
+                event.start.isBefore(to) && event.start.isAfter(from))
+            .toList();
+      case FilteringCriteria.city:
+        return models.where((final Event event) => event.city == city).toList();
+      case FilteringCriteria.price:
+        return models
+            .where((final Event event) => event.price <= price)
+            .toList();
+      default:
+        break;
+    }
+    return models;
+  }
 }
 
 class JsonEventService extends EventService {
@@ -15,42 +68,4 @@ class JsonEventService extends EventService {
   }
 
   List<Event> getAll() => events;
-
-  void orderByDate(final List<Event> models) {}
-}
-
-class FakeEventService extends EventService {
-  List<Event> getAll() => [
-        new Event(
-          name: "Eh lala..!",
-          artist: "Martin Matte",
-          place: "Théâtre Palace Arvida",
-          address: "1900 Boulevard Mellon, Jonquière, QC G7S 3H4",
-          description: "Bacon ipsum dolor amet kevin short ribs kielbasa filet mignon sirloin jerky. Turkey corned beef ham t-bone bresaola meatloaf. Brisket porchetta tongue rump, turkey tri-tip pork loin t-bone. Tongue t-bone kevin filet mignon pork. Sausage chuck chicken, salami burgdoggen prosciutto corned beef shoulder kielbasa alcatra beef ribs leberkas.",
-          price: 49.75,
-          start: new DateTime(2017, 11, 15, 23),
-          image: "lib/assets/martin-matte1.jpg",
-        ),
-        new Event(
-          name: "Eh lala..!",
-          artist: "Adib Alkhalidey",
-          place: "Théâtre Banque Nationale",
-          start: new DateTime(2017, 11, 15, 14),
-          image: "lib/assets/adib-alkhalidey-1.jpg",
-        ),
-        new Event(
-          name: "Eh lala..!",
-          artist: "Guillaume Wagner",
-          place: "Théâtre du Palais Municipal",
-          start: new DateTime(2017, 11, 15, 15),
-          image: "lib/assets/guillaume-wagner1.jpg",
-        ),
-        new Event(
-          name: "Eh lala..!",
-          artist: "Jean-Marc Parent",
-          place: "Côté-Cour",
-          start: new DateTime(2017, 11, 15, 29),
-          image: "lib/assets/jean-marc-parent-v3.jpg",
-        ),
-      ];
 }
