@@ -9,31 +9,25 @@ class AppState {
   EventService eventsService = ServiceProvider.get<EventService>(EventService);
 
   AppState.initial() {
-    events = eventsService.getAll();
-
-    for (var event in events) {
-      eventsFavoriteState[event] = false;
-    }
-
     sortingCriteria = SortingCriteria.date;
+    events = [];
+    eventsFavoriteState = {};
   }
 
-  EventCardViewModel createViewModel(Event event) =>
-      new EventCardViewModel(
+  EventCardViewModel createViewModel(Event event) => new EventCardViewModel(
         event: event,
         isFavorite: eventsFavoriteState[event],
       );
 
-  List<EventCardViewModel> getFavoriteEvents() =>
-      events
-          .where((Event e) => eventsFavoriteState[e])
-          .map((Event e) => new EventCardViewModel(event: e, isFavorite: true))
-          .toList();
+  List<EventCardViewModel> getFavoriteEvents() => events
+      .where((Event e) => eventsFavoriteState[e])
+      .map((Event e) => new EventCardViewModel(event: e, isFavorite: true))
+      .toList();
 
   AppState._(
     this.events,
-      this.sortingCriteria,
-      this.eventsFavoriteState,
+    this.sortingCriteria,
+    this.eventsFavoriteState,
   );
 
   AppState clone() {
@@ -66,9 +60,12 @@ class UpdateSortingCriteriaAction extends IsAction {
 
   UpdateSortingCriteriaAction(this.criteria);
 
+  EventService eventService = ServiceProvider.get(EventService);
+
   @override
   AppState handle(AppState state) {
     state.sortingCriteria = criteria;
+    state.events = eventService.orderBy(state.events, sort: criteria);
 
     return state;
   }
@@ -80,7 +77,10 @@ class FetchEventsAction extends IsAction {
   @override
   AppState handle(AppState state) {
     state = state.clone();
-    state.events = eventService.getAll();
+    state.events = eventService.orderBy(
+      eventService.getAll(),
+      sort: state.sortingCriteria,
+    );
 
     for (var event in state.events) {
       state.eventsFavoriteState[event] = false;

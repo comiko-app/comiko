@@ -71,7 +71,7 @@ class EventPage extends StatelessWidget {
                 ),
                 new ListTile(
                   leading: const Icon(Icons.monetization_on),
-                  title: new Text("${50.00.toStringAsFixed(2)}\$"),
+                  title: new Text("${event.price.toStringAsFixed(2)}\$"),
                 ),
                 new Divider(height: 32.0),
                 new Container(
