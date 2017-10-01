@@ -48,7 +48,17 @@ class SearchPopup extends StatelessWidget {
           ),
           new ListTile(
             leading: new Icon(Icons.directions_car),
-            title: new Slider(value: 5.0, max: 10.0, onChanged: (_) {}),
+            title: new StoreConnector<AppState, int>(
+                builder: (context, value) =>
+                new Slider(
+                    value: value.roundToDouble(),
+                    max: 500.0,
+                    label: '${value}km',
+                    onChanged: (value) =>
+                        store
+                            .dispatch(
+                            new UpdateDistanceFilterAction(value.round()))),
+                converter: (store) => store.state.distanceFilter),
           ),
         ],
       ),

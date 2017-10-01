@@ -5,8 +5,8 @@ import 'base_service.dart';
 int _orderEventByDate(final Event a, final Event b) =>
     a.start?.compareTo(b.start) ?? 0;
 
-// TODO implement distance sort
-int _orderEventByDistance(final Event a, final Event b) => 0;
+int _orderEventByDistance(final Event a, final Event b) =>
+    a.distance.compareTo(b.distance);
 
 int _orderEventByPrice(final Event a, final Event b) =>
     a.price?.compareTo(b.price) ?? 0;
@@ -46,8 +46,8 @@ abstract class EventService implements BaseService<Event> {
     // TODO clean this
     switch (filter) {
       case FilteringCriteria.distance:
-        // TODO implement distance filtering
-        return models;
+        return models.where((Event e) => distance >= e.distance).toList();
+    // TODO implement distance filtering
       case FilteringCriteria.date:
         return models
             .where((final Event event) =>

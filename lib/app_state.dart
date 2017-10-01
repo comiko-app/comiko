@@ -17,7 +17,7 @@ class AppState {
     eventsFavoriteState = {};
     cityFilter = "";
     priceFilter = 100.0;
-    distanceFilter = 1000;
+    distanceFilter = 500;
   }
 
   EventCardViewModel createViewModel(Event event) => new EventCardViewModel(
@@ -42,6 +42,11 @@ class AppState {
     if (priceFilter != null) {
       sorted = eventsService.filterBy(sorted,
           filter: FilteringCriteria.price, price: priceFilter);
+    }
+
+    if (distanceFilter != null) {
+      sorted = eventsService.filterBy(sorted,
+          filter: FilteringCriteria.distance, distance: distanceFilter);
     }
 
     events = sorted;
@@ -125,6 +130,22 @@ class UpdatePriceFilterAction extends IsAction {
   @override
   AppState handle(AppState state) {
     state.priceFilter = value;
+
+    state.filterEventsWithActiveFilters();
+
+    return state;
+  }
+}
+
+class UpdateDistanceFilterAction extends IsAction {
+  final int value;
+  EventService eventService = ServiceProvider.get(EventService);
+
+  UpdateDistanceFilterAction(this.value);
+
+  @override
+  AppState handle(AppState state) {
+    state.distanceFilter = value;
 
     state.filterEventsWithActiveFilters();
 
