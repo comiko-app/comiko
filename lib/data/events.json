@@ -4,143 +4,154 @@
     "name": "Eh lala..!",
     "artist": "Martin Matte",
     "place": "Théâtre du Palais municipal",
-    "address": "",
+    "address": "1831 6e Ave, La Baie, QC G7B 1S1",
     "city": "La baie",
     "date": "2018-04-12T00:00:00.000Z",
     "description": "Après sept ans d’absence sur scène, Martin Matte est enfin de retour avec un troisième spectacle solo. Intitulé Eh la la..! — le ton est donné — ce nouveau one-man-show voit le populaire humoriste revenir en force et en très grande forme. Toujours provocateur, mais non moins chaleureux et humain, l’auteur aguerri de la légendaire série Les beaux malaises réserve des émotions de toutes les couleurs. Fin observateur de ce qui l’entoure, il signe les textes avec le fidèle François Avard, bénéficiant aussi de la complicité du public alors qu’il rodait le contenu dans quelques villes québécoises. Place maintenant aux toutes nouvelles histoires du seul et unique Martin Matte, chroniques savoureuses de son époque, dans lesquelles un public toujours plus vaste se reconnaît immanquablement.",
     "image": "martin-matte1.jpg",
     "styles": "",
-    "price": 65
+    "price": 65,
+    "distance": 23
   },
   {
     "id": 2,
     "name": "Utopie",
     "artist": "Jean-Marc Parent",
     "place": "Théâtre du Palais municipal",
-    "address": "",
+    "address": "1831 6e Ave, La Baie, QC G7B 1S1",
     "city": "La baie",
     "date": "2018-12-07T01:00:00.000Z",
     "description": "Avec ses 30 ans de carrière en poche, Jean-Marc Parent est de retour avec un 11e one-man show : UTOPIE.\nAyant vendu plus de 300 000 billets lors de sa dernière tournée avec le spectacle Torture, l’humoriste revient sur scène avec une toute nouvelle mouture d’anecdotes et d’histoires hilarantes comme lui seul sait les conter.\nPour ce nouveau spectacle, Jean-Marc Parent nous emmène dans un univers utopique… que ce soit un monde où la vieillesse et la maladie n’existent pas, un monde de paix où le jugement et la mauvaise foi n’ont pas de place ou un gâteau au chocolat qui fait maigrir… À chacun sa vision!\nC’est dans une ambiance festive et à l’aide de son talent de conteur inimitable que Jean-Marc vous fera réaliser que nous nous créons tous de petites utopies quotidiennes! Quelle est la vôtre?",
     "image": "jean-marc-parent-v3.jpg",
     "styles": "",
-    "price": 55
+    "price": 55,
+    "distance": 23
   },
   {
     "id": 3,
     "name": "Guillaume Wagner",
     "artist": "Guillaume Wagner",
     "place": "Au Vieux Théâtre",
-    "address": "",
+    "address": "300 Bd de la Grande Baie N, La Baie, QC G7B 3K3",
     "city": "La baie",
     "date": "2017-10-14T00:00:00.000Z",
     "description": "Malgré son jeune âge, il compte à son actif deux tournées, plus de 100 000 billets vendus, des révélations aux festivals Juste Pour Rire et Grand Rire, un Olivier « découverte » ainsi que de nombreuses prestations lors d’événements télévisés.\nSon humour est souvent incisif, sans toutefois compromettre l’idée et la réflexion qui s’y cachent. Chaque numéro est réfléchi afin que le public s’amuse tout en stimulant son sens critique. Dans ce spectacle, Guillaume vous proposera du matériel inédit qu’il compose depuis les derniers mois : l’actualité et le plaisir seront de mise !",
     "image": "guillaume-wagner1.jpg",
     "styles": "",
-    "price": 40
+    "price": 40,
+    "distance": 20
   },
   {
     "id": 4,
     "name": "Ingénu",
     "artist": "Adib Alkhalidey",
     "place": "Salle Pierrette-Gaudreault",
-    "address": "",
+    "address": "4160 Rue du Vieux Pont, Jonquière, QC G8A 2G9",
     "city": "Jonquiere",
     "date": "2017-12-16T01:00:00.000Z",
     "description": "Dès sa sortie de l’École Nationale de l’Humour, Adib Alkhalidey travaille autant sur scène que dans les coulisses à titre d’auteur. Il enchaîne un projet après l’autre, puis, en 2013, après avoir été encensé par la critique, il parcourt la province du Québec pour y présenter son tout premier one-man show, Je t’aime. Après le succès de ce premier spectacle solo, il nous revient cette année, en force, avec son deuxième spectacle intitulé Ingénu.",
     "image": "adib-alkhalidey-1.jpg",
     "styles": "",
-    "price": 35
+    "price": 35,
+    "distance": 19
   },
   {
     "id": 5,
     "name": "Je4n-Michel",
     "artist": "Jean-Michel Anctil",
     "place": "Théâtre du Palais municipal",
-    "address": "",
+    "address": "1831 6e Ave, La Baie, QC G7B 1S1",
     "city": "La baie",
     "date": "2017-11-18T01:00:00.000Z",
     "description": "Le spectacle aborde la notion de changements sous plusieurs aspects.  Ceux  imposés par le fait de vieillir, de s’entraîner, de modifier ses habitudes. Ceux que l’on fait pour soi, mais qui ne sont pas toujours heureux pour les autres.  Les changements que l’on apporte à notre environnement, comme les rénovations, ou encore la démonstration qu’un petit imprévu survenu à un certain moment entraîne des changements insoupçonnés!   Il sera également question d’idéalisation et de recherche de perfection… Philosophe Jean-Michel?  Peut-être, mais assurément toujours aussi drôle!",
     "image": "jean-michel-anctil1.jpg",
     "styles": "",
-    "price": 55
+    "price": 55,
+    "distance": 23
   },
   {
     "id": 6,
     "name": "Tout court",
     "artist": "Simon Leblanc",
     "place": "Théâtre Banque Nationale",
-    "address": "",
+    "address": "534 Jacques-Cartier East, Chicoutimi, QC G7H 1Z6",
     "city": "Chicoutimi",
     "date": "2017-11-24T01:00:00.000Z",
     "description": "Simon Leblanc présente Tout court, son premier one man show. Un spectacle qui met en vedette l’humoriste sans aucun artifice. Pas de décor, pas de musique, pas de mise en scène et pas d’entracte (encore chanceux que Simon monte sur scène habillé)! Mais pourquoi couper dans la guirlande? Pour que le rire et les histoires déjantées puissent prendre toute la place dans votre imagination. Tout court : une heure et demie de plaisir ininterrompu qui vous paraîtra comme 15 minutes!",
     "image": "simon-leblanc1.jpg",
     "styles": "",
-    "price": 30
+    "price": 30,
+    "distance": 17
   },
   {
     "id": 7,
     "name": "Rien qu’s’une gosse!",
     "artist": "Dominic Paquet",
     "place": "Théâtre du Palais municipal",
-    "address": "",
+    "address": "1831 6e Ave, La Baie, QC G7B 1S1",
     "city": "La baie",
     "date": "2018-02-18T01:00:00.000Z",
     "description": "Dominic Paquet est de retour Rien qu’s’une gosse! Alors que nous vivons tous à un rythme effréné, Dominic lui s’arrête, contemple et note nos travers pour mieux les exagérer. Avec son imagination si particulière, ses métamorphoses comiques et un univers bien à lui, il déploie son grand talent en se démarquant avec ses interprétations aux mimiques grandioses. C’est souvent son corps désarticulé qui s’exprime, s’étire et se contracte, venant ainsi appuyer ses textes bien ficelés pour incarner des archétypes auxquels le public prend plaisir à s’identifier… ou pas! Est-ce un enfant? Un ado attardé? Un adulte? Un idiot fini ou un génie?\nPeu importe, car son énergie explosive, combinée à une performance scénique qui sort de l’ordinaire, font de Rien qu’s’une gosse un spectacle totalement hilarant. Avec ce troisième one-man-show, Paquet fait pleurer de rire le public avec son humour accessible à tous. Un abruti à l’énergie débordante qui sait dilater des rates comme personne!",
     "image": "dominic-paquet1.jpg",
     "styles": "",
-    "price": 40
+    "price": 40,
+    "distance": 23
   },
   {
     "id": 8,
     "name": "Le goût du risque",
     "artist": "Pierre Hébert",
     "place": "Théâtre Banque Nationale",
-    "address": "",
+    "address": "534 Jacques-Cartier East, Chicoutimi, QC G7H 1Z6",
     "city": "Chicoutimi",
     "date": "2017-11-25T01:00:00.000Z",
     "description": "Un matin, Pierre Hébert s’est réveillé avec la peur de devenir le spectateur de sa propre vie en s’installant dans le confort et la stabilité. C’est ce jour-là qu’il a décidé de cultiver Le goût du risque. Dans ce deuxième spectacle d’une mordante ironie, il tourne ses propres peurs en dérision afin de se convaincre lui-même de sauter dans le vide! D’une désopilante sincérité, il s’inspire de ce que son quotidien a de risible et d’absurde pour donner aux spectateurs l’envie de sortir de la routine, de faire des choix audacieux. Prendrez-vous le risque de tomber sous son charme?",
     "image": "pierre-hbert1.jpg",
     "styles": "",
-    "price": 35
+    "price": 35,
+    "distance": 17
   },
   {
     "id": 9,
     "name": "Assume",
     "artist": "Fabien Cloutier",
     "place": "Salle Pierrette-Gaudreault",
-    "address": "",
+    "address": "4160 Rue du Vieux Pont, Jonquière, QC G8A 2G9",
     "city": "Jonquiere",
     "date": "2018-03-31T00:00:00.000Z",
     "description": "Après les mémorables Scotstown et Cranbourne, Fabien Cloutier met de côté le personnage du « chum à Chabot » et prend la scène en son nom.  Dans son premier one-man-show intitulé Assume, Fabien Cloutier pourfend la bêtise, chasse les petites manies du Québec contemporain et n’épargne personne.  Les politiciens, les décorateurs de maisons et autres fabricants d’opinions passeront dans le tordeur.  C’est assurément drôle, mais c’est avant tout une charge contre la stupidité et un nécessaire brassage collectif auquel cette soirée nous convie.  Venez assister à ce spectacle rempli d’honnêteté où vous assumerez, à coup de fous rires, les travers de la société québécoise.",
     "image": "fabien-cloutier1.jpg",
     "styles": "",
-    "price": 25
+    "price": 25,
+    "distance": 19
   },
   {
     "id": 10,
     "name": "Réal Béland",
     "artist": "Réal Béland",
     "place": "Théâtre Banque Nationale",
-    "address": "",
+    "address": "534 Jacques-Cartier East, Chicoutimi, QC G7H 1Z6",
     "city": "Chicoutimi",
     "date": "2017-10-27T00:00:00.000Z",
     "description": "Dans son 4e one-man-show, Réal nous parlera entre autre et toujours avec le même humour absurde qu’on lui connait, de ses nombreuses superstitions, du vieillissement de ses quatre filles et de l’arrivée des « chums », de l’évolution des réseaux sociaux et aussi de tous les clichés trop souvent utilisés à toutes les sauces\nSon inimitable et imbattable Monsieur Latreille sera de retour, son Président de la Fédération des Stickers d’Avertissement nous avertira plus que jamais, et dans un numéro physique et surprenant Réal fera un hommage au burlesque.\n Ce 4e spectacle sera encore plus personnel, plus humain !!",
     "image": "ral-bland1.jpg",
     "styles": "",
-    "price": 40
+    "price": 40,
+    "distance": 17
   },
   {
     "id": 11,
     "name": "Femme ta gueule",
     "artist": "Marianna Mazza",
     "place": "Théâtre Banque Nationale",
-    "address": "",
+    "address": "534 Jacques-Cartier East, Chicoutimi, QC G7H 1Z6",
     "city": "Chicoutimi",
     "date": "2017-11-16T01:00:00.000Z",
     "description": "Femme ta gueule… Une phrase qu’on lui dit souvent, mais qu’elle n’a jamais écoutée (parlez-en à sa famille, ses voisins, au commis du dépanneur… Tous soulagés qu’elle parte en tournée!). Avec sa fougue de prépubère en pleine métamorphose, l’énergie d’un pitbull sur le Redbull et son franc-parler de fille pas baptisée (c’est le curé qui a refusé), l’humoriste Mariana Mazza se livre au public comme s’il n’y avait aucun lendemain. Et malheureusement, il y en a un. Femme ta gueule, un spectacle intense et criant de vérité pour un public averti… 16 ans et plus, idéalement en bas de 88.\n« On ne nait pas femme, on le devient. » – Simone de Beauvoir",
     "image": "marianna-mazza1.jpg",
     "styles": "",
-    "price": 22
+    "price": 22,
+    "distance": 17
   },
   {
     "id": 12,
@@ -153,20 +164,22 @@
     "description": "« Les Grandes Crues », c’est Eve Côté et Marie-Lyne Joncas, toute deux finissantes de l’École nationale de l’humour, cuvée 2014.\nElles viendront charmer un large public grâce à leur verve, leur sens de la répartie et leur façon bien à elles de dépeindre la société actuelle.\nPourquoi les Grandes Crues? Parce qu’elles sont comme un bon millésime; parfois corsées, mais bien dosées, et assurément pas bouchonnées! Sur scène, les deux jeunes humoristes nous parlent de leur recette du bonheur avec une désinvolture et une dégaine des plus charmantes. C’est autour d’un bon verre de vin qu’elles vous invitent à vivre un 5 à 7 signé Grandes Crues.",
     "image": "les-grandes-crues1.jpg",
     "styles": "",
-    "price": 18
+    "price": 18,
+    "distance": ""
   },
   {
     "id": 13,
     "name": "Katerine Levac",
     "artist": "Katerine Levac",
     "place": "Théâtre Banque Nationale",
-    "address": "",
+    "address": "534 Jacques-Cartier East, Chicoutimi, QC G7H 1Z6",
     "city": "Chicoutimi",
     "date": "2018-06-09T00:00:00.000Z",
     "description": "Aussi attachante et pince sans rire sur scène qu’à la télé, Katherine Levac dévoile de nouvelles facettes de sa personnalité dans ce premier spectacle solo fort attendu. Avec une couleur qui lui est propre, la jeune humoriste partage ses réflexions sur sa vie de jeune adulte avec toute la spontanéité et l’authenticité qu’on lui connait. Alliant naïveté et candeur, franchise et mordant, on peut dire que Katherine Levac est véritablement une main de fer dans un gant de velours.",
     "image": "katerine-levac1.jpg",
     "styles": "",
-    "price": 38
+    "price": 38,
+    "distance": 17
   },
   {
     "id": 14,
@@ -179,84 +192,91 @@
     "description": "Faire rire et réfléchir, voici l’audacieux pari qu’a choisi Louis T pour ce premier spectacle.  À mi-chemin entre un journaliste et un humoriste, Louis T assume son humour documenté, tenant autant à l’exactitude de ses propos qu’à leur efficacité comique.  Désirant sortir du modèle habituel où l’humoriste part en tournée pendant 2 ou 3 ans, Louis propose ce spectacle ancré sur l’actualité dans une formule à édition limitée.   Objectivement Parlant sera présenté un peu partout au Québec de janvier à mai 2017 mais pour 20 dates seulement.  Il compte d’ailleurs refaire la même chose en 2018 avec du nouveau matériel.",
     "image": "louis-t1.jpg",
     "styles": "",
-    "price": 30
+    "price": 30,
+    "distance": 19
   },
   {
     "id": 15,
     "name": "Vivant",
     "artist": "Jérémy Demay",
     "place": "Théâtre Banque Nationale",
-    "address": "",
+    "address": "534 Jacques-Cartier East, Chicoutimi, QC G7H 1Z6",
     "city": "Chicoutimi",
     "date": "2018-04-06T00:00:00.000Z",
     "description": "Après avoir parcouru le Québec et présenté son premier one man show devant plus de 90 000 spectateurs, Jérémy Demay est de retour avec son tout nouveau spectacle : VIVANT.\nToujours avec l’humour débridé et touchant pour lequel on le connait, ce spectacle est une réelle célébration de la vie : il traite de nos choix, de qui nous sommes, de nos émotions, de notre image, de la vieillesse, du sexe et même de la mort. Il nous partage ainsi avec humour plusieurs aspects qui font que l’être humain se sent vivant.\nC’est avec fébrilité et excitation que Jérémy  prépare de nouvelles anecdotes pour continuer à transmettre avec humour et sincérité son goût du bonheur : un véritable hymne à la vie!",
     "image": "jrmy-demay1.jpg",
     "styles": "",
-    "price": 32
+    "price": 32,
+    "distance": 17
   },
   {
     "id": 16,
     "name": "Juste Dominic & Martin",
     "artist": "Dominic & Martin",
     "place": "Théâtre Banque Nationale",
-    "address": "",
+    "address": "534 Jacques-Cartier East, Chicoutimi, QC G7H 1Z6",
     "city": "Chicoutimi",
     "date": "2018-03-09T01:00:00.000Z",
     "description": "Dominic Sillon et Martin Cloutier sont d’incontestables amoureux de la scène. Depuis près de 25 ans, ils redéfinissent sans cesse l’humour à deux. Dans ce cinquième spectacle, le duo se présente sans artifices, en misant simplement sur ce qui a fait son succès : un irréprochable sens du punch et un rythme quasi chirurgical, qui déclenchent l’hilarité à tout coup. Avec Juste Dominic et Martin, les humoristes chevronnés repoussent les limites de leur essence en exploitant à fond leur chimie naturelle et leur folie contagieuse. Une ode au stand up qui vise juste… en aspirant juste à vous faire rire!",
     "image": "dominic-et-martin1.jpg",
     "styles": "",
-    "price": 46
+    "price": 46,
+    "distance": 17
   },
   {
     "id": 17,
     "name": "PREMIÈRE TOURNÉE",
     "artist": "Alex Roof",
     "place": "Centre d'art La Chapelle",
-    "address": "",
+    "address": "620 Plante Ave, Québec City, QC G1M 3R5",
     "city": "Quebec",
     "date": "2017-11-09T01:00:00.000Z",
     "description": "Après avoir conquis des milliers de fans avec ses projets à succès sur le web et ses performances scéniques hilarantes, Alex Roof présente une première tournée tout à son image. Avec son énergie explosive et son style unique, l’humoriste prend la scène d’assaut en restant fidèle à lui-même : il présente des numéros actuels, interactifs et sans tabou. Sa proximité avec les gens en salle ainsi que les différents sujets qu’il aborde ne manquent pas de surprendre. Le spectacle s’adresse d’ailleurs à un public de 16 ans et plus, en raison de son humour mordant. Dans le cadre de cette première mini-tournée québécoise, Alex Roof continue de faire sa place dans le domaine humoristique en allant à la rencontre de ses fans un peu partout dans la province. Incomparable, hilarant et sans filtre, l’humoriste n’a pas fini de laisser sa marque!",
     "image": "alexroof.jpg",
     "styles": "",
-    "price": 27
+    "price": 27,
+    "distance": 207
   },
   {
     "id": 18,
     "name": "Presque Présentable",
     "artist": "Mathieu Cyr",
     "place": "Complexe JC Perrealt",
-    "address": "",
+    "address": "620 J. Oswald-Forest St E, Saint-Roch-de-l'Achigan, QC J0K 3H0",
     "city": "Quebec",
     "date": "2018-04-27T00:30:00.000Z",
     "description": "Mathieu Cyr vous invite dans son univers à la fois accessible et hors du commun. Un heureux mélange d’anecdotes et d’observations sociales, toujours drôles et d’actualité. En plus de sa dégaine et son aisance scénique, il se démarque par son sens du punch incisif et sa prise de position sur des sujets sensibles. La grande force de Mathieu, c’est son côté tout-terrain. Il est capable de faire rire des étudiants du secondaire de Limoilou autant que des travailleurs d’une mine à Val-d’Or!",
     "image": "mathieucyr.jpg",
     "styles": "",
-    "price": 35
+    "price": 35,
+    "distance": 465
   },
   {
     "id": 19,
     "name": "Le show 2000",
     "artist": "Julien Lacroix",
     "place": "Club Soda",
-    "address": "",
+    "address": "1225 Boul St-Laurent, Montréal, QC H2X 2S6",
     "city": "Montreal",
     "date": "2018-02-13T00:30:00.000Z",
     "description": "Julien Lacroix humoriste, animateur,comédien, auteur et gentil.",
     "image": "julienlacroix.jpg",
     "styles": "",
-    "price": 19
+    "price": 19,
+    "distance": 472
   },
   {
     "id": 20,
     "name": "Spectacle d'Humour",
     "artist": "Jay du Temple",
     "place": "Centre d'art La Chapelle",
-    "address": "",
+    "address": "620 Plante Ave, Québec City, QC G1M 3R5",
     "city": "Quebec",
     "date": "2018-04-14T00:00:00.000Z",
     "description": "Jay Du Temple n’a rien d’un rebelle. Pourtant, comparativement à ses sœurs, il est complètement dévergondé. C’est le hors-la-loi le plus poli qui soit. Suite à un mini tour fructueux, Jay repart à la conquête du Québec avec son Moyen tour. Même spectacle, plus de villes, plus de dates.",
     "image": "jaydutemple.jpg",
     "styles": "",
-    "price": 33
+    "price": 33,
+    "distance": 207
   }
 ]
