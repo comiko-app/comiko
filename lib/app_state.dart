@@ -3,28 +3,38 @@ import 'package:comiko/services.dart';
 import 'package:comiko/widgets/event_card.dart';
 
 class AppState {
-  List<EventCardViewModel> events;
+  List<Event> events;
+  Map<Event, bool> eventsFavoriteState = {};
   SortingCriteria sortingCriteria;
   EventService eventsService = ServiceProvider.get<EventService>(EventService);
 
   AppState.initial() {
-    events = eventsService
-        .getAll()
-        .map((Event e) => new EventCardViewModel(event: e))
-        .toList();
-
     sortingCriteria = SortingCriteria.date;
+    events = [];
+    eventsFavoriteState = {};
   }
+
+  EventCardViewModel createViewModel(Event event) => new EventCardViewModel(
+        event: event,
+        isFavorite: eventsFavoriteState[event],
+      );
+
+  List<EventCardViewModel> getFavoriteEvents() => events
+      .where((Event e) => eventsFavoriteState[e])
+      .map((Event e) => new EventCardViewModel(event: e, isFavorite: true))
+      .toList();
 
   AppState._(
     this.events,
-      this.sortingCriteria,
+    this.sortingCriteria,
+    this.eventsFavoriteState,
   );
 
   AppState clone() {
     var newState = new AppState._(
       new List.from(events),
       sortingCriteria,
+      new Map.from(eventsFavoriteState),
     );
 
     return newState;
@@ -32,13 +42,14 @@ class AppState {
 }
 
 class ToggleFavoriteAction extends IsAction {
-  final EventCardViewModel viewModel;
+  final Event event;
 
-  ToggleFavoriteAction(this.viewModel);
+  ToggleFavoriteAction(this.event);
 
   @override
   AppState handle(AppState state) {
-    viewModel.isFavorite = !viewModel.isFavorite;
+    var eventsFavoriteState = state.eventsFavoriteState[event];
+    state.eventsFavoriteState[event] = !eventsFavoriteState;
 
     return state;
   }
@@ -49,23 +60,31 @@ class UpdateSortingCriteriaAction extends IsAction {
 
   UpdateSortingCriteriaAction(this.criteria);
 
+  EventService eventService = ServiceProvider.get(EventService);
+
   @override
   AppState handle(AppState state) {
     state.sortingCriteria = criteria;
+    state.events = eventService.orderBy(state.events, sort: criteria);
 
     return state;
   }
 }
 
 class FetchEventsAction extends IsAction {
+  EventService eventService = ServiceProvider.get(EventService);
+
   @override
   AppState handle(AppState state) {
-    EventService eventService = ServiceProvider.get(EventService);
     state = state.clone();
-    state.events = eventService
-        .getAll()
-        .map((Event e) => new EventCardViewModel(event: e))
-        .toList();
+    state.events = eventService.orderBy(
+      eventService.getAll(),
+      sort: state.sortingCriteria,
+    );
+
+    for (var event in state.events) {
+      state.eventsFavoriteState[event] = false;
+    }
 
     return state;
   }
