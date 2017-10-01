@@ -14,6 +14,7 @@ class Event extends Object with _$EventSerializerMixin {
   final String place;
   final String artist;
   final String styles;
+  final int distance;
 
   @JsonKey(name: 'date')
   final DateTime start;
@@ -34,6 +35,7 @@ class Event extends Object with _$EventSerializerMixin {
     this.price,
     this.artist,
     this.styles,
+    this.distance,
   });
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
