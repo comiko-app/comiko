@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:comiko/app_state.dart';
 import 'package:comiko/pages/upcoming_events_page.dart';
 import 'package:comiko/services.dart';
+import 'package:comiko/widgets/LocationGPS.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -57,6 +58,26 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     @required this.store,
   });
 
+
+  Future<Null> getLocation() async {
+    Location location = new Location();
+    var currentLocation = <String, double>{};
+
+    try {
+      currentLocation = await location.getLocation;
+      print(currentLocation["latitude"]);
+      print(currentLocation["longitude"]);
+      print(currentLocation["accuracy"]);
+      print(currentLocation["altitude"]);
+    } on PlatformException {
+      location = null;
+    }
+
+    //location.onLocationChanged.listen((Map<String,double> currentLocation) {
+     //live reload
+    //});
+  }
+
   Future<Null> initServices() async {
     String eventString = await rootBundle.loadString('lib/data/events.json');
     List<Map<String, dynamic>> eventJson = JSON.decode(eventString);
@@ -69,6 +90,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     initServices();
+    getLocation();
+
     _navigationViews = <NavigationIconView>[
       new NavigationIconView(
         icon: const Icon(Icons.access_alarm),
@@ -79,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       ),
       new NavigationIconView(
         icon: new Icon(Icons.card_travel),
-        body: new Text("2"),
+        body: new Text(""),
         title: const Text('Box'),
         color: Colors.deepOrange,
         vsync: this,

@@ -2,6 +2,7 @@ name: comiko
 description: Comiko
 
 dependencies:
+  location: "1.1.4"
   flutter:
     sdk: flutter
   json_serializable: "^0.2.3+1"
