@@ -27,12 +27,14 @@ class AppState {
   AppState._(
     this.events,
       this.sortingCriteria,
+      this.eventsFavoriteState,
   );
 
   AppState clone() {
     var newState = new AppState._(
       new List.from(events),
       sortingCriteria,
+      new Map.from(eventsFavoriteState),
     );
 
     return newState;
