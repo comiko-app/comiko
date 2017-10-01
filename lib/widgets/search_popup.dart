@@ -14,7 +14,9 @@ class SearchPopup extends StatelessWidget {
     return new AlertDialog(
       actions: [
         new FlatButton(
-            onPressed: () => Navigator.pop(context), child: const Text('OK'))
+          onPressed: () => Navigator.pop(context),
+          child: const Text('OK'),
+        ),
       ],
       title: const Text('Filtres'),
       content: new Column(
