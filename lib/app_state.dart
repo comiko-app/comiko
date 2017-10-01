@@ -36,12 +36,12 @@ class AppState {
 
     if (cityFilter != null && cityFilter != "") {
       sorted = eventsService.filterBy(sorted,
-          sort: FilteringCriteria.city, city: cityFilter);
+          filter: FilteringCriteria.city, city: cityFilter);
     }
 
     if (priceFilter != null) {
       sorted = eventsService.filterBy(sorted,
-          sort: FilteringCriteria.price, price: priceFilter);
+          filter: FilteringCriteria.price, price: priceFilter);
     }
 
     events = sorted;
