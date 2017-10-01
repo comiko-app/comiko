@@ -28,7 +28,6 @@ abstract class _$EventSerializerMixin {
   String get place;
   String get artist;
   String get styles;
-
   int get distance;
   DateTime get start;
   DateTime get end;
