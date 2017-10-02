@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:comiko/app_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
