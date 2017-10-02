@@ -22,12 +22,12 @@ class SearchPopup extends StatelessWidget {
     return new AlertDialog(
       actions: [
         new FlatButton(
-          onPressed: () => Navigator.pop(context),
-          child: const Text('OK'),
-        ),
-        new FlatButton(
           onPressed: () => store.dispatch(new ResetFiltersAction()),
           child: const Text('Réinitialiser'),
+        ),
+        new FlatButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('OK'),
         ),
       ],
       title: const Text('Filtres'),
