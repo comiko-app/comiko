@@ -32,27 +32,27 @@ class SearchPopup extends StatelessWidget {
       content: new Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          new StoreConnector<AppState, String>(
-            converter: (store) => store.state.cityFilter,
-            builder: (context, city) {
-              var cityFilterTextController =
-                  new TextEditingController(text: store.state.cityFilter)
-                    ..selection = new TextSelection(
-                      baseOffset: store.state.cityFilter.length,
-                      extentOffset: store.state.cityFilter.length,
-                    );
-              return new ListTile(
-                leading: new Icon(Icons.location_city),
-                title: new TextField(
+          new ListTile(
+            leading: new Icon(Icons.location_city),
+            title: new StoreConnector<AppState, String>(
+              converter: (store) => store.state.cityFilter,
+              builder: (context, city) {
+                var cityFilterTextController =
+                    new TextEditingController(text: store.state.cityFilter)
+                      ..selection = new TextSelection(
+                        baseOffset: store.state.cityFilter.length,
+                        extentOffset: store.state.cityFilter.length,
+                      );
+                return new TextField(
                   controller: cityFilterTextController,
                   decoration: const InputDecoration(
                     hintText: 'Entrer le nom de la ville',
                   ),
                   onSubmitted: (String value) =>
                       store.dispatch(new UpdateCityFilterAction(value)),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
           new ListTile(
             leading: new Icon(Icons.attach_money),
