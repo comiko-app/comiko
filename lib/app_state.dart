@@ -3,6 +3,10 @@ import 'package:comiko/services.dart';
 import 'package:comiko/widgets/event_card.dart';
 
 class AppState {
+  static const String defaultCityFilter = "";
+  static const double defaultPriceFilter = 100.0;
+  static const int defaultDistanceFilter = 500;
+
   List<Event> events;
   Map<Event, bool> eventsFavoriteState = {};
   SortingCriteria sortingCriteria;
@@ -15,9 +19,9 @@ class AppState {
     sortingCriteria = SortingCriteria.date;
     events = [];
     eventsFavoriteState = {};
-    cityFilter = "";
-    priceFilter = 100.0;
-    distanceFilter = 500;
+    cityFilter = defaultCityFilter;
+    priceFilter = defaultPriceFilter;
+    distanceFilter = defaultDistanceFilter;
   }
 
   EventCardViewModel createViewModel(Event event) => new EventCardViewModel(
@@ -50,6 +54,12 @@ class AppState {
     }
 
     events = sorted;
+  }
+
+  void resetFilters() {
+    cityFilter = defaultCityFilter;
+    priceFilter = defaultPriceFilter;
+    distanceFilter = defaultDistanceFilter;
   }
 
   AppState._(
@@ -167,6 +177,17 @@ class FetchEventsAction extends IsAction {
     for (var event in state.events) {
       state.eventsFavoriteState[event] = false;
     }
+
+    return state;
+  }
+}
+
+class ResetFiltersAction extends IsAction {
+  @override
+  AppState handle(AppState state) {
+    state = state.clone();
+    state.resetFilters();
+    state.filterEventsWithActiveFilters();
 
     return state;
   }
