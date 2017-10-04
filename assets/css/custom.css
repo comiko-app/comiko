@@ -1,13 +1,30 @@
 body {
     font-family: "Quicksand", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    letter-spacing: 2px;
 }
 
 .text-center {
     text-align: center;
 }
 
+@media (min-width: 30em) {
+    .row {
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+    }
+    .row.inverse {
+        direction: rtl;
+    }
+    .col {
+        display: table-cell;
+    }
+}
+
 
 /* Grid */
+
+
 /*
 .grid {
     display: table;
@@ -36,19 +53,6 @@ body {
     }
 }*/
 
-@media (min-width: 30em) {
-    .row {
-        text-align: center;
-        width: 100%;
-        display: table;
-        table-layout: fixed;
-    }
-    .col {
-        display: table-cell;
-        padding: 30px;
-    }
-}
-
 
 /* theme */
 
@@ -73,6 +77,27 @@ body {
     color: #00BCD4;
 }
 
+
+/* features sections */
+
+.features {
+    text-align: center;
+}
+
+.features .col {
+    padding: 30px;
+    vertical-align: middle;
+}
+
+
+/* Cards */
+
+.card {
+    padding: 30px;
+    text-align: center;
+}
+
 .card img {
+    max-width: 218px;
     border-radius: 50%;
 }
