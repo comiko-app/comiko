@@ -1,13 +1,12 @@
+# Comiko Landing page
 
-
-# Comiko
-
-## 
+## C'est quoi Comiko?
 
 Comiko, c'est une application mobile qui permet de découvrir les humoristes et artistes locaux avec simplicité!
-Grâce à comiko, simplifiez vos recherches et passez de superbes soirées! 
+Grâce à comiko, simplifiez vos recherches et passez de superbes soirées!
 
-filtrez vos recherches par:
+Filtrez vos recherches par:
+
 * Date de présentation
 * Distance
 * Prix
@@ -15,26 +14,13 @@ filtrez vos recherches par:
 Découvrez de nouveau artiste en vous amusant et développez votre CULTURE humoristique!
 Ajoutez des spectacles à vos favoris!
 
-
-
-
-
-
-
-
-
-
-
-
-
 ## Development
 
-### To use the code generation
-You need to run the watch.dart in the tool folder.
+Take a look at [Setting up your GitHub Pages site locally with Jekyll](https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll/).
+
+Quick steps:
+
 ```
-dart tool/watch.dart
+bundle install
+jekyll serve
 ```
-You can also add a run configuration in your IDE/Editor.
-## Getting Started
-For help getting started with Flutter, view our online
-[documentation](http://flutter.io/).
