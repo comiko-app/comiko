@@ -7,6 +7,9 @@ body {
     text-align: center;
 }
 
+
+/* Grid */
+
 @media (min-width: 30em) {
     .row {
         width: 100%;
@@ -23,38 +26,6 @@ body {
         display: table-cell;
     }
 }
-
-
-/* Grid */
-
-
-/*
-.grid {
-    display: table;
-    table-layout: fixed;
-    width: 100%;
-}
-
-.grid>.row {
-    display: table-row;
-}
-
-.grid>.row>.col {
-    padding: 30px;
-    display: table-cell;
-}
-
-@media (max-width: 30em) {
-    .grid {
-        display: block;
-    }
-    .grid>.row {
-        display: block;
-    }
-    .grid>.row>.col {
-        display: block;
-    }
-}*/
 
 
 /* theme */
