@@ -2,7 +2,7 @@
 
 # Comiko
 
-<img src="lib/assets/comiko.png" alt = "Comiko">
+<img src="lib/assets/comiko.png" alt = "Comiko" width="1153">
 
 #### Qu'est-ce que c'est?
 Comiko, c'est une application mobile qui permet de découvrir les humoristes et artistes locaux avec simplicité!
