@@ -16,6 +16,9 @@ body {
     .row.inverse {
         direction: rtl;
     }
+    .row.inverse .col {
+        direction: ltr;
+    }
     .col {
         display: table-cell;
     }
