@@ -1,5 +1,6 @@
 body {
     font-family: "Quicksand", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    letter-spacing: 2px;
 }
 
 .text-center {
@@ -8,44 +9,21 @@ body {
 
 
 /* Grid */
-/*
-.grid {
-    display: table;
-    table-layout: fixed;
-    width: 100%;
-}
-
-.grid>.row {
-    display: table-row;
-}
-
-.grid>.row>.col {
-    padding: 30px;
-    display: table-cell;
-}
-
-@media (max-width: 30em) {
-    .grid {
-        display: block;
-    }
-    .grid>.row {
-        display: block;
-    }
-    .grid>.row>.col {
-        display: block;
-    }
-}*/
 
 @media (min-width: 30em) {
     .row {
-        text-align: center;
         width: 100%;
         display: table;
         table-layout: fixed;
     }
+    .row.inverse {
+        direction: rtl;
+    }
+    .row.inverse .col {
+        direction: ltr;
+    }
     .col {
         display: table-cell;
-        padding: 30px;
     }
 }
 
@@ -73,6 +51,27 @@ body {
     color: #00BCD4;
 }
 
+
+/* features sections */
+
+.features {
+    text-align: center;
+}
+
+.features .col {
+    padding: 30px;
+    vertical-align: middle;
+}
+
+
+/* Cards */
+
+.card {
+    padding: 30px;
+    text-align: center;
+}
+
 .card img {
+    max-width: 218px;
     border-radius: 50%;
 }
