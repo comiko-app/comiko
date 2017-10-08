@@ -11,7 +11,7 @@ dependencies:
     git: https://github.com/comiko-app/shared.git
   comiko_backend:
     git: https://github.com/comiko-app/backend.git
-
+  firebase_firestore: '>=0.0.1+1 <0.1.0'
 dev_dependencies:
   flutter_test:
     sdk: flutter
