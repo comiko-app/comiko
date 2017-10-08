@@ -1,3 +1,5 @@
+import 'package:comiko/models.dart';
+import 'package:comiko/widgets/artist_card.dart';
 import 'package:flutter/material.dart';
 
 class ArtistsPage extends StatelessWidget {
@@ -14,11 +16,22 @@ class ArtistsPage extends StatelessWidget {
         ),
         title: new Text("Artistes"),
       ),
-      body: new Center(
-        child: new Text(
-          "Bientôt disponible",
-          style: Theme.of(context).textTheme.headline,
-        ),
+      body: new GridView.count(
+        crossAxisCount:
+            MediaQuery.of(context).orientation == Orientation.portrait ? 1 : 3,
+        padding: const EdgeInsets.all(8.0),
+        mainAxisSpacing: 4.0,
+        crossAxisSpacing: 4.0,
+        children: <Widget>[
+          new ArtistCard(
+            new ArtistCardViewModel(
+              artist: new Artist(
+                  name: "Mike Ward",
+                  image:
+                      "http://www.repertoiredesartistesquebecois.org/public/membres/2395.jpg"),
+            ),
+          ),
+        ],
       ),
     );
   }
