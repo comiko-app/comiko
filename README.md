@@ -1,6 +1,6 @@
 <h1 align="center">
 	<br>
-	<img width="1153" src="lib/assets/comiko_long.png" alt="Comiko">
+	<img width="1153" src="mobile_app/lib/assets/comiko_long.png" alt="Comiko">
 	<br>
 	<br>
 	<br>
