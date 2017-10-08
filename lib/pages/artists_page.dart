@@ -27,7 +27,7 @@ class ArtistsPage extends StatelessWidget {
             new ArtistCardViewModel(
               artist: new Artist(
                   name: "Mike Ward",
-                  image:
+                  imageUrl:
                       "http://www.repertoiredesartistesquebecois.org/public/membres/2395.jpg"),
             ),
           ),

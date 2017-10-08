@@ -50,7 +50,7 @@ class ArtistCard extends StatelessWidget {
           fit: StackFit.expand,
           children: <Widget>[
             new Image.network(
-              artistCardViewModel.artist.image,
+              artistCardViewModel.artist.imageUrl,
               fit: BoxFit.cover,
             ),
             new Container(
