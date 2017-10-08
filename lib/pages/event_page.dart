@@ -1,7 +1,7 @@
-import 'package:comiko/src/models/event.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
+import 'package:comiko_shared/models.dart';
 
 class EventPage extends StatelessWidget {
   final Event event;
