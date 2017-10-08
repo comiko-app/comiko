@@ -1,0 +1,13 @@
+name: comiko_backend
+description: Comiko backend project.
+version: 0.0.1
+
+environment:
+  sdk: '>=1.20.1 <2.0.0'
+
+dependencies:
+  comiko_shared:
+    path: ../shared
+
+dev_dependencies:
+  test: ^0.12.0
