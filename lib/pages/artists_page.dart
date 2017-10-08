@@ -1,5 +1,5 @@
-import 'package:comiko/models.dart';
 import 'package:comiko/widgets/artist_card.dart';
+import 'package:comiko_shared/models.dart';
 import 'package:flutter/material.dart';
 
 class ArtistsPage extends StatelessWidget {
