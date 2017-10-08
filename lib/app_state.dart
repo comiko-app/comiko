@@ -1,6 +1,6 @@
-import 'package:comiko/models.dart';
-import 'package:comiko/services.dart';
 import 'package:comiko/widgets/event_card.dart';
+import 'package:comiko_shared/models.dart';
+import 'package:comiko_backend/services.dart';
 
 class AppState {
   static const String defaultCityFilter = "";
