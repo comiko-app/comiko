@@ -1,3 +1,4 @@
+import 'package:comiko/routing_assistant.dart';
 import 'package:comiko_shared/models.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
@@ -18,7 +19,8 @@ class ArtistCard extends StatelessWidget {
   ArtistCard(this.artistCardViewModel);
 
   void navigateToArtist(BuildContext context) {
-    //TODO
+    Navigator.push(
+        context, RoutingAssistant.artistPage(artistCardViewModel.artist.id));
   }
 
   @override

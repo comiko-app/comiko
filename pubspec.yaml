@@ -12,10 +12,10 @@ dependencies:
   comiko_backend:
     git: https://github.com/comiko-app/backend.git
   firebase_firestore: '>=0.0.1+1 <0.1.0'
+  font_awesome_flutter: '>=4.7.2 <5.0.0'
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
@@ -54,6 +54,11 @@ flutter:
     - lib/assets/comiko_white.png
     - lib/assets/comiko_logo.png
     - lib/data/events.json
+
+  fonts:
+    - family: FontAwesome # Do not change!
+      fonts:
+        - asset: packages/font_awesome_flutter/fonts/fontawesome.woff
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
