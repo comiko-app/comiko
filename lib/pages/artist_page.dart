@@ -3,6 +3,7 @@ import 'package:meta/meta.dart';
 import 'package:comiko_shared/models.dart';
 import 'package:firebase_firestore/firebase_firestore.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ArtistPage extends StatelessWidget {
   final String artistId;
@@ -60,29 +61,29 @@ class ArtistPage extends StatelessWidget {
                       artist.facebook != null
                           ? new ListTile(
                               leading: const Icon(FontAwesomeIcons.facebook),
-                              title: const Text('Facebook'),
-                              onTap: () {},
+                              title: new Text(artist.facebookHandle),
+                              onTap: () => launch(artist.facebook),
                             )
                           : null,
                       artist.twitter != null
                           ? new ListTile(
                               leading: const Icon(FontAwesomeIcons.twitter),
-                              title: const Text('Twitter'),
-                              onTap: () {},
+                              title: new Text(artist.twitterHandle),
+                              onTap: () => launch(artist.twitter),
                             )
                           : null,
                       artist.youtube != null
                           ? new ListTile(
                               leading: const Icon(FontAwesomeIcons.youtube),
-                              title: const Text('YouTube'),
-                              onTap: () {},
+                              title: new Text(artist.youtubeHandle),
+                              onTap: () => launch(artist.youtube),
                             )
                           : null,
                       artist.website != null
                           ? new ListTile(
                               leading: const Icon(FontAwesomeIcons.chrome),
-                              title: const Text('Website'),
-                              onTap: () {},
+                              title: new Text(artist.websiteShort),
+                              onTap: () => launch(artist.website),
                             )
                           : null,
                       new Divider(height: 32.0),
