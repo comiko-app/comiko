@@ -1,13 +1,13 @@
 import 'package:comiko/app_state.dart';
-import 'package:comiko/models.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
+import 'package:comiko_shared/models.dart';
 
-class FilterPopupMenu extends StatelessWidget {
+class SortPopupMenu extends StatelessWidget {
   final Store<AppState> store;
 
-  FilterPopupMenu({
+  SortPopupMenu({
     @required this.store,
   });
 
@@ -33,7 +33,7 @@ class FilterPopupMenu extends StatelessWidget {
         new CheckedPopupMenuItem<SortingCriteria>(
           checked: store.state.sortingCriteria == SortingCriteria.price,
           value: SortingCriteria.price,
-          child: const Text('Price'),
+          child: const Text('Prix'),
         ),
       ],
     );

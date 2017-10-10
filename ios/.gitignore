@@ -9,7 +9,7 @@ profile
 
 DerivedData/
 build/
-GeneratedPluginRegistrant.h
+Runner/GeneratedPluginRegistrant.h
 GeneratedPluginRegistrant.m
 
 *.pbxuser

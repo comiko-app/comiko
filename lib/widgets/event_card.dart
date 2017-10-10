@@ -1,7 +1,6 @@
 import 'package:comiko/app_state.dart';
-import 'package:comiko/models.dart';
 import 'package:comiko/routing_assistant.dart';
-import 'package:comiko/src/models/event.dart';
+import 'package:comiko_shared/models.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
@@ -71,13 +70,13 @@ class EventCard extends StatelessWidget {
               title: new _GridTitleText(eventCardViewModel.event.place ?? ""),
               subtitle: new _GridTitleText(
                   formatter.format(eventCardViewModel.event.start)),
-              trailing: new Container(
-                margin: new EdgeInsets.only(right: 8.0),
-                child: new GestureDetector(
-                  onTap: () =>
-                      store
-                          .dispatch(
-                          new ToggleFavoriteAction(eventCardViewModel)),
+              trailing: new GestureDetector(
+                onTap: () =>
+                    store.dispatch(
+                        new ToggleFavoriteAction(eventCardViewModel.event)),
+                child: new Container(
+                  padding: const EdgeInsets.all(22.0),
+                  color: Colors.transparent,
                   child: new Icon(
                     eventCardViewModel.isFavorite
                         ? Icons.favorite
