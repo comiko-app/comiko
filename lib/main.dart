@@ -53,7 +53,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
-  var currentLocation = <String, double>{};
+  Map<String, double> currentLocation = <String, double>{};
   int _currentIndex = 0;
   List<NavigationIconView> _navigationViews;
   final Store<AppState> store;
