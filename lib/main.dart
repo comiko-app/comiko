@@ -66,8 +66,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     LocationService location = new LocationService();
     try {
       currentLocation = await location.getLocation;
-    } on PlatformException {
-      print(MissingPluginException);
+    } on PlatformException catch(e){
+      print(e);
     }
   }
 
