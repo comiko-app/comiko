@@ -1,15 +1,15 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:comiko/app_state.dart';
-import 'package:comiko/pages/upcoming_events_page.dart';
-import 'package:comiko/services.dart';
-import 'package:comiko/widgets/LocationGPS.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
+import 'package:comiko/app_state.dart';
+import 'package:comiko/pages/upcoming_events_page.dart';
+import 'package:comiko/services.dart';
+import 'package:comiko/services/LocationService.dart';
 
 void main() {
   runApp(new MyApp());
@@ -50,6 +50,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
+  var currentLocation = <String, double>{};
   int _currentIndex = 0;
   List<NavigationIconView> _navigationViews;
   final Store<AppState> store;
@@ -58,24 +59,13 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     @required this.store,
   });
 
-
   Future<Null> getLocation() async {
-    Location location = new Location();
-    var currentLocation = <String, double>{};
-
+    LocationService location = new LocationService();
     try {
       currentLocation = await location.getLocation;
-      print(currentLocation["latitude"]);
-      print(currentLocation["longitude"]);
-      print(currentLocation["accuracy"]);
-      print(currentLocation["altitude"]);
     } on PlatformException {
       location = null;
     }
-
-    //location.onLocationChanged.listen((Map<String,double> currentLocation) {
-     //live reload
-    //});
   }
 
   Future<Null> initServices() async {
@@ -126,7 +116,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     for (NavigationIconView view in _navigationViews) {
       view.controller.addListener(_rebuild);
     }
-
     _navigationViews[_currentIndex].controller.value = 1.0;
   }
 

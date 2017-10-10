@@ -2,9 +2,9 @@ name: comiko
 description: Comiko
 
 dependencies:
-  location: "1.1.4"
   flutter:
     sdk: flutter
+  location: "1.1.4"
   json_serializable: "^0.2.3+1"
   json_annotation: 0.2.0
   redux: "^2.0.1"
