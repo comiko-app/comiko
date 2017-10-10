@@ -12,7 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
-import 'package:comiko/services/LocationService.dart';
+import 'package:comiko/services/location_service.dart';
 
 void main() {
   runApp(new MyApp());
@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     try {
       currentLocation = await location.getLocation;
     } on PlatformException {
-      location = null;
+      print(MissingPluginException);
     }
   }
 
