@@ -7,6 +7,7 @@
 </h1>
 
 [![Build Status](https://travis-ci.org/comiko-app/comiko.svg?branch=master)](https://travis-ci.org/comiko-app/comiko)
+[![codecov](https://codecov.io/gh/comiko-app/comiko/branch/master/graph/badge.svg)](https://codecov.io/gh/comiko-app/comiko)
 
 #### Qu'est-ce que c'est?
 Comiko, c'est une application mobile qui permet de découvrir les humoristes et artistes locaux avec simplicité!
