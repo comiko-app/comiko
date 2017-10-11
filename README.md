@@ -11,7 +11,7 @@
 ## English Introduction
 ## What is it?
 
-Comiko, it is a mobile application that allows to discover the local humorists and artists with simplicity! Thanks to Comiko, you can simplify your search and spend great evenings!
+Comiko is a mobile application that allows to discover the local comedians with simplicity! Thanks to Comiko, you can simplify your search and spend great evenings!
 
 Filter your searches by:
 
