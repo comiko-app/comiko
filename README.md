@@ -15,9 +15,9 @@ Using comiko, reduce the amount of time you spend looking, and increase the time
 
 
 Filter your searches by:
-*The date of the show
-*How far it is
-*The show's cost
+* The date of the show
+* How far it is
+* The show's cost
 
 Find new artists, enjoy yourself, and develop your humorous side!
 Add the best shows to your favourites!
