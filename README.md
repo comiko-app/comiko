@@ -19,7 +19,7 @@ Filter your searches by:
 - Distance
 - Price
 
-Discover new artist by having fun and developing your humorous CULTURE! Add shows to your favorites!
+Discover new artists by having fun and developing your humorous CULTURE! Add shows to your favorites!
 
 ## French Introduction
 ## Qu'est-ce que c'est?
