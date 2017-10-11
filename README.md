@@ -35,6 +35,18 @@ The project is contained in a few projects.
 
 - [Shared](https://github.com/comiko-app/shared) is the project containing the models and several business logic rules. If you want to modify stuff in this project, be careful to test [Comiko](https://github.com/comiko-app/comiko), [Backend](https://github.com/comiko-app/backend) , and [Data-Scraper](https://github.com/comiko-app/data-scraper) since they all depend on this.
 
+### Setup for Firebase
+
+- Go to [Firebase console](https://console.firebase.google.com/`)
+- Go to your [project settings]
+
+![settings](https://i.imgur.com/0EXnrEM.png)
+
+- Download the `google-services.json` file.
+
+![google-services.json](https://i.imgur.com/W0N8U1P.png)
+
+- Place it under `comiko-app/android/app`
 
 ## Getting Started
 For help getting started with Flutter, view our online
