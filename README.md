@@ -9,17 +9,18 @@
 [![Build Status](https://travis-ci.org/comiko-app/comiko.svg?branch=master)](https://travis-ci.org/comiko-app/comiko)
 [![codecov](https://codecov.io/gh/comiko-app/comiko/branch/master/graph/badge.svg)](https://codecov.io/gh/comiko-app/comiko)
 
-#### Qu'est-ce que c'est?
-Comiko, c'est une application mobile qui permet de découvrir les humoristes et artistes locaux avec simplicité!
-Grâce à comiko, simplifiez vos recherches et passez de superbes soirées! 
+#### What is it?
+Comiko is a mobile application which allows you to easily discover local comedians and artists!
+Using comiko, reduce the amount of time you spend looking, and increase the time you spend enjoying your evenings!
 
-filtrez vos recherches par:
-* Date de présentation
-* Distance
-* Prix
 
-Découvrez de nouveau artiste en vous amusant et développez votre CULTURE humoristique!
-Ajoutez des spectacles à vos favoris!
+Filter your searches by:
+* The date of the show
+* How far it is
+* The show's cost
+
+Find new artists, enjoy yourself, and develop your humorous side!
+Add the best shows to your favourites!
 
 ## Development
 
