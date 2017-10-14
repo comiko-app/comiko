@@ -41,7 +41,7 @@ The project is contained in a few projects.
 Note: If you're not part of the Comiko project on Firebase, you can either ask to be invited, or create your own Firebase project, just make sure to use the correct package name (`ca.comiko.comiko`).
 
 
-- Go to [Firebase console](https://console.firebase.google.com`)
+- Go to [Firebase console](https://console.firebase.google.com)
 - Go to your [project settings]
 
 ![settings](https://i.imgur.com/0EXnrEM.png)
