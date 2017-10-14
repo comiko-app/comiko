@@ -53,10 +53,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
-  Map<String, double> currentLocation = <String, double>{};
+  final Store<AppState> store;
   int _currentIndex = 0;
   List<NavigationIconView> _navigationViews;
-  final Store<AppState> store;
 
   _MyHomePageState({
     @required this.store,
@@ -65,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   Future<Null> getLocation() async {
     LocationService location = new LocationService();
     try {
-      currentLocation = await location.getLocation;
+      final Map<String, double> currentLocation = await location.getLocation;
     } on PlatformException catch (e) {
       print(e);
     }
@@ -84,6 +83,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     super.initState();
     initServices();
     getLocation();
+
 
     _navigationViews = <NavigationIconView>[
       new NavigationIconView(
