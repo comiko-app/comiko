@@ -213,12 +213,10 @@ class NavigationIconView {
     return new FadeTransition(
       opacity: _animation,
       child: new SlideTransition(
-        position: new FractionalOffsetTween(
-          begin: const FractionalOffset(0.0, 0.02),
-          // Small offset from the top.
-          end: FractionalOffset.topLeft,
-        )
-            .animate(_animation),
+        position: new Tween<Offset>(
+          begin: const Offset(0.0, 0.02),
+          end: Offset.zero,
+        ).animate(_animation),
         child: _body,
       ),
     );
