@@ -9,3 +9,5 @@ packages
 pubspec.lock
 .flutter-plugins
 coverage
+
+android/app/google-services.json

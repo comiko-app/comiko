@@ -7,11 +7,16 @@ import 'package:comiko/pages/artists_page.dart';
 import 'package:comiko/pages/liked_events_page.dart';
 import 'package:comiko/pages/upcoming_events_page.dart';
 import 'package:comiko_backend/services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
+final GoogleSignIn _googleSignIn = new GoogleSignIn();
 
 void main() {
   runApp(new MyApp());
@@ -68,6 +73,25 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     store.dispatch(new FetchEventsAction());
   }
 
+  Future<String> _testSignInWithGoogle() async {
+    final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+    final FirebaseUser user = await _auth.signInWithGoogle(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+    assert(user.email != null);
+    assert(user.displayName != null);
+    assert(!user.isAnonymous);
+    assert(await user.getIdToken() != null);
+
+    final FirebaseUser currentUser = await _auth.currentUser();
+    assert(user.uid == currentUser.uid);
+
+    return 'signInWithGoogle succeeded: $user';
+  }
+
   @override
   void initState() {
     super.initState();
@@ -97,6 +121,23 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       new NavigationIconView(
         icon: new Icon(Icons.insert_emoticon),
         body: new AboutUsPage(),
+        title: const Text('Comiko'),
+        color: new Color.fromARGB(0xFF, 0xD3, 0x2F, 0x2F),
+        vsync: this,
+      ),
+      new NavigationIconView(
+        icon: new Icon(Icons.terrain),
+        body: new Scaffold(
+          body: new Center(
+            child: new MaterialButton(
+              child: const Text('Test signInWithGoogle'),
+              onPressed: () {
+                final test = _testSignInWithGoogle();
+                print(test);
+              },
+            ),
+          ),
+        ),
         title: const Text('Comiko'),
         color: new Color.fromARGB(0xFF, 0xD3, 0x2F, 0x2F),
         vsync: this,
@@ -204,7 +245,8 @@ class NavigationIconView {
         position: new Tween<Offset>(
           begin: const Offset(0.0, 0.02),
           end: Offset.zero,
-        ).animate(_animation),
+        )
+            .animate(_animation),
         child: _body,
       ),
     );
