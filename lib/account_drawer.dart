@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-final FirebaseAuth _auth = FirebaseAuth.instance;
+final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 final GoogleSignIn _googleSignIn = new GoogleSignIn();
 
 class AccountDrawer extends StatefulWidget {
@@ -20,48 +20,46 @@ class _AccountDrawerState extends State<AccountDrawer>
   Animation<double> _drawerContentsOpacity;
   Animation<Offset> _drawerDetailsPosition;
 
-  Future<FirebaseUser> _signInSilentlyWithGoogle() async {
-    var googleUser = _googleSignIn.currentUser;
-    if (googleUser == null) {
-      await _googleSignIn.signInSilently();
-    }
+  Future<bool> _signIn({bool onlySilently = false}) async {
+    final googleUser = await _signInWithGoogle(onlySilently);
 
     if (googleUser != null) {
-      return await _auth.currentUser();
+      final firebaseUser = await _signInToFirebase();
+      return firebaseUser != null;
     }
 
-    return null;
+    return false;
   }
 
-  Future<FirebaseUser> _signInWithGoogle() async {
+  Future<GoogleSignInAccount> _signInWithGoogle(bool onlySilently) async {
     var googleUser = _googleSignIn.currentUser;
+
     if (googleUser == null) {
       googleUser = await _googleSignIn.signInSilently();
     }
-    if (googleUser == null) {
+
+    if (!onlySilently && googleUser == null) {
       googleUser = await _googleSignIn.signIn();
     }
 
-    if (googleUser != null) {
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
-      final FirebaseUser user = await _auth.signInWithGoogle(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
+    return googleUser;
+  }
 
-      assert(user.email != null);
-      assert(user.displayName != null);
-      assert(!user.isAnonymous);
-      assert(await user.getIdToken() != null);
+  Future<FirebaseUser> _signInToFirebase() async {
+    var googleUser = _googleSignIn.currentUser;
 
-      final FirebaseUser currentUser = await _auth.currentUser();
-      assert(user.uid == currentUser.uid);
-
-      return currentUser;
+    if (googleUser == null) {
+      return null;
     }
 
-    return null;
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+    final FirebaseUser firebaseUser = await _firebaseAuth.signInWithGoogle(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    return firebaseUser;
   }
 
   void _rebuild() {
@@ -91,8 +89,8 @@ class _AccountDrawerState extends State<AccountDrawer>
       ),
     );
 
-    _signInSilentlyWithGoogle().then((user) {
-      if (user != null) {
+    _signIn(onlySilently: true).then((success) {
+      if (success) {
         _rebuild();
       }
     });
@@ -162,8 +160,10 @@ class _AccountDrawerState extends State<AccountDrawer>
                                 leading: const Icon(Icons.account_box),
                                 title: new Text('Sign in with google'),
                                 onTap: () {
-                                  _signInWithGoogle().then((account) {
-                                    _rebuild();
+                                  _signIn().then((success) {
+                                    if (success) {
+                                      _rebuild();
+                                    }
                                   });
                                 },
                               )
