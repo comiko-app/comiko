@@ -16,8 +16,9 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.3'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.3'
+
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -43,6 +44,9 @@ android {
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
         }
+        profile {
+            matchingFallbacks = ['debug', 'release']
+        }
     }
 }
 
@@ -51,11 +55,10 @@ flutter {
 }
 
 dependencies {
-    androidTestCompile 'com.android.support:support-annotations:25.4.0'
-    androidTestCompile 'com.android.support.test:runner:0.5'
-    androidTestCompile 'com.android.support.test:rules:0.5'
-    compile 'org.jetbrains.kotlin:kotlin-stdlib-jre7:1.1.2-4'
-    compile 'com.google.firebase:firebase-core:11.4.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation 'com.google.firebase:firebase-core:11.4.2'
 }
 
 apply plugin: 'com.google.gms.google-services'
