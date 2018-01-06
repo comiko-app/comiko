@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "906402477789",
+    "firebase_url": "https://comiko-3916d.firebaseio.com",
+    "project_id": "comiko-3916d",
+    "storage_bucket": "comiko-3916d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:906402477789:android:93cab649d0152344",
+        "android_client_info": {
+          "package_name": "ca.comiko.comiko"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "906402477789-09t6k94ig1e6np8n8q5kgofivhslu634.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1mgdiXwtrKmsgU7QQmfdilvwOmcm-r9Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,6 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:comiko/widgets/artist_card.dart';
 import 'package:comiko_shared/models.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class ArtistsPage extends StatelessWidget {
@@ -18,14 +18,17 @@ class ArtistsPage extends StatelessWidget {
         title: new Text("Artistes"),
       ),
       body: new StreamBuilder<QuerySnapshot>(
-        stream: Firestore.instance.collection('artists').snapshots,
+        stream: Firestore.instance
+            .collection('artists')
+            .where("deleted", isEqualTo: false)
+            .snapshots,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) return const Text('Loading...');
           return new GridView.count(
             crossAxisCount:
                 MediaQuery.of(context).orientation == Orientation.portrait
-                    ? 2
-                    : 4,
+                    ? 1
+                    : 2,
             padding: const EdgeInsets.all(8.0),
             mainAxisSpacing: 4.0,
             crossAxisSpacing: 4.0,
