@@ -1,6 +1,6 @@
 import 'package:comiko/widgets/artist_card.dart';
 import 'package:comiko_shared/models.dart';
-import 'package:firebase_firestore/firebase_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class ArtistsPage extends StatelessWidget {

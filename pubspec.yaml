@@ -11,9 +11,9 @@ dependencies:
     git: https://github.com/comiko-app/shared.git
   comiko_backend:
     git: https://github.com/comiko-app/backend.git
-  firebase_firestore: '>=0.0.1+1 <0.1.0'
+  cloud_firestore: '^0.2.2'
   font_awesome_flutter: '^6.0.0'
-  url_launcher: "^0.4.2+5"
+  url_launcher: "^2.0.0"
   intl: '>=0.15.2 <0.16.0'
 dev_dependencies:
   flutter_test:
