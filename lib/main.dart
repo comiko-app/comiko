@@ -12,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
+import 'package:comiko/services/location_service.dart';
 
 void main() {
   runApp(new MyApp());
@@ -52,13 +53,22 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
+  final Store<AppState> store;
   int _currentIndex = 0;
   List<NavigationIconView> _navigationViews;
-  final Store<AppState> store;
 
   _MyHomePageState({
     @required this.store,
   });
+
+  Future<Null> getLocation() async {
+    LocationService location = new LocationService();
+    try {
+      final Map<String, double> currentLocation = await location.getLocation;
+    } on PlatformException catch (e) {
+      print(e);
+    }
+  }
 
   Future<Null> initServices() async {
     String eventString = await rootBundle.loadString('lib/data/events.json');
@@ -72,6 +82,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     initServices();
+    getLocation();
+
+
     _navigationViews = <NavigationIconView>[
       new NavigationIconView(
         icon: const Icon(Icons.event_available),
@@ -106,7 +119,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     for (NavigationIconView view in _navigationViews) {
       view.controller.addListener(_rebuild);
     }
-
     _navigationViews[_currentIndex].controller.value = 1.0;
   }
 
