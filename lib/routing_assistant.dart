@@ -2,9 +2,9 @@ import 'package:comiko/app_state.dart';
 import 'package:comiko/pages/artist_page.dart';
 import 'package:comiko/pages/event_page.dart';
 import 'package:comiko/widgets/search_popup.dart';
+import 'package:comiko_shared/models.dart';
 import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
-import 'package:comiko_shared/models.dart';
 
 class RoutingAssistant {
   static MaterialPageRoute eventPage(Event event) {
@@ -18,6 +18,7 @@ class RoutingAssistant {
   }
 
   static MaterialPageRoute artistPage(Artist artist) {
-    return new MaterialPageRoute(builder: (_) => new ArtistPage(artist: artist));
+    return new MaterialPageRoute(
+        builder: (_) => new ArtistPage(artist: artist));
   }
 }

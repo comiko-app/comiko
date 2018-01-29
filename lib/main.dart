@@ -204,7 +204,8 @@ class NavigationIconView {
         position: new Tween<Offset>(
           begin: const Offset(0.0, 0.02),
           end: Offset.zero,
-        ).animate(_animation),
+        )
+            .animate(_animation),
         child: _body,
       ),
     );

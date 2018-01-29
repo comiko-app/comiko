@@ -29,10 +29,9 @@ class AboutUsPage extends StatelessWidget {
           ),
           new Container(
               child: new Text(
-                """Comiko est une idée venue de quelques "geeks" d'humour, avec l'ambition de faciliter la vie de la communauté humoristique du Québec. \n\nLe but est de promouvoir l'humour et de donner une vitrine aux humoristes de la relève, ainsi qu'à ceux déjà établis. \n\nPar les fans d'humour, pour les fans d'humour.""",
-
+            """Comiko est une idée venue de quelques "geeks" d'humour, avec l'ambition de faciliter la vie de la communauté humoristique du Québec. \n\nLe but est de promouvoir l'humour et de donner une vitrine aux humoristes de la relève, ainsi qu'à ceux déjà établis. \n\nPar les fans d'humour, pour les fans d'humour.""",
             style: Theme.of(context).textTheme.subhead,
-                textAlign: TextAlign.left,
+            textAlign: TextAlign.left,
           )),
         ],
       ),

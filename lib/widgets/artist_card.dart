@@ -1,8 +1,9 @@
 import 'package:comiko/routing_assistant.dart';
+import 'package:comiko/widgets/artist_image.dart';
+import 'package:comiko/widgets/grid_tile_text.dart';
 import 'package:comiko_shared/models.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class ArtistCardViewModel {
   final Artist artist;
@@ -31,7 +32,7 @@ class ArtistCard extends StatelessWidget {
         onTap: () => navigateToArtist(context),
         child: new GridTileBar(
           backgroundColor: Colors.black54,
-          title: new _GridTitleText(artistCardViewModel.artist.name),
+          title: new GridTileText(artistCardViewModel.artist.name),
           trailing: new GestureDetector(
             onTap: () => null,
             child: new Container(
@@ -52,11 +53,7 @@ class ArtistCard extends StatelessWidget {
         child: new Stack(
           fit: StackFit.expand,
           children: <Widget>[
-            new Image(
-              image: new CachedNetworkImageProvider(
-                  artistCardViewModel.artist.imageUrl),
-              fit: BoxFit.cover,
-            ),
+            new ArtistImage(artistCardViewModel.artist.imageUrl),
             new Container(
               decoration: new BoxDecoration(
                 gradient: new LinearGradient(
@@ -67,21 +64,6 @@ class ArtistCard extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class _GridTitleText extends StatelessWidget {
-  const _GridTitleText(this.text);
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return new FittedBox(
-      fit: BoxFit.scaleDown,
-      alignment: FractionalOffset.centerLeft,
-      child: new Text(text),
     );
   }
 }

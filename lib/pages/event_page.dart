@@ -1,23 +1,17 @@
+import 'package:comiko_shared/models.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
-import 'package:comiko_shared/models.dart';
 
 class EventPage extends StatelessWidget {
   final Event event;
+  final DateFormat dateTimeFormatter = new DateFormat('d MMMM yyyy HH:mm');
 
   EventPage({@required this.event});
 
   @override
   Widget build(BuildContext context) {
     final double _appBarHeight = 256.0;
-    final DateFormat dateTimeFormatter = new DateFormat('d MMMM yyyy HH:mm');
-
-    String startTime = dateTimeFormatter.format(event.start);
-    String endTime = event.end == null
-        ? ""
-        : " - ${dateTimeFormatter.format(
-        event.end)}";
 
     return new Scaffold(
       body: new CustomScrollView(
@@ -50,67 +44,71 @@ class EventPage extends StatelessWidget {
           ),
           new SliverList(
             delegate: new SliverChildListDelegate(
-              <Widget>[
-                new ListTile(
-                  leading: const Icon(Icons.slideshow),
-                  title: new Text(event.name),
-                ),
-                new ListTile(
-                  leading: const Icon(Icons.date_range),
-                  title: new Text("$startTime$endTime"),
-                ),
-                new ListTile(
-                  leading: const Icon(Icons.location_city),
-                  title: new Text(event.place ?? ""),
-                ),
-                new Divider(height: 32.0),
-                new ListTile(
-                  leading: const Icon(Icons.add_location),
-                  title: new Text(event.address ?? ""),
-                  subtitle: new Text(event.city ?? ""),
-                ),
-                new ListTile(
-                  leading: const Icon(Icons.monetization_on),
-                  title: new Text("${event.price.toStringAsFixed(2)}\$"),
-                ),
-                new Divider(height: 32.0),
-                new Container(
-                  margin: new EdgeInsets.all(16.0),
-                  child: new Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      new Container(
-                        margin: new EdgeInsets.only(right: 32.0),
-                        child: new Icon(Icons.description),
-                      ),
-                      new Text(
-                        "Information",
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .title,
-                      ),
-                    ],
-                  ),
-                ),
-                new Container(
-                  margin: new EdgeInsets.only(left: 72.0, right: 16.0),
-                  child: new Text(
-                    event.description ?? "",
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .subhead,
-                  ),
-                ),
-                new Container(
-                  height: 64.0,
-                ),
-              ],
+              eventDetails(event, context),
             ),
           ),
         ],
       ),
     );
+  }
+
+  List<Widget> eventDetails(Event event, BuildContext context) {
+    String startTime = dateTimeFormatter.format(event.start);
+    String endTime = event.end == null
+        ? ""
+        : " - ${dateTimeFormatter.format(
+        event.end)}";
+
+    return [
+      new ListTile(
+        leading: const Icon(Icons.slideshow),
+        title: new Text(event.name),
+      ),
+      new ListTile(
+        leading: const Icon(Icons.date_range),
+        title: new Text("$startTime$endTime"),
+      ),
+      new ListTile(
+        leading: const Icon(Icons.location_city),
+        title: new Text(event.place ?? ""),
+      ),
+      new Divider(),
+      new ListTile(
+        leading: const Icon(Icons.location_on),
+        title: new Text(event.address ?? ""),
+        subtitle: new Text(event.city ?? ""),
+      ),
+      new ListTile(
+        leading: const Icon(Icons.monetization_on),
+        title: new Text("${event.price.toStringAsFixed(2)}\$"),
+      ),
+      new Divider(),
+      new Container(
+        margin: new EdgeInsets.all(16.0),
+        child: new Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            new Container(
+              margin: new EdgeInsets.only(right: 32.0),
+              child: new Icon(Icons.description),
+            ),
+            new Text(
+              "Information",
+              style: Theme.of(context).textTheme.title,
+            ),
+          ],
+        ),
+      ),
+      new Container(
+        margin: new EdgeInsets.only(left: 72.0, right: 16.0),
+        child: new Text(
+          event.description ?? "",
+          style: Theme.of(context).textTheme.subhead,
+        ),
+      ),
+      new Container(
+        height: 64.0,
+      ),
+    ];
   }
 }
