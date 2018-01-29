@@ -71,34 +71,43 @@ Column bioWidgets(BuildContext context, Artist artist) => new Column(
     );
 
 List<Widget> socialWidgets(Artist artist, BuildContext context) => [
-      artist.facebook != null
-          ? new ListTile(
-              leading: const Icon(FontAwesomeIcons.facebook),
-              title: new Text(artist.facebookHandle),
-              onTap: () => launch(artist.facebook),
-            )
-          : null,
-      artist.twitter != null
-          ? new ListTile(
-              leading: const Icon(FontAwesomeIcons.twitter),
-              title: new Text(artist.twitterHandle),
-              onTap: () => launch(artist.twitter),
-            )
-          : null,
-      artist.youtube != null
-          ? new ListTile(
-              leading: const Icon(FontAwesomeIcons.youtube),
-              title: new Text(artist.youtubeHandle),
-              onTap: () => launch(artist.youtube),
-            )
-          : null,
-      artist.website != null
-          ? new ListTile(
-              leading: const Icon(FontAwesomeIcons.chrome),
-              title: new Text(artist.websiteShort),
-              onTap: () => launch(artist.website),
-            )
-          : null,
-      new Divider(height: 32.0),
+      new SocialListTile(
+        artist.facebook,
+        artist.facebookHandle,
+        FontAwesomeIcons.facebook,
+      ),
+      new SocialListTile(
+        artist.twitter,
+        artist.twitterHandle,
+        FontAwesomeIcons.twitter,
+      ),
+      new SocialListTile(
+        artist.youtube,
+        artist.youtubeHandle,
+        FontAwesomeIcons.youtube,
+      ),
+      new SocialListTile(
+        artist.website,
+        artist.websiteShort,
+        FontAwesomeIcons.chrome,
+      ),
+      new Divider(),
       bioWidgets(context, artist)
     ].where((Widget w) => w != null).toList();
+
+class SocialListTile extends StatelessWidget {
+  final String url;
+  final String displayText;
+  final IconData leadingIcon;
+
+  SocialListTile(this.url, this.displayText, this.leadingIcon);
+
+  @override
+  Widget build(BuildContext context) => url == null
+      ? null
+      : new ListTile(
+          leading: new Icon(leadingIcon),
+          title: new Text(displayText),
+          onTap: () => launch(url),
+        );
+}
