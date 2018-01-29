@@ -2,6 +2,7 @@ import 'package:comiko/routing_assistant.dart';
 import 'package:comiko_shared/models.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class ArtistCardViewModel {
   final Artist artist;
@@ -20,7 +21,7 @@ class ArtistCard extends StatelessWidget {
 
   void navigateToArtist(BuildContext context) {
     Navigator.push(
-        context, RoutingAssistant.artistPage(artistCardViewModel.artist.id));
+        context, RoutingAssistant.artistPage(artistCardViewModel.artist));
   }
 
   @override
@@ -51,8 +52,9 @@ class ArtistCard extends StatelessWidget {
         child: new Stack(
           fit: StackFit.expand,
           children: <Widget>[
-            new Image.network(
-              artistCardViewModel.artist.imageUrl,
+            new Image(
+              image: new CachedNetworkImageProvider(
+                  artistCardViewModel.artist.imageUrl),
               fit: BoxFit.cover,
             ),
             new Container(

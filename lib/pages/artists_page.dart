@@ -21,14 +21,15 @@ class ArtistsPage extends StatelessWidget {
         stream: Firestore.instance
             .collection('artists')
             .where("deleted", isEqualTo: false)
+            .orderBy('name', descending: false)
             .snapshots,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) return const Text('Loading...');
           return new GridView.count(
             crossAxisCount:
                 MediaQuery.of(context).orientation == Orientation.portrait
-                    ? 1
-                    : 2,
+                    ? 2
+                    : 3,
             padding: const EdgeInsets.all(8.0),
             mainAxisSpacing: 4.0,
             crossAxisSpacing: 4.0,

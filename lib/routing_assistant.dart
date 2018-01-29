@@ -17,7 +17,7 @@ class RoutingAssistant {
     showDialog(context: context, child: new SearchPopup(store: store));
   }
 
-  static MaterialPageRoute artistPage(String id) {
-    return new MaterialPageRoute(builder: (_) => new ArtistPage(artistId: id));
+  static MaterialPageRoute artistPage(Artist artist) {
+    return new MaterialPageRoute(builder: (_) => new ArtistPage(artist: artist));
   }
 }
