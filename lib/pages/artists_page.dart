@@ -33,13 +33,13 @@ class ArtistsPage extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             mainAxisSpacing: 4.0,
             crossAxisSpacing: 4.0,
-            children: snapshot.data.documents.map((DocumentSnapshot document) {
-              return new ArtistCard(
-                new ArtistCardViewModel(
-                  artist: new Artist.fromJson(document.data),
-                ),
-              );
-            }).toList(),
+            children: snapshot.data.documents
+                .map((DocumentSnapshot document) => new ArtistCard(
+                      new ArtistCardViewModel(
+                        artist: new Artist.fromJson(document.data),
+                      ),
+                    ))
+                .toList(),
           );
         },
       ),
