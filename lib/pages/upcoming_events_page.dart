@@ -2,11 +2,11 @@ import 'package:comiko/app_state.dart';
 import 'package:comiko/routing_assistant.dart';
 import 'package:comiko/widgets/event_card.dart';
 import 'package:comiko/widgets/sort_popup_menu.dart';
+import 'package:comiko_shared/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
-import 'package:comiko_shared/models.dart';
 
 class UpcomingEventsPage extends StatelessWidget {
   final Store<AppState> store;
