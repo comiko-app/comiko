@@ -43,7 +43,7 @@ class ArtistsPage extends StatelessWidget {
             ),
             itemCount: artists.length,
             itemBuilder: (BuildContext context, int i) {
-              precacheArtistImages(i, artists, context);
+              precacheArtistImage(i, artists, context);
 
               return new ArtistCard(
                   new ArtistCardViewModel(artist: artists[i]));
@@ -54,17 +54,15 @@ class ArtistsPage extends StatelessWidget {
     );
   }
 
-  void precacheArtistImages(int i, List<Artist> artists, BuildContext context) {
+  void precacheArtistImage(int i, List<Artist> artists, BuildContext context) {
     final visibleImages = 6;
-    if (i % visibleImages == 0) {
-      final amountOfImagesToCache = i + 2 * visibleImages <= artists.length
-          ? 2 * visibleImages
-          : artists.length - i;
-      new List.generate(amountOfImagesToCache, (j) => i + j).forEach((j) {
-        final imageProvider =
-            new CachedNetworkImageProvider(artists[j].imageUrl);
-        precacheImage(imageProvider, context);
-      });
+    var indexOfImageToCache = i + visibleImages;
+    if (indexOfImageToCache >= artists.length) {
+      return;
     }
+
+    final imageProvider =
+        new CachedNetworkImageProvider(artists[indexOfImageToCache].imageUrl);
+    precacheImage(imageProvider, context);
   }
 }
