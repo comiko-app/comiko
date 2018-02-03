@@ -1,12 +1,15 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:comiko/app_state.dart';
 import 'package:comiko/pages/about_us_page.dart';
 import 'package:comiko/pages/artists_page.dart';
 import 'package:comiko/pages/liked_events_page.dart';
 import 'package:comiko/pages/upcoming_events_page.dart';
 import 'package:comiko_backend/services.dart';
+import 'package:comiko_shared/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -52,6 +55,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
+  static const initialImageCachingNumber = 10;
+
   int _currentIndex = 0;
   List<NavigationIconView> _navigationViews;
   final Store<AppState> store;
@@ -108,6 +113,26 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     }
 
     _navigationViews[_currentIndex].controller.value = 1.0;
+
+    cacheFirstArtistImages();
+  }
+
+  void cacheFirstArtistImages() {
+    Firestore.instance
+        .collection('artists')
+        .where("deleted", isEqualTo: false)
+        .orderBy('name', descending: false)
+        .snapshots
+        .first
+        .then((QuerySnapshot snapshot) {
+      snapshot.documents
+          .take(initialImageCachingNumber)
+          .forEach((DocumentSnapshot d) {
+        final artist = new Artist.fromJson(d.data);
+        final imageProvider = new CachedNetworkImageProvider(artist.imageUrl);
+        precacheImage(imageProvider, context);
+      });
+    });
   }
 
   @override
