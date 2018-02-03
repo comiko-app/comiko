@@ -40,8 +40,12 @@ class ArtistPage extends StatelessWidget {
             ),
           ),
           new SliverList(
-            delegate:
-                new SliverChildListDelegate(socialWidgets(artist, context)),
+            delegate: new SliverChildListDelegate(
+              [
+                socialWidgets(artist, context),
+                bioWidgets(context, artist),
+              ],
+            ),
           ),
         ],
       ),
@@ -70,44 +74,38 @@ Column bioWidgets(BuildContext context, Artist artist) => new Column(
       ],
     );
 
-List<Widget> socialWidgets(Artist artist, BuildContext context) => [
-      new SocialListTile(
+Widget socialWidgets(Artist artist, BuildContext context) => new Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: <Widget>[
+      new SocialIcon(
         artist.facebook,
-        artist.facebookHandle,
         FontAwesomeIcons.facebook,
       ),
-      new SocialListTile(
+      new SocialIcon(
         artist.twitter,
-        artist.twitterHandle,
         FontAwesomeIcons.twitter,
       ),
-      new SocialListTile(
+      new SocialIcon(
         artist.youtube,
-        artist.youtubeHandle,
         FontAwesomeIcons.youtube,
       ),
-      new SocialListTile(
+      new SocialIcon(
         artist.website,
-        artist.websiteShort,
         FontAwesomeIcons.chrome,
       ),
-      new Divider(),
-      bioWidgets(context, artist)
-    ].where((Widget w) => w != null).toList();
+    ].where((Widget w) => w is! Container).toList());
 
-class SocialListTile extends StatelessWidget {
+class SocialIcon extends StatelessWidget {
   final String url;
-  final String displayText;
   final IconData leadingIcon;
 
-  SocialListTile(this.url, this.displayText, this.leadingIcon);
+  SocialIcon(this.url, this.leadingIcon);
 
   @override
   Widget build(BuildContext context) => url == null
-      ? null
-      : new ListTile(
-          leading: new Icon(leadingIcon),
-          title: new Text(displayText),
-          onTap: () => launch(url),
+      ? new Container()
+      : new IconButton(
+          icon: new Icon(leadingIcon),
+          onPressed: () => launch(url),
         );
 }

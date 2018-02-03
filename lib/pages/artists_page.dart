@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:comiko/widgets/artist_card.dart';
 import 'package:comiko_shared/models.dart';
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class ArtistsPage extends StatelessWidget {
   @override
@@ -25,24 +26,44 @@ class ArtistsPage extends StatelessWidget {
             .snapshots,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) return const Text('Loading...');
-          return new GridView.count(
-            crossAxisCount:
-                MediaQuery.of(context).orientation == Orientation.portrait
-                    ? 2
-                    : 3,
-            padding: const EdgeInsets.all(8.0),
-            mainAxisSpacing: 4.0,
-            crossAxisSpacing: 4.0,
-            children: snapshot.data.documents
-                .map((DocumentSnapshot document) => new ArtistCard(
-                      new ArtistCardViewModel(
-                        artist: new Artist.fromJson(document.data),
-                      ),
-                    ))
-                .toList(),
+
+          final artists = snapshot.data.documents
+              .map((DocumentSnapshot document) =>
+                  new Artist.fromJson(document.data))
+              .toList();
+
+          return new GridView.builder(
+            gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount:
+                  MediaQuery.of(context).orientation == Orientation.portrait
+                      ? 2
+                      : 3,
+              crossAxisSpacing: 4.0,
+              mainAxisSpacing: 4.0,
+            ),
+            itemCount: artists.length,
+            itemBuilder: (BuildContext context, int i) {
+              precacheArtistImages(i, artists, context);
+
+              return new ArtistCard(
+                  new ArtistCardViewModel(artist: artists[i]));
+            },
           );
         },
       ),
     );
+  }
+
+  void precacheArtistImages(int i, List<Artist> artists, BuildContext context) {
+    final visibleImages = 6;
+    if (i % visibleImages == 0) {
+      var amountOfImagesToCache = i + 2 * visibleImages <= artists.length
+          ? 2 * visibleImages
+          : artists.length - i;
+      new List.generate(amountOfImagesToCache, (j) => i + j).forEach((j) {
+        var imageProvider = new CachedNetworkImageProvider(artists[j].imageUrl);
+        precacheImage(imageProvider, context);
+      });
+    }
   }
 }
