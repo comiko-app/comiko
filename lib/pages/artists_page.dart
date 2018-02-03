@@ -61,7 +61,8 @@ class ArtistsPage extends StatelessWidget {
           ? 2 * visibleImages
           : artists.length - i;
       new List.generate(amountOfImagesToCache, (j) => i + j).forEach((j) {
-        final imageProvider = new CachedNetworkImageProvider(artists[j].imageUrl);
+        final imageProvider =
+            new CachedNetworkImageProvider(artists[j].imageUrl);
         precacheImage(imageProvider, context);
       });
     }
