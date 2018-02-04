@@ -1,12 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:async_loader/async_loader.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:comiko/app_state.dart';
 import 'package:comiko/pages/about_us_page.dart';
 import 'package:comiko/pages/artists_page.dart';
 import 'package:comiko/pages/liked_events_page.dart';
 import 'package:comiko/pages/upcoming_events_page.dart';
 import 'package:comiko_backend/services.dart';
+import 'package:comiko_shared/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -52,8 +56,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
+  Completer _areImagesCached = new Completer();
   int _currentIndex = 0;
   List<NavigationIconView> _navigationViews;
+  final GlobalKey<AsyncLoaderState> _asyncLoaderState =
+      new GlobalKey<AsyncLoaderState>();
+
   final Store<AppState> store;
 
   _MyHomePageState({
@@ -108,6 +116,29 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     }
 
     _navigationViews[_currentIndex].controller.value = 1.0;
+
+    cacheArtistImages();
+  }
+
+  Future<Null> cacheArtistImages() async {
+    var snapshot = await Firestore.instance
+        .collection('artists')
+        .where("deleted", isEqualTo: false)
+        .orderBy('name', descending: false)
+        .snapshots
+        .first;
+
+    var cachedImages = <Future>[];
+    for (var d in snapshot.documents) {
+      final artist = new Artist.fromJson(d.data);
+      final imageProvider = new CachedNetworkImageProvider(artist.imageUrl);
+      cachedImages.add(precacheImage(imageProvider, context));
+    }
+
+    await Future.wait(cachedImages);
+
+    _areImagesCached.complete();
+    _asyncLoaderState.currentState.reloadState();
   }
 
   @override
@@ -161,8 +192,28 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       },
     );
 
+    var _asyncLoader = new AsyncLoader(
+      key: _asyncLoaderState,
+      initState: () => _areImagesCached.future,
+      renderLoad: () => new CircularProgressIndicator(),
+      renderError: ([error]) => new Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              new Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: new Icon(
+                    Icons.error_outline,
+                    size: 72.0,
+                  )),
+              const Text(
+                  "Une erreur est survenue en chargeant l'application :("),
+            ],
+          ),
+      renderSuccess: ({data}) => _buildTransitionsStack(),
+    );
+
     return new Scaffold(
-      body: new Center(child: _buildTransitionsStack()),
+      body: new Center(child: _asyncLoader),
       bottomNavigationBar: botNavBar,
     );
   }

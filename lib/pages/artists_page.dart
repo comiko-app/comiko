@@ -25,21 +25,20 @@ class ArtistsPage extends StatelessWidget {
             .snapshots,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) return const Text('Loading...');
+
           return new GridView.count(
             crossAxisCount:
                 MediaQuery.of(context).orientation == Orientation.portrait
                     ? 2
                     : 3,
-            padding: const EdgeInsets.all(8.0),
-            mainAxisSpacing: 4.0,
             crossAxisSpacing: 4.0,
-            children: snapshot.data.documents.map((DocumentSnapshot document) {
-              return new ArtistCard(
-                new ArtistCardViewModel(
-                  artist: new Artist.fromJson(document.data),
-                ),
-              );
-            }).toList(),
+            mainAxisSpacing: 4.0,
+            children: snapshot.data.documents
+                .map((DocumentSnapshot document) =>
+                    new Artist.fromJson(document.data))
+                .map((Artist a) =>
+                    new ArtistCard(new ArtistCardViewModel(artist: a)))
+                .toList(),
           );
         },
       ),
