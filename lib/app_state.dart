@@ -14,6 +14,7 @@ class AppState {
   double priceFilter;
   int distanceFilter;
   EventService eventsService = ServiceProvider.get<EventService>(EventService);
+  bool imagesCaching;
 
   AppState.initial() {
     sortingCriteria = SortingCriteria.date;

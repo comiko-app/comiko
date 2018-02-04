@@ -55,8 +55,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
-  static const initialImageCachingNumber = 10;
-
+  bool _isCachingImages = false;
   int _currentIndex = 0;
   List<NavigationIconView> _navigationViews;
   final Store<AppState> store;
@@ -114,24 +113,32 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
     _navigationViews[_currentIndex].controller.value = 1.0;
 
-    cacheFirstArtistImages();
+    cacheArtistImages();
   }
 
-  void cacheFirstArtistImages() {
-    Firestore.instance
+  Future<Null> cacheArtistImages() async {
+    setState(() {
+      _isCachingImages = true;
+    });
+
+    var snapshot = await Firestore.instance
         .collection('artists')
         .where("deleted", isEqualTo: false)
         .orderBy('name', descending: false)
         .snapshots
-        .first
-        .then((QuerySnapshot snapshot) {
-      snapshot.documents
-          .take(initialImageCachingNumber)
-          .forEach((DocumentSnapshot d) {
-        final artist = new Artist.fromJson(d.data);
-        final imageProvider = new CachedNetworkImageProvider(artist.imageUrl);
-        precacheImage(imageProvider, context);
-      });
+        .first;
+
+    var caching = <Future>[];
+    snapshot.documents.forEach((DocumentSnapshot d) {
+      final artist = new Artist.fromJson(d.data);
+      final imageProvider = new CachedNetworkImageProvider(artist.imageUrl);
+      caching.add(precacheImage(imageProvider, context));
+    });
+
+    await Future.wait(caching);
+
+    setState(() {
+      _isCachingImages = false;
     });
   }
 
@@ -186,10 +193,16 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       },
     );
 
-    return new Scaffold(
-      body: new Center(child: _buildTransitionsStack()),
-      bottomNavigationBar: botNavBar,
-    );
+    return _isCachingImages
+        ? new Scaffold(
+            body: new Center(
+              child: new CircularProgressIndicator(),
+            ),
+          )
+        : new Scaffold(
+            body: new Center(child: _buildTransitionsStack()),
+            bottomNavigationBar: botNavBar,
+          );
   }
 }
 
