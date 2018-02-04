@@ -15,6 +15,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
+import 'package:async_loader/async_loader.dart';
 
 void main() {
   runApp(new MyApp());
@@ -55,10 +56,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
-  bool _isCachingImages = false;
+  List<Future> cachedImages = [];
   int _currentIndex = 0;
   List<NavigationIconView> _navigationViews;
   final Store<AppState> store;
+  final GlobalKey<AsyncLoaderState> _asyncLoaderState =
+      new GlobalKey<AsyncLoaderState>();
 
   _MyHomePageState({
     @required this.store,
@@ -117,10 +120,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   }
 
   Future<Null> cacheArtistImages() async {
-    setState(() {
-      _isCachingImages = true;
-    });
-
     var snapshot = await Firestore.instance
         .collection('artists')
         .where("deleted", isEqualTo: false)
@@ -128,18 +127,13 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         .snapshots
         .first;
 
-    var caching = <Future>[];
-    snapshot.documents.forEach((DocumentSnapshot d) {
+    for (var d in snapshot.documents) {
       final artist = new Artist.fromJson(d.data);
       final imageProvider = new CachedNetworkImageProvider(artist.imageUrl);
-      caching.add(precacheImage(imageProvider, context));
-    });
+      cachedImages.add(precacheImage(imageProvider, context));
+    }
 
-    await Future.wait(caching);
-
-    setState(() {
-      _isCachingImages = false;
-    });
+    _asyncLoaderState.currentState.reloadState();
   }
 
   @override
@@ -193,16 +187,29 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       },
     );
 
-    return _isCachingImages
-        ? new Scaffold(
-            body: new Center(
-              child: new CircularProgressIndicator(),
-            ),
-          )
-        : new Scaffold(
-            body: new Center(child: _buildTransitionsStack()),
-            bottomNavigationBar: botNavBar,
-          );
+    var _asyncLoader = new AsyncLoader(
+      key: _asyncLoaderState,
+      initState: () => Future.wait(cachedImages),
+      renderLoad: () => new CircularProgressIndicator(),
+      renderError: ([error]) => new Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              new Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: new Icon(
+                    Icons.error_outline,
+                    size: 72.0,
+                  )),
+              const Text('An error happened during loading images.'),
+            ],
+          ),
+      renderSuccess: ({data}) => _buildTransitionsStack(),
+    );
+
+    return new Scaffold(
+      body: new Center(child: _asyncLoader),
+      bottomNavigationBar: botNavBar,
+    );
   }
 }
 
