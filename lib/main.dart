@@ -56,12 +56,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
-  Completer areImagesCached = new Completer();
+  Completer _areImagesCached = new Completer();
   int _currentIndex = 0;
   List<NavigationIconView> _navigationViews;
-  final Store<AppState> store;
   final GlobalKey<AsyncLoaderState> _asyncLoaderState =
       new GlobalKey<AsyncLoaderState>();
+
+  final Store<AppState> store;
 
   _MyHomePageState({
     @required this.store,
@@ -136,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
     await Future.wait(cachedImages);
 
-    areImagesCached.complete();
+    _areImagesCached.complete();
     _asyncLoaderState.currentState.reloadState();
   }
 
@@ -193,7 +194,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
     var _asyncLoader = new AsyncLoader(
       key: _asyncLoaderState,
-      initState: () => areImagesCached.future,
+      initState: () => _areImagesCached.future,
       renderLoad: () => new CircularProgressIndicator(),
       renderError: ([error]) => new Column(
             mainAxisAlignment: MainAxisAlignment.center,
