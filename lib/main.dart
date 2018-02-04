@@ -200,7 +200,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                     Icons.error_outline,
                     size: 72.0,
                   )),
-              const Text('An error happened during loading images.'),
+              const Text(
+                  "Une erreur est survenue en chargeant l'application :("),
             ],
           ),
       renderSuccess: ({data}) => _buildTransitionsStack(),
