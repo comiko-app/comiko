@@ -36,7 +36,6 @@ class ArtistsPage extends StatelessWidget {
             children: snapshot.data.documents
                 .map((DocumentSnapshot document) =>
                     new Artist.fromJson(document.data))
-                .toList()
                 .map((Artist a) =>
                     new ArtistCard(new ArtistCardViewModel(artist: a)))
                 .toList(),
