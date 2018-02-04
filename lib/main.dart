@@ -56,7 +56,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
-  List<Future> cachedImages = [];
+  Completer areImagesCached = new Completer();
   int _currentIndex = 0;
   List<NavigationIconView> _navigationViews;
   final Store<AppState> store;
@@ -127,12 +127,16 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         .snapshots
         .first;
 
+    var cachedImages = <Future>[];
     for (var d in snapshot.documents) {
       final artist = new Artist.fromJson(d.data);
       final imageProvider = new CachedNetworkImageProvider(artist.imageUrl);
       cachedImages.add(precacheImage(imageProvider, context));
     }
 
+    await Future.wait(cachedImages);
+
+    areImagesCached.complete();
     _asyncLoaderState.currentState.reloadState();
   }
 
@@ -189,7 +193,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
     var _asyncLoader = new AsyncLoader(
       key: _asyncLoaderState,
-      initState: () => Future.wait(cachedImages),
+      initState: () => areImagesCached.future,
       renderLoad: () => new CircularProgressIndicator(),
       renderError: ([error]) => new Column(
             mainAxisAlignment: MainAxisAlignment.center,
