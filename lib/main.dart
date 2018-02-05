@@ -131,6 +131,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     var cachedImages = <Future>[];
     for (var d in snapshot.documents) {
       final artist = new Artist.fromJson(d.data);
+      if (artist.imageUrl == null) {
+        print("${artist.name} has no picture!");
+        continue;
+      }
       final imageProvider = new CachedNetworkImageProvider(artist.imageUrl);
       cachedImages.add(precacheImage(imageProvider, context));
     }
