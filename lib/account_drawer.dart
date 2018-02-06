@@ -1,66 +1,31 @@
-import 'dart:async';
-
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:comiko/auth_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-
-final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-final GoogleSignIn _googleSignIn = new GoogleSignIn();
+import 'package:meta/meta.dart';
 
 class AccountDrawer extends StatefulWidget {
+  final AuthHelper authHelper;
+
+  AccountDrawer({
+    @required this.authHelper,
+  });
+
   @override
-  _AccountDrawerState createState() => new _AccountDrawerState();
+  _AccountDrawerState createState() => new _AccountDrawerState(authHelper: authHelper);
 }
 
 class _AccountDrawerState extends State<AccountDrawer>
     with TickerProviderStateMixin {
+  final AuthHelper authHelper;
+
+  _AccountDrawerState({
+    @required this.authHelper,
+  });
+
   bool _showDrawerContents = true;
 
   AnimationController _controller;
   Animation<double> _drawerContentsOpacity;
   Animation<Offset> _drawerDetailsPosition;
-
-  Future<bool> _signIn({bool onlySilently = false}) async {
-    final googleUser = await _signInWithGoogle(onlySilently);
-
-    if (googleUser != null) {
-      final firebaseUser = await _signInToFirebase();
-      return firebaseUser != null;
-    }
-
-    return false;
-  }
-
-  Future<GoogleSignInAccount> _signInWithGoogle(bool onlySilently) async {
-    var googleUser = _googleSignIn.currentUser;
-
-    if (googleUser == null) {
-      googleUser = await _googleSignIn.signInSilently();
-    }
-
-    if (!onlySilently && googleUser == null) {
-      googleUser = await _googleSignIn.signIn();
-    }
-
-    return googleUser;
-  }
-
-  Future<FirebaseUser> _signInToFirebase() async {
-    var googleUser = _googleSignIn.currentUser;
-
-    if (googleUser == null) {
-      return null;
-    }
-
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser.authentication;
-    final FirebaseUser firebaseUser = await _firebaseAuth.signInWithGoogle(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-
-    return firebaseUser;
-  }
 
   void _rebuild() {
     setState(() {
@@ -88,12 +53,6 @@ class _AccountDrawerState extends State<AccountDrawer>
         curve: Curves.fastOutSlowIn,
       ),
     );
-
-    _signIn(onlySilently: true).then((success) {
-      if (success) {
-        _rebuild();
-      }
-    });
   }
 
   @override
@@ -108,16 +67,16 @@ class _AccountDrawerState extends State<AccountDrawer>
       child: new ListView(
         children: <Widget>[
           new UserAccountsDrawerHeader(
-            accountName: new Text(_googleSignIn.currentUser != null
-                ? _googleSignIn.currentUser.displayName
+            accountName: new Text(authHelper.currentUser != null
+                ? authHelper.currentUser.displayName
                 : "Not logged in"),
-            accountEmail: new Text(_googleSignIn.currentUser != null
-                ? _googleSignIn.currentUser.email
+            accountEmail: new Text(authHelper.currentUser != null
+                ? authHelper.currentUser.email
                 : ""),
-            currentAccountPicture: _googleSignIn.currentUser != null
+            currentAccountPicture: authHelper.currentUser != null
                 ? new CircleAvatar(
                     backgroundImage:
-                        new NetworkImage(_googleSignIn.currentUser.photoUrl),
+                        new NetworkImage(authHelper.currentUser.photoUrl),
                   )
                 : null,
             onDetailsPressed: () {
@@ -155,12 +114,12 @@ class _AccountDrawerState extends State<AccountDrawer>
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
-                        _googleSignIn.currentUser == null
+                        authHelper.currentUser == null
                             ? new ListTile(
                                 leading: const Icon(Icons.account_box),
                                 title: new Text('Sign in with google'),
                                 onTap: () {
-                                  _signIn().then((success) {
+                                  authHelper.signIn().then((success) {
                                     if (success) {
                                       _rebuild();
                                     }
@@ -171,7 +130,7 @@ class _AccountDrawerState extends State<AccountDrawer>
                                 leading: const Icon(Icons.exit_to_app),
                                 title: new Text('Log out'),
                                 onTap: () {
-                                  _googleSignIn.signOut().then((account) {
+                                  authHelper.signOut().then((account) {
                                     _rebuild();
                                   });
                                 },
