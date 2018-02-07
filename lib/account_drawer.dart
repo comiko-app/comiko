@@ -10,7 +10,8 @@ class AccountDrawer extends StatefulWidget {
   });
 
   @override
-  _AccountDrawerState createState() => new _AccountDrawerState(authHelper: authHelper);
+  _AccountDrawerState createState() =>
+      new _AccountDrawerState(authHelper: authHelper);
 }
 
 class _AccountDrawerState extends State<AccountDrawer>
@@ -69,7 +70,7 @@ class _AccountDrawerState extends State<AccountDrawer>
           new UserAccountsDrawerHeader(
             accountName: new Text(authHelper.currentUser != null
                 ? authHelper.currentUser.displayName
-                : "Not logged in"),
+                : "Pas connecté"),
             accountEmail: new Text(authHelper.currentUser != null
                 ? authHelper.currentUser.email
                 : ""),
@@ -93,17 +94,7 @@ class _AccountDrawerState extends State<AccountDrawer>
                 // The initial contents of the drawer.
                 new FadeTransition(
                   opacity: _drawerContentsOpacity,
-                  child: new Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      new ListTile(
-                        leading: new CircleAvatar(child: new Text("E")),
-                        title: new Text('Example item'),
-                        onTap: null,
-                      ),
-                    ],
-                  ),
+                  child: new Text(''),
                 ),
                 // The drawer's "details" view.
                 new SlideTransition(
@@ -117,7 +108,7 @@ class _AccountDrawerState extends State<AccountDrawer>
                         authHelper.currentUser == null
                             ? new ListTile(
                                 leading: const Icon(Icons.account_box),
-                                title: new Text('Sign in with google'),
+                                title: new Text('Connectez-vous avec google'),
                                 onTap: () {
                                   authHelper.signIn().then((success) {
                                     if (success) {
@@ -128,7 +119,7 @@ class _AccountDrawerState extends State<AccountDrawer>
                               )
                             : new ListTile(
                                 leading: const Icon(Icons.exit_to_app),
-                                title: new Text('Log out'),
+                                title: new Text('Se déconnecter'),
                                 onTap: () {
                                   authHelper.signOut().then((account) {
                                     _rebuild();
