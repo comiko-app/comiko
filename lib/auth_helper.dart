@@ -8,7 +8,6 @@ class AuthHelper {
   final GoogleSignIn _googleSignIn = new GoogleSignIn(
     scopes: [
       'email',
-      'https://www.googleapis.com/auth/contacts.readonly',
     ],
   );
 
