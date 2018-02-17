@@ -4,9 +4,9 @@ import 'dart:convert';
 import 'package:async_loader/async_loader.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:comiko/auth_helper.dart';
 import 'package:comiko/account_drawer.dart';
 import 'package:comiko/app_state.dart';
+import 'package:comiko/auth_helper.dart';
 import 'package:comiko/pages/about_us_page.dart';
 import 'package:comiko/pages/artists_page.dart';
 import 'package:comiko/pages/liked_events_page.dart';
@@ -221,7 +221,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     );
 
     return new Scaffold(
-      drawer: new AccountDrawer(authHelper: _authHelper,),
+      drawer: new AccountDrawer(
+        authHelper: _authHelper,
+      ),
       body: new Center(child: _asyncLoader),
       bottomNavigationBar: botNavBar,
     );
