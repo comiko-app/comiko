@@ -32,7 +32,7 @@ class AuthHelper {
       final result = await authFunction(onlySilently: true);
 
       if (result) {
-        return result;
+        return true;
       }
     }
 
