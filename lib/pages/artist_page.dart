@@ -1,3 +1,4 @@
+import 'package:comiko/pages/is_page.dart';
 import 'package:comiko/widgets/artist_image.dart';
 import 'package:comiko_shared/models.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:meta/meta.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ArtistPage extends StatelessWidget {
+class ArtistPage extends StatelessWidget implements IsPage {
   final Artist artist;
 
   ArtistPage({@required this.artist});
@@ -15,6 +16,7 @@ class ArtistPage extends StatelessWidget {
     final double _appBarHeight = 256.0;
 
     return new Scaffold(
+      primary: false,
       body: new CustomScrollView(
         slivers: <Widget>[
           new SliverAppBar(
@@ -51,6 +53,12 @@ class ArtistPage extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  AppActionsFactory get actionsFactory => (BuildContext context) => [];
+
+  @override
+  String get title => artist.name;
 }
 
 Column bioWidgets(BuildContext context, Artist artist) => new Column(

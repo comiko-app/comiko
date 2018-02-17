@@ -1,3 +1,4 @@
+import 'package:comiko/pages/is_page.dart';
 import 'package:comiko/widgets/event_card.dart';
 import 'package:comiko_backend/services.dart';
 import 'package:comiko_shared/models.dart';
@@ -6,6 +7,9 @@ class AppState {
   static const String defaultCityFilter = "";
   static const double defaultPriceFilter = 100.0;
   static const int defaultDistanceFilter = 500;
+  static const String defaultAppTitle = 'Comiko';
+  static const int defaultPageIndex = 0;
+  static AppActionsFactory defaultAppActions = (_) => [];
 
   List<Event> events;
   Map<Event, bool> eventsFavoriteState = {};
@@ -13,6 +17,9 @@ class AppState {
   String cityFilter;
   double priceFilter;
   int distanceFilter;
+  String appTitle;
+  int currentPageIndex;
+  AppActionsFactory appActions;
   EventService eventsService = ServiceProvider.get<EventService>(EventService);
 
   AppState.initial() {
@@ -22,6 +29,9 @@ class AppState {
     cityFilter = defaultCityFilter;
     priceFilter = defaultPriceFilter;
     distanceFilter = defaultDistanceFilter;
+    appTitle = defaultAppTitle;
+    appActions = defaultAppActions;
+    currentPageIndex = defaultPageIndex;
   }
 
   EventCardViewModel createViewModel(Event event) => new EventCardViewModel(
@@ -69,6 +79,9 @@ class AppState {
     this.cityFilter,
     this.priceFilter,
     this.distanceFilter,
+    this.appTitle,
+    this.appActions,
+    this.currentPageIndex,
   );
 
   AppState clone() {
@@ -79,6 +92,9 @@ class AppState {
       cityFilter,
       priceFilter,
       distanceFilter,
+      appTitle,
+      appActions,
+      currentPageIndex,
     );
 
     return newState;
@@ -188,6 +204,23 @@ class ResetFiltersAction extends IsAction {
     state = state.clone();
     state.resetFilters();
     state.filterEventsWithActiveFilters();
+
+    return state;
+  }
+}
+
+class PageChangedAction extends IsAction {
+  final IsPage page;
+  final int pageIndex;
+
+  PageChangedAction(this.page, this.pageIndex);
+
+  @override
+  AppState handle(AppState state) {
+    state = state.clone();
+    state.appTitle = page.title;
+    state.currentPageIndex = pageIndex;
+    state.appActions = page.actionsFactory;
 
     return state;
   }
