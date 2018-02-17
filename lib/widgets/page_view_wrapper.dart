@@ -21,8 +21,11 @@ class PageViewWrapper extends StatefulWidget {
   }
 
   void navigationTapped(int page) {
-    pageController.animateToPage(page,
-        duration: const Duration(milliseconds: 500), curve: Curves.ease);
+    pageController.animateToPage(
+      page,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.fastOutSlowIn,
+    );
   }
 
   @override

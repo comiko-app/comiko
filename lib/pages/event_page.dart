@@ -62,57 +62,63 @@ class EventPage extends StatelessWidget implements IsPage {
         : " - ${dateTimeFormatter.format(
         event.end)}";
 
-    return [
-      new ListTile(
-        leading: const Icon(Icons.slideshow),
-        title: new Text(event.name),
-      ),
-      new ListTile(
-        leading: const Icon(Icons.date_range),
-        title: new Text("$startTime$endTime"),
-      ),
-      new ListTile(
-        leading: const Icon(Icons.location_city),
-        title: new Text(event.place ?? ""),
-      ),
-      new Divider(),
-      new ListTile(
-        leading: const Icon(Icons.location_on),
-        title: new Text(event.address ?? ""),
-        subtitle: new Text(event.city ?? ""),
-      ),
-      new ListTile(
-        leading: const Icon(Icons.monetization_on),
-        title: new Text("${event.price.toStringAsFixed(2)}\$"),
-      ),
-      new Divider(),
-      new Container(
-        margin: new EdgeInsets.all(16.0),
-        child: new Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
+    return ListTile.divideTiles(
+      context: context,
+      tiles: [
+        new ListTile(
+          leading: const Icon(Icons.slideshow),
+          title: new Text(event.name),
+        ),
+        new ListTile(
+          leading: const Icon(Icons.date_range),
+          title: new Text("$startTime$endTime"),
+        ),
+        new ListTile(
+          leading: const Icon(Icons.location_city),
+          title: new Text(event.place ?? ""),
+        ),
+        new ListTile(
+          leading: const Icon(Icons.location_on),
+          title: new Text(event.address ?? ""),
+          subtitle: new Text(event.city ?? ""),
+        ),
+        new ListTile(
+          leading: const Icon(Icons.monetization_on),
+          title: new Text("${event.price.toStringAsFixed(2)}\$"),
+        ),
+        new Column(
+          children: [
             new Container(
-              margin: new EdgeInsets.only(right: 32.0),
-              child: new Icon(Icons.description),
+              margin: new EdgeInsets.all(16.0),
+              child: new Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  new Container(
+                    margin: new EdgeInsets.only(right: 32.0),
+                    child: new Icon(Icons.description),
+                  ),
+                  new Text(
+                    "Information",
+                    style: Theme.of(context).textTheme.title,
+                  ),
+                ],
+              ),
             ),
-            new Text(
-              "Information",
-              style: Theme.of(context).textTheme.title,
-            ),
+            new Container(
+              margin: new EdgeInsets.only(
+                left: 72.0,
+                right: 16.0,
+                bottom: 16.0,
+              ),
+              child: new Text(
+                event.description ?? "",
+                style: Theme.of(context).textTheme.subhead,
+              ),
+            )
           ],
         ),
-      ),
-      new Container(
-        margin: new EdgeInsets.only(left: 72.0, right: 16.0),
-        child: new Text(
-          event.description ?? "",
-          style: Theme.of(context).textTheme.subhead,
-        ),
-      ),
-      new Container(
-        height: 64.0,
-      ),
-    ];
+      ],
+    ).toList();
   }
 
   @override

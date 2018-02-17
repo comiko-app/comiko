@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:comiko/account_drawer.dart';
 import 'package:comiko/app_state.dart';
 import 'package:comiko/auth_helper.dart';
-import 'package:comiko/widgets/comiko_page_view.dart';
+import 'package:comiko/widgets/page_view_wrapper.dart';
 import 'package:comiko/widgets/image_caching_loader.dart';
 import 'package:comiko_backend/services.dart';
 import 'package:flutter/material.dart';

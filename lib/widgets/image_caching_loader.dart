@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:async_loader/async_loader.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:comiko/widgets/comiko_page_view.dart';
+import 'package:comiko/widgets/page_view_wrapper.dart';
 import 'package:comiko_shared/models.dart';
 import 'package:flutter/material.dart';
 

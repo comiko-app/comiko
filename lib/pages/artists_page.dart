@@ -15,7 +15,9 @@ class ArtistsPage extends StatelessWidget implements IsPage {
           .snapshots,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (!snapshot.hasData) {
-          return const Text('Chargement...');
+          return new Center(
+            child: new CircularProgressIndicator(),
+          );
         }
 
         return new GridView.count(
