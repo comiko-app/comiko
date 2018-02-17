@@ -11,6 +11,8 @@ import 'package:comiko/pages/about_us_page.dart';
 import 'package:comiko/pages/artists_page.dart';
 import 'package:comiko/pages/liked_events_page.dart';
 import 'package:comiko/pages/upcoming_events_page.dart';
+import 'package:comiko/widgets/bottom_bar.dart';
+import 'package:comiko/widgets/navigation_icon_view.dart';
 import 'package:comiko_backend/services.dart';
 import 'package:comiko_shared/models.dart';
 import 'package:flutter/material.dart';
@@ -59,13 +61,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   Completer _areImagesCached = new Completer();
-  int _currentIndex = 0;
-  List<NavigationIconView> _navigationViews;
 
   final GlobalKey<AsyncLoaderState> _asyncLoaderState =
       new GlobalKey<AsyncLoaderState>();
   final Store<AppState> store;
   final AuthHelper _authHelper = new AuthHelper();
+  List<NavigationIconView> navigationViews;
 
   _MyHomePageState({
     @required this.store,
@@ -82,8 +83,15 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+
+    buildNavigationViews();
     initServices();
-    _navigationViews = <NavigationIconView>[
+    cacheArtistImages();
+    _authHelper.tryRecoveringSession();
+  }
+
+  void buildNavigationViews() {
+    navigationViews = <NavigationIconView>[
       new NavigationIconView(
         icon: const Icon(Icons.event_available),
         body: new UpcomingEventsPage(store: store),
@@ -114,14 +122,11 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       ),
     ];
 
-    for (NavigationIconView view in _navigationViews) {
+    for (NavigationIconView view in navigationViews) {
       view.controller.addListener(_rebuild);
     }
 
-    _navigationViews[_currentIndex].controller.value = 1.0;
-
-    cacheArtistImages();
-    _authHelper.tryRecoveringSession();
+    navigationViews[0].controller.value = 1.0;
   }
 
   Future<Null> cacheArtistImages() async {
@@ -149,15 +154,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _asyncLoaderState.currentState.reloadState();
   }
 
-  @override
-  void dispose() {
-    for (NavigationIconView view in _navigationViews) {
-      view.controller.dispose();
-    }
-
-    super.dispose();
-  }
-
   void _rebuild() {
     setState(() {
       // Rebuild in order to animate views.
@@ -167,7 +163,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   Widget _buildTransitionsStack() {
     final List<FadeTransition> transitions = <FadeTransition>[];
 
-    for (NavigationIconView view in _navigationViews) {
+    for (NavigationIconView view in navigationViews) {
       transitions.add(view.transition(context));
     }
 
@@ -185,21 +181,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final BottomNavigationBar botNavBar = new BottomNavigationBar(
-      items: _navigationViews
-          .map((NavigationIconView navigationView) => navigationView.item)
-          .toList(),
-      currentIndex: _currentIndex,
-      type: BottomNavigationBarType.shifting,
-      onTap: (int index) {
-        setState(() {
-          _navigationViews[_currentIndex].controller.reverse();
-          _currentIndex = index;
-          _navigationViews[_currentIndex].controller.forward();
-        });
-      },
-    );
-
     var _asyncLoader = new AsyncLoader(
       key: _asyncLoaderState,
       initState: () => _areImagesCached.future,
@@ -225,50 +206,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         authHelper: _authHelper,
       ),
       body: new Center(child: _asyncLoader),
-      bottomNavigationBar: botNavBar,
-    );
-  }
-}
-
-class NavigationIconView {
-  NavigationIconView({
-    Widget icon,
-    Widget body,
-    Widget title,
-    Color color,
-    TickerProvider vsync,
-  })
-      : _body = body,
-        item = new BottomNavigationBarItem(
-          icon: icon,
-          title: title,
-          backgroundColor: color,
-        ),
-        controller = new AnimationController(
-          duration: kThemeAnimationDuration,
-          vsync: vsync,
-        ) {
-    _animation = new CurvedAnimation(
-      parent: controller,
-      curve: const Interval(0.5, 1.0, curve: Curves.fastOutSlowIn),
-    );
-  }
-
-  final Widget _body;
-  final BottomNavigationBarItem item;
-  final AnimationController controller;
-  CurvedAnimation _animation;
-
-  FadeTransition transition(BuildContext context) {
-    return new FadeTransition(
-      opacity: _animation,
-      child: new SlideTransition(
-        position: new Tween<Offset>(
-          begin: const Offset(0.0, 0.02),
-          end: Offset.zero,
-        )
-            .animate(_animation),
-        child: _body,
+      bottomNavigationBar: new BottomBar(
+        navigationViews: navigationViews,
       ),
     );
   }
