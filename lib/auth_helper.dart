@@ -11,22 +11,27 @@ class AuthHelper {
     ],
   );
 
-  GoogleSignInAccount get currentUser => _googleSignIn.currentUser;
+  FirebaseUser currentUser;
+  bool get isLoggedIn => currentUser != null;
+
+  AuthHelper() {
+    _firebaseAuth.onAuthStateChanged.listen((FirebaseUser user) {
+      currentUser = user;
+    });
+  }
 
   Future<bool> signIn({bool onlySilently = false}) async {
     final googleUser = await _signInWithGoogle(onlySilently);
 
     if (googleUser != null) {
-      final firebaseUser = await _signInToFirebase();
+      final firebaseUser = await _tryToLoginWithGoogle();
       return firebaseUser != null;
     }
 
     return false;
   }
 
-  Future<GoogleSignInAccount> signOut() async {
-    return await _googleSignIn.signOut();
-  }
+  Future<GoogleSignInAccount> signOut() => _firebaseAuth.signOut();
 
   Future<GoogleSignInAccount> _signInWithGoogle(bool onlySilently) async {
     var googleUser = _googleSignIn.currentUser;
@@ -42,16 +47,15 @@ class AuthHelper {
     return googleUser;
   }
 
-  Future<FirebaseUser> _signInToFirebase() async {
+  Future<FirebaseUser> _tryToLoginWithGoogle() async {
     var googleUser = _googleSignIn.currentUser;
 
     if (googleUser == null) {
       return null;
     }
 
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser.authentication;
-    final FirebaseUser firebaseUser = await _firebaseAuth.signInWithGoogle(
+    final googleAuth = await googleUser.authentication;
+    final firebaseUser = await _firebaseAuth.signInWithGoogle(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );

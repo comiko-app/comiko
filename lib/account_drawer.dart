@@ -1,5 +1,6 @@
 import 'package:comiko/auth_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:meta/meta.dart';
 
 class AccountDrawer extends StatefulWidget {
@@ -68,13 +69,12 @@ class _AccountDrawerState extends State<AccountDrawer>
       child: new ListView(
         children: <Widget>[
           new UserAccountsDrawerHeader(
-            accountName: new Text(authHelper.currentUser != null
+            accountName: new Text(authHelper.isLoggedIn
                 ? authHelper.currentUser.displayName
                 : "Pas connecté"),
-            accountEmail: new Text(authHelper.currentUser != null
-                ? authHelper.currentUser.email
-                : ""),
-            currentAccountPicture: authHelper.currentUser != null
+            accountEmail: new Text(
+                authHelper.isLoggedIn ? authHelper.currentUser.email : ""),
+            currentAccountPicture: authHelper.isLoggedIn
                 ? new CircleAvatar(
                     backgroundImage:
                         new NetworkImage(authHelper.currentUser.photoUrl),
@@ -91,12 +91,10 @@ class _AccountDrawerState extends State<AccountDrawer>
           new ClipRect(
             child: new Stack(
               children: <Widget>[
-                // The initial contents of the drawer.
                 new FadeTransition(
                   opacity: _drawerContentsOpacity,
                   child: new Text(''),
                 ),
-                // The drawer's "details" view.
                 new SlideTransition(
                   position: _drawerDetailsPosition,
                   child: new FadeTransition(
@@ -105,10 +103,10 @@ class _AccountDrawerState extends State<AccountDrawer>
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
-                        authHelper.currentUser == null
+                        !authHelper.isLoggedIn
                             ? new ListTile(
-                                leading: const Icon(Icons.account_box),
-                                title: new Text('Connectez-vous avec google'),
+                                leading: const Icon(FontAwesomeIcons.google),
+                                title: new Text('Connectez-vous avec Google'),
                                 onTap: () {
                                   authHelper.signIn().then((success) {
                                     if (success) {
