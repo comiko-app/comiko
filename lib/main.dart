@@ -9,10 +9,8 @@ import 'package:comiko/app_state.dart';
 import 'package:comiko/auth_helper.dart';
 import 'package:comiko/pages/about_us_page.dart';
 import 'package:comiko/pages/artists_page.dart';
-import 'package:comiko/pages/liked_events_page.dart';
+import 'package:comiko/pages/is_page.dart';
 import 'package:comiko/pages/upcoming_events_page.dart';
-import 'package:comiko/widgets/bottom_bar.dart';
-import 'package:comiko/widgets/navigation_icon_view.dart';
 import 'package:comiko_backend/services.dart';
 import 'package:comiko_shared/models.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +36,7 @@ class MyApp extends StatelessWidget {
       child: new MaterialApp(
         title: 'Comiko',
         theme: new ThemeData.dark(),
-        home: new MyHomePage(title: 'Flutter Demo Home Page', store: store),
+        home: new MyHomePage(store: store),
       ),
     );
   }
@@ -46,11 +44,9 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   final Store<AppState> store;
-  final String title;
 
   MyHomePage({
     Key key,
-    this.title,
     @required this.store,
   })
       : super(key: key);
@@ -61,12 +57,14 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   Completer _areImagesCached = new Completer();
+  int _page = 0;
+  PageController _pageController;
 
   final GlobalKey<AsyncLoaderState> _asyncLoaderState =
       new GlobalKey<AsyncLoaderState>();
   final Store<AppState> store;
   final AuthHelper _authHelper = new AuthHelper();
-  List<NavigationIconView> navigationViews;
+  List<IsPage> pages;
 
   _MyHomePageState({
     @required this.store,
@@ -83,50 +81,17 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    pages = [
+      new UpcomingEventsPage(store: store),
+      new ArtistsPage(),
+      new AboutUsPage(),
+    ];
 
-    buildNavigationViews();
+    _pageController = new PageController();
+
     initServices();
     cacheArtistImages();
     _authHelper.tryRecoveringSession();
-  }
-
-  void buildNavigationViews() {
-    navigationViews = <NavigationIconView>[
-      new NavigationIconView(
-        icon: const Icon(Icons.event_available),
-        body: new UpcomingEventsPage(store: store),
-        title: const Text('À venir'),
-        color: new Color.fromARGB(0xFF, 0xF4, 0x43, 0x36),
-        vsync: this,
-      ),
-      new NavigationIconView(
-        icon: const Icon(Icons.favorite),
-        body: new LikedEventsPage(store: store),
-        title: const Text('Favoris'),
-        color: new Color.fromARGB(0xFF, 0x00, 0xBC, 0xD4),
-        vsync: this,
-      ),
-      new NavigationIconView(
-        icon: const Icon(Icons.mic),
-        body: new ArtistsPage(),
-        title: const Text('Artistes'),
-        color: new Color.fromARGB(0xFF, 0x75, 0x75, 0x75),
-        vsync: this,
-      ),
-      new NavigationIconView(
-        icon: new Icon(Icons.insert_emoticon),
-        body: new AboutUsPage(),
-        title: const Text('Comiko'),
-        color: new Color.fromARGB(0xFF, 0xD3, 0x2F, 0x2F),
-        vsync: this,
-      ),
-    ];
-
-    for (NavigationIconView view in navigationViews) {
-      view.controller.addListener(_rebuild);
-    }
-
-    navigationViews[0].controller.value = 1.0;
   }
 
   Future<Null> cacheArtistImages() async {
@@ -154,29 +119,22 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _asyncLoaderState.currentState.reloadState();
   }
 
-  void _rebuild() {
+  void navigationTapped(int page) {
+    _pageController.animateToPage(page,
+        duration: const Duration(milliseconds: 500), curve: Curves.ease);
+  }
+
+  void onPageChanged(BuildContext context, int page) {
     setState(() {
-      // Rebuild in order to animate views.
+      this._page = page;
+      store.dispatch(new PageChangedAction(context, pages[page]));
     });
   }
 
-  Widget _buildTransitionsStack() {
-    final List<FadeTransition> transitions = <FadeTransition>[];
-
-    for (NavigationIconView view in navigationViews) {
-      transitions.add(view.transition(context));
-    }
-
-    // We want to have the newly animating (fading in) views on top.
-    transitions.sort((FadeTransition a, FadeTransition b) {
-      final Animation<double> aAnimation = a.opacity;
-      final Animation<double> bAnimation = b.opacity;
-      final double aValue = aAnimation.value;
-      final double bValue = bAnimation.value;
-      return aValue.compareTo(bValue);
-    });
-
-    return new Stack(children: transitions);
+  @override
+  void dispose() {
+    super.dispose();
+    _pageController.dispose();
   }
 
   @override
@@ -184,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     var _asyncLoader = new AsyncLoader(
       key: _asyncLoaderState,
       initState: () => _areImagesCached.future,
-      renderLoad: () => new CircularProgressIndicator(),
+      renderLoad: () => new Center(child: new CircularProgressIndicator()),
       renderError: ([error]) => new Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -198,16 +156,36 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                   "Une erreur est survenue en chargeant l'application :("),
             ],
           ),
-      renderSuccess: ({data}) => _buildTransitionsStack(),
+      renderSuccess: ({data}) {
+        return new PageView(
+          children: pages,
+          controller: _pageController,
+          onPageChanged: (index) => onPageChanged(context, index),
+        );
+      },
     );
 
     return new Scaffold(
       drawer: new AccountDrawer(
         authHelper: _authHelper,
       ),
-      body: new Center(child: _asyncLoader),
-      bottomNavigationBar: new BottomBar(
-        navigationViews: navigationViews,
+      body: _asyncLoader,
+      appBar: new AppBar(
+        title: new Text(store.state.appTitle),
+        actions: store.state.appActions,
+      ),
+      bottomNavigationBar: new BottomNavigationBar(
+        items: [
+          new BottomNavigationBarItem(
+              icon: new Icon(Icons.event_available),
+              title: new Text("À venir")),
+          new BottomNavigationBarItem(
+              icon: new Icon(Icons.mic), title: new Text("Artistes")),
+          new BottomNavigationBarItem(
+              icon: new Icon(Icons.insert_emoticon), title: new Text("Comiko")),
+        ],
+        onTap: navigationTapped,
+        currentIndex: _page,
       ),
     );
   }

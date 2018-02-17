@@ -1,9 +1,10 @@
+import 'package:comiko/pages/is_page.dart';
 import 'package:flutter/material.dart';
 
 class NavigationIconView {
   NavigationIconView({
     Widget icon,
-    Widget body,
+    IsPage body,
     Widget title,
     Color color,
     TickerProvider vsync,
@@ -24,7 +25,7 @@ class NavigationIconView {
     );
   }
 
-  final Widget _body;
+  final IsPage _body;
   final BottomNavigationBarItem item;
   final AnimationController controller;
   CurvedAnimation _animation;

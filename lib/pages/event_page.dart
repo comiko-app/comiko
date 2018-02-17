@@ -14,40 +14,44 @@ class EventPage extends StatelessWidget implements IsPage {
   Widget build(BuildContext context) {
     final double _appBarHeight = 256.0;
 
-    return new CustomScrollView(
-      slivers: <Widget>[
-        new SliverAppBar(
-          expandedHeight: _appBarHeight,
-          pinned: true,
-          floating: false,
-          snap: false,
-          flexibleSpace: new FlexibleSpaceBar(
-            title: new Text(event.artist),
-            background: new Stack(
-              fit: StackFit.expand,
-              children: <Widget>[
-                new Image.asset(
-                  event.imageUri,
-                  fit: BoxFit.cover,
-                  height: _appBarHeight,
-                ),
-                new Container(
-                  decoration: new BoxDecoration(
-                    gradient: new LinearGradient(
-                        colors: <Color>[Colors.black54, Colors.transparent],
-                        begin: FractionalOffset.bottomCenter),
+    return new Scaffold(
+      primary: false,
+      body: new CustomScrollView(
+        slivers: <Widget>[
+          new SliverAppBar(
+            automaticallyImplyLeading: false,
+            expandedHeight: _appBarHeight,
+            pinned: true,
+            floating: false,
+            snap: false,
+            flexibleSpace: new FlexibleSpaceBar(
+              title: new Text(event.artist),
+              background: new Stack(
+                fit: StackFit.expand,
+                children: <Widget>[
+                  new Image.asset(
+                    event.imageUri,
+                    fit: BoxFit.cover,
+                    height: _appBarHeight,
                   ),
-                ),
-              ],
+                  new Container(
+                    decoration: new BoxDecoration(
+                      gradient: new LinearGradient(
+                          colors: <Color>[Colors.black54, Colors.transparent],
+                          begin: FractionalOffset.bottomCenter),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        new SliverList(
-          delegate: new SliverChildListDelegate(
-            eventDetails(event, context),
+          new SliverList(
+            delegate: new SliverChildListDelegate(
+              eventDetails(event, context),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

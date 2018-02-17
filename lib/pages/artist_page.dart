@@ -15,7 +15,9 @@ class ArtistPage extends StatelessWidget implements IsPage {
   Widget build(BuildContext context) {
     final double _appBarHeight = 256.0;
 
-    return new CustomScrollView(
+    return new Scaffold(
+      primary: false,
+      body: new CustomScrollView(
         slivers: <Widget>[
           new SliverAppBar(
             expandedHeight: _appBarHeight,
@@ -48,6 +50,7 @@ class ArtistPage extends StatelessWidget implements IsPage {
             ),
           ),
         ],
+      ),
     );
   }
 
