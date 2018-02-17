@@ -121,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _navigationViews[_currentIndex].controller.value = 1.0;
 
     cacheArtistImages();
-    _authHelper.signIn(onlySilently: true);
+    _authHelper.tryRecoveringSession();
   }
 
   Future<Null> cacheArtistImages() async {

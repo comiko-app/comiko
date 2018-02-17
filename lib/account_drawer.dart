@@ -63,31 +63,76 @@ class _AccountDrawerState extends State<AccountDrawer>
     super.dispose();
   }
 
+  UserAccountsDrawerHeader createUserAccountsDrawerHeader() {
+    if (authHelper.isLoggedIn) {
+      var currentUser = authHelper.currentUser;
+      return new UserAccountsDrawerHeader(
+        accountName: new Text(currentUser.displayName),
+        accountEmail: new Text(currentUser.email ?? ""),
+        currentAccountPicture: new CircleAvatar(
+          backgroundImage: new NetworkImage(currentUser.photoUrl),
+        ),
+        onDetailsPressed: () {
+          _showDrawerContents = !_showDrawerContents;
+          if (_showDrawerContents)
+            _controller.reverse();
+          else
+            _controller.forward();
+        },
+      );
+    } else {
+      return new UserAccountsDrawerHeader(
+        accountName: const Text('Pas connecté'),
+        accountEmail: const Text(''),
+      );
+    }
+  }
+
+  List<Widget> createAuthenticationListTiles() {
+    return authHelper.isLoggedIn
+        ? [
+            new ListTile(
+              leading: const Icon(Icons.exit_to_app),
+              title: new Text('Se déconnecter'),
+              onTap: () {
+                authHelper.signOut().then((account) {
+                  _rebuild();
+                });
+              },
+            ),
+          ]
+        : [
+            new ListTile(
+              leading: const Icon(FontAwesomeIcons.google),
+              title: new Text('Connectez-vous avec Google'),
+              onTap: () {
+                authHelper.signInWithGoogle().then((success) {
+                  if (success) {
+                    _rebuild();
+                  }
+                });
+              },
+            ),
+            new ListTile(
+              leading: const Icon(FontAwesomeIcons.facebook),
+              title: new Text('Connectez-vous avec Facebook'),
+              onTap: () {
+                authHelper.signInWithFacebook().then((success) {
+                  if (success) {
+                    _rebuild();
+                  }
+                });
+              },
+            ),
+          ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Drawer(
       child: new ListView(
         children: <Widget>[
-          new UserAccountsDrawerHeader(
-            accountName: new Text(authHelper.isLoggedIn
-                ? authHelper.currentUser.displayName
-                : "Pas connecté"),
-            accountEmail: new Text(
-                authHelper.isLoggedIn ? authHelper.currentUser.email : ""),
-            currentAccountPicture: authHelper.isLoggedIn
-                ? new CircleAvatar(
-                    backgroundImage:
-                        new NetworkImage(authHelper.currentUser.photoUrl),
-                  )
-                : null,
-            onDetailsPressed: () {
-              _showDrawerContents = !_showDrawerContents;
-              if (_showDrawerContents)
-                _controller.reverse();
-              else
-                _controller.forward();
-            },
-          ),
+          createUserAccountsDrawerHeader(),
           new ClipRect(
             child: new Stack(
               children: <Widget>[
@@ -102,29 +147,7 @@ class _AccountDrawerState extends State<AccountDrawer>
                     child: new Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        !authHelper.isLoggedIn
-                            ? new ListTile(
-                                leading: const Icon(FontAwesomeIcons.google),
-                                title: new Text('Connectez-vous avec Google'),
-                                onTap: () {
-                                  authHelper.signIn().then((success) {
-                                    if (success) {
-                                      _rebuild();
-                                    }
-                                  });
-                                },
-                              )
-                            : new ListTile(
-                                leading: const Icon(Icons.exit_to_app),
-                                title: new Text('Se déconnecter'),
-                                onTap: () {
-                                  authHelper.signOut().then((account) {
-                                    _rebuild();
-                                  });
-                                },
-                              ),
-                      ],
+                      children: createAuthenticationListTiles(),
                     ),
                   ),
                 ),
