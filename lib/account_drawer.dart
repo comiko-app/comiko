@@ -95,7 +95,7 @@ class _AccountDrawerState extends State<AccountDrawer>
               leading: const Icon(Icons.exit_to_app),
               title: new Text('Se déconnecter'),
               onTap: () {
-                authHelper.signOut().then((account) {
+                authHelper.signOut().then((_) {
                   _rebuild();
                 });
               },
