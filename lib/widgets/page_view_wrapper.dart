@@ -12,7 +12,9 @@ class PageViewWrapper extends StatefulWidget {
   List<IsPage> _pages;
   final PageController pageController = new PageController();
 
-  PageViewWrapper({@required this.store}) {
+  PageViewWrapper({
+    @required this.store,
+  }) {
     _pages = [
       new UpcomingEventsPage(store: store),
       new ArtistsPage(),
