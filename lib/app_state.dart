@@ -8,6 +8,7 @@ class AppState {
   static const double defaultPriceFilter = 100.0;
   static const int defaultDistanceFilter = 500;
   static const String defaultAppTitle = 'Comiko';
+  static const int defaultPageIndex = 0;
   static AppActionsFactory defaultAppActions = (_) => [];
 
   List<Event> events;
@@ -17,6 +18,7 @@ class AppState {
   double priceFilter;
   int distanceFilter;
   String appTitle;
+  int currentPageIndex;
   AppActionsFactory appActions;
   EventService eventsService = ServiceProvider.get<EventService>(EventService);
 
@@ -29,6 +31,7 @@ class AppState {
     distanceFilter = defaultDistanceFilter;
     appTitle = defaultAppTitle;
     appActions = defaultAppActions;
+    currentPageIndex = defaultPageIndex;
   }
 
   EventCardViewModel createViewModel(Event event) => new EventCardViewModel(
@@ -78,6 +81,7 @@ class AppState {
     this.distanceFilter,
     this.appTitle,
     this.appActions,
+    this.currentPageIndex,
   );
 
   AppState clone() {
@@ -90,6 +94,7 @@ class AppState {
       distanceFilter,
       appTitle,
       appActions,
+      currentPageIndex,
     );
 
     return newState;
@@ -206,13 +211,15 @@ class ResetFiltersAction extends IsAction {
 
 class PageChangedAction extends IsAction {
   final IsPage page;
+  final int pageIndex;
 
-  PageChangedAction(this.page);
+  PageChangedAction(this.page, this.pageIndex);
 
   @override
   AppState handle(AppState state) {
     state = state.clone();
     state.appTitle = page.title;
+    state.currentPageIndex = pageIndex;
     state.appActions = page.actionsFactory;
 
     return state;

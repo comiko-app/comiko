@@ -3,13 +3,14 @@ import 'dart:async';
 import 'package:async_loader/async_loader.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:comiko/widgets/comiko_page_view.dart';
 import 'package:comiko_shared/models.dart';
 import 'package:flutter/material.dart';
 
 class ImagesCachingLoader extends StatelessWidget {
   final GlobalKey<AsyncLoaderState> _asyncLoaderState =
       new GlobalKey<AsyncLoaderState>();
-  final PageView _pageView;
+  final PageViewWrapper _pageView;
   final Completer _areImagesCached = new Completer();
 
   ImagesCachingLoader(this._pageView);
