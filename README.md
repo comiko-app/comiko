@@ -52,6 +52,15 @@ Note: If you're not part of the Comiko project on Firebase, you can either ask t
 
 - Place it under `comiko-app/android/app`
 
+#### Debug firebase auth
+Get your debug keystore fingerprint.
+There's no password for debug keystore, just hit enter when asked.
+```
+keytool -exportcert -list -v -alias androiddebugkey -keystore ~/.android/debug.keystore
+```
+Copy the `SHA1` fingerprint and add it to the Comiko project settings in firebase console.
+
+
 ## Getting Started
 For help getting started with Flutter, view our online
 [documentation](http://flutter.io/).
