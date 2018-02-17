@@ -64,7 +64,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<Null> initServices() async {
     final eventString = await rootBundle.loadString('lib/data/events.json');
     final List<Map<String, dynamic>> eventJson = JSON.decode(eventString);
-    ServiceProvider.get(EventService)..service.init(eventJson);
+    final JsonEventService service = ServiceProvider.get(EventService);
+    service.init(eventJson); // ignore: cascade_invocations
     store.dispatch(new FetchEventsAction());
   }
 

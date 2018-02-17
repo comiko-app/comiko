@@ -190,10 +190,10 @@ class FetchEventsAction extends IsAction {
           sort: state.sortingCriteria);
 
     for (var event in newState.events) {
-      state.eventsFavoriteState[event] = false;
+      newState.eventsFavoriteState[event] = false;
     }
 
-    return state;
+    return newState;
   }
 }
 
