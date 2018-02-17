@@ -18,7 +18,7 @@ class ArtistCardViewModel {
 class ArtistCard extends StatelessWidget {
   final ArtistCardViewModel artistCardViewModel;
 
-  ArtistCard(this.artistCardViewModel);
+  const ArtistCard(this.artistCardViewModel);
 
   void navigateToArtist(BuildContext context) {
     Navigator.push(
@@ -26,44 +26,42 @@ class ArtistCard extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return new GridTile(
-      footer: new GestureDetector(
-        onTap: () => navigateToArtist(context),
-        child: new GridTileBar(
-          backgroundColor: Colors.black54,
-          title: new GridTileText(artistCardViewModel.artist.name),
-          trailing: new GestureDetector(
-            onTap: () => null,
-            child: new Container(
-              padding: const EdgeInsets.only(right: 8.0),
-              color: Colors.transparent,
-              child: new Icon(
-                artistCardViewModel.isFavorite
-                    ? Icons.favorite
-                    : Icons.favorite_border,
-                color: Colors.white,
+  Widget build(BuildContext context) => new GridTile(
+        footer: new GestureDetector(
+          onTap: () => navigateToArtist(context),
+          child: new GridTileBar(
+            backgroundColor: Colors.black54,
+            title: new GridTileText(artistCardViewModel.artist.name),
+            trailing: new GestureDetector(
+              onTap: () => null,
+              child: new Container(
+                padding: const EdgeInsets.only(right: 8.0),
+                color: Colors.transparent,
+                child: new Icon(
+                  artistCardViewModel.isFavorite
+                      ? Icons.favorite
+                      : Icons.favorite_border,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
         ),
-      ),
-      child: new GestureDetector(
-        onTap: () => navigateToArtist(context),
-        child: new Stack(
-          fit: StackFit.expand,
-          children: <Widget>[
-            new ArtistImage(artistCardViewModel.artist.imageUrl),
-            new Container(
-              decoration: new BoxDecoration(
-                gradient: new LinearGradient(
-                    colors: <Color>[Colors.black54, Colors.transparent],
-                    begin: FractionalOffset.bottomCenter),
+        child: new GestureDetector(
+          onTap: () => navigateToArtist(context),
+          child: new Stack(
+            fit: StackFit.expand,
+            children: <Widget>[
+              new ArtistImage(url: artistCardViewModel.artist.imageUrl),
+              new Container(
+                decoration: new BoxDecoration(
+                  gradient: new LinearGradient(
+                      colors: <Color>[Colors.black54, Colors.transparent],
+                      begin: FractionalOffset.bottomCenter),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
-  }
+      );
 }

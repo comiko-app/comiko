@@ -16,14 +16,14 @@ class ImagesCachingLoader extends StatelessWidget {
   ImagesCachingLoader(this._pageView);
 
   Future<Null> cacheArtistImages(BuildContext context) async {
-    var snapshot = await Firestore.instance
+    final snapshot = await Firestore.instance
         .collection('artists')
         .where("deleted", isEqualTo: false)
         .orderBy('name', descending: false)
         .snapshots
         .first;
 
-    var cachedImages = <Future>[];
+    final cachedImages = <Future>[];
     for (var d in snapshot.documents) {
       final artist = new Artist.fromJson(d.data);
       if (artist.imageUrl == null) {
@@ -41,24 +41,22 @@ class ImagesCachingLoader extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return new AsyncLoader(
-        key: _asyncLoaderState,
-        initState: () => _areImagesCached.future,
-        renderLoad: () => new Center(child: new CircularProgressIndicator()),
-        renderError: ([error]) => new Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                new Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: new Icon(
-                      Icons.error_outline,
-                      size: 72.0,
-                    )),
-                const Text(
-                    "Une erreur est survenue en chargeant l'application :("),
-              ],
-            ),
-        renderSuccess: ({data}) => _pageView);
-  }
+  Widget build(BuildContext context) => new AsyncLoader(
+      key: _asyncLoaderState,
+      initState: () => _areImagesCached.future,
+      renderLoad: () => const Center(child: const CircularProgressIndicator()),
+      renderError: ([error]) => new Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              new Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: new Icon(
+                    Icons.error_outline,
+                    size: 72.0,
+                  )),
+              const Text(
+                  "Une erreur est survenue en chargeant l'application :("),
+            ],
+          ),
+      renderSuccess: ({data}) => _pageView);
 }

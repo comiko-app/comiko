@@ -3,7 +3,11 @@ import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
 class DateTimeItem extends StatelessWidget {
-  DateTimeItem({Key key, DateTime dateTime, @required this.onChanged})
+  DateTimeItem({
+    @required this.onChanged,
+    Key key,
+    DateTime dateTime,
+  })
       : assert(onChanged != null),
         date = new DateTime(dateTime.year, dateTime.month, dateTime.day),
         time = new TimeOfDay(hour: dateTime.hour, minute: dateTime.minute),
@@ -15,7 +19,7 @@ class DateTimeItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
+    final theme = Theme.of(context);
 
     return new DefaultTextStyle(
       style: theme.textTheme.subhead,
@@ -34,7 +38,7 @@ class DateTimeItem extends StatelessWidget {
                           initialDate: date,
                           firstDate: date.subtract(const Duration(days: 30)),
                           lastDate: date.add(const Duration(days: 30)))
-                      .then<Null>((DateTime value) {
+                      .then<Null>((value) {
                     if (value != null)
                       onChanged(new DateTime(value.year, value.month, value.day,
                           time.hour, time.minute));

@@ -9,11 +9,11 @@ import 'package:url_launcher/url_launcher.dart';
 class ArtistPage extends StatelessWidget implements IsPage {
   final Artist artist;
 
-  ArtistPage({@required this.artist});
+  const ArtistPage({@required this.artist});
 
   @override
   Widget build(BuildContext context) {
-    final double _appBarHeight = 256.0;
+    final _appBarHeight = 256.0;
 
     return new Scaffold(
       primary: false,
@@ -29,7 +29,10 @@ class ArtistPage extends StatelessWidget implements IsPage {
               background: new Stack(
                 fit: StackFit.expand,
                 children: <Widget>[
-                  new ArtistImage(artist.imageUrl, height: _appBarHeight),
+                  new ArtistImage(
+                    url: artist.imageUrl,
+                    height: _appBarHeight,
+                  ),
                   new Container(
                     decoration: new BoxDecoration(
                       gradient: new LinearGradient(
@@ -55,7 +58,7 @@ class ArtistPage extends StatelessWidget implements IsPage {
   }
 
   @override
-  AppActionsFactory get actionsFactory => (BuildContext context) => [];
+  AppActionsFactory get actionsFactory => (context) => [];
 
   @override
   String get title => artist.name;
@@ -72,7 +75,7 @@ Column bioWidgets(BuildContext context, Artist artist) => new Column(
           ),
         ),
         new Container(
-          padding: new EdgeInsets.only(
+          padding: const EdgeInsets.only(
             left: 72.0,
             right: 16.0,
             bottom: 16.0,
@@ -86,28 +89,31 @@ Widget socialWidgets(Artist artist, BuildContext context) => new Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: <Widget>[
       new SocialIcon(
-        artist.facebook,
-        FontAwesomeIcons.facebook,
+        url: artist.facebook,
+        leadingIcon: FontAwesomeIcons.facebook,
       ),
       new SocialIcon(
-        artist.twitter,
-        FontAwesomeIcons.twitter,
+        url: artist.twitter,
+        leadingIcon: FontAwesomeIcons.twitter,
       ),
       new SocialIcon(
-        artist.youtube,
-        FontAwesomeIcons.youtube,
+        url: artist.youtube,
+        leadingIcon: FontAwesomeIcons.youtube,
       ),
       new SocialIcon(
-        artist.website,
-        FontAwesomeIcons.chrome,
+        url: artist.website,
+        leadingIcon: FontAwesomeIcons.chrome,
       ),
-    ].where((Widget w) => w is! Container).toList());
+    ].where((w) => w is! Container).toList());
 
 class SocialIcon extends StatelessWidget {
   final String url;
   final IconData leadingIcon;
 
-  SocialIcon(this.url, this.leadingIcon);
+  const SocialIcon({
+    @required this.url,
+    @required this.leadingIcon,
+  });
 
   @override
   Widget build(BuildContext context) => url == null

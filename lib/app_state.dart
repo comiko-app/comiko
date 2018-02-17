@@ -4,7 +4,7 @@ import 'package:comiko_backend/services.dart';
 import 'package:comiko_shared/models.dart';
 
 class AppState {
-  static const String defaultCityFilter = "";
+  static const String defaultCityFilter = '';
   static const double defaultPriceFilter = 100.0;
   static const int defaultDistanceFilter = 500;
   static const String defaultAppTitle = 'Comiko';
@@ -21,6 +21,18 @@ class AppState {
   int currentPageIndex;
   AppActionsFactory appActions;
   EventService eventsService = ServiceProvider.get<EventService>(EventService);
+
+  AppState._(
+    this.events,
+    this.sortingCriteria,
+    this.eventsFavoriteState,
+    this.cityFilter,
+    this.priceFilter,
+    this.distanceFilter,
+    this.appTitle,
+    this.appActions,
+    this.currentPageIndex,
+  );
 
   AppState.initial() {
     sortingCriteria = SortingCriteria.date;
@@ -40,15 +52,15 @@ class AppState {
       );
 
   List<EventCardViewModel> getFavoriteEvents() => events
-      .where((Event e) => eventsFavoriteState[e])
-      .map((Event e) => new EventCardViewModel(event: e, isFavorite: true))
+      .where((e) => eventsFavoriteState[e])
+      .map((e) => new EventCardViewModel(event: e, isFavorite: true))
       .toList();
 
   void filterEventsWithActiveFilters() {
-    var allEvent = eventsService.getAll();
-    var sorted = eventsService.orderBy(allEvent, sort: sortingCriteria);
+    final allEvents = eventsService.getAll();
+    var sorted = eventsService.orderBy(allEvents, sort: sortingCriteria);
 
-    if (cityFilter != null && cityFilter != "") {
+    if (cityFilter != null && cityFilter != '') {
       sorted = eventsService.filterBy(sorted,
           filter: FilteringCriteria.city, city: cityFilter);
     }
@@ -72,20 +84,8 @@ class AppState {
     distanceFilter = defaultDistanceFilter;
   }
 
-  AppState._(
-    this.events,
-    this.sortingCriteria,
-    this.eventsFavoriteState,
-    this.cityFilter,
-    this.priceFilter,
-    this.distanceFilter,
-    this.appTitle,
-    this.appActions,
-    this.currentPageIndex,
-  );
-
   AppState clone() {
-    var newState = new AppState._(
+    final newState = new AppState._(
       new List.from(events),
       sortingCriteria,
       new Map.from(eventsFavoriteState),
@@ -108,7 +108,7 @@ class ToggleFavoriteAction extends IsAction {
 
   @override
   AppState handle(AppState state) {
-    var eventsFavoriteState = state.eventsFavoriteState[event];
+    final eventsFavoriteState = state.eventsFavoriteState[event];
     state.eventsFavoriteState[event] = !eventsFavoriteState;
 
     return state;
@@ -124,8 +124,9 @@ class UpdateSortingCriteriaAction extends IsAction {
 
   @override
   AppState handle(AppState state) {
-    state.sortingCriteria = criteria;
-    state.events = eventService.orderBy(state.events, sort: criteria);
+    state
+      ..sortingCriteria = criteria
+      ..events = eventService.orderBy(state.events, sort: criteria);
 
     return state;
   }
@@ -139,9 +140,9 @@ class UpdateCityFilterAction extends IsAction {
 
   @override
   AppState handle(AppState state) {
-    state.cityFilter = value;
-
-    state.filterEventsWithActiveFilters();
+    state
+      ..cityFilter = value
+      ..filterEventsWithActiveFilters();
 
     return state;
   }
@@ -155,9 +156,9 @@ class UpdatePriceFilterAction extends IsAction {
 
   @override
   AppState handle(AppState state) {
-    state.priceFilter = value;
-
-    state.filterEventsWithActiveFilters();
+    state
+      ..priceFilter = value
+      ..filterEventsWithActiveFilters();
 
     return state;
   }
@@ -171,9 +172,9 @@ class UpdateDistanceFilterAction extends IsAction {
 
   @override
   AppState handle(AppState state) {
-    state.distanceFilter = value;
-
-    state.filterEventsWithActiveFilters();
+    state
+      ..distanceFilter = value
+      ..filterEventsWithActiveFilters();
 
     return state;
   }
@@ -184,28 +185,26 @@ class FetchEventsAction extends IsAction {
 
   @override
   AppState handle(AppState state) {
-    state = state.clone();
-    state.events = eventService.orderBy(
-      eventService.getAll(),
-      sort: state.sortingCriteria,
-    );
+    final newState = state.clone()
+      ..events = eventService.orderBy(eventService.getAll(),
+          sort: state.sortingCriteria);
 
-    for (var event in state.events) {
-      state.eventsFavoriteState[event] = false;
+    for (var event in newState.events) {
+      newState.eventsFavoriteState[event] = false;
     }
 
-    return state;
+    return newState;
   }
 }
 
 class ResetFiltersAction extends IsAction {
   @override
   AppState handle(AppState state) {
-    state = state.clone();
-    state.resetFilters();
-    state.filterEventsWithActiveFilters();
+    final newState = state.clone()
+      ..resetFilters()
+      ..filterEventsWithActiveFilters();
 
-    return state;
+    return newState;
   }
 }
 
@@ -217,21 +216,21 @@ class PageChangedAction extends IsAction {
 
   @override
   AppState handle(AppState state) {
-    state = state.clone();
-    state.appTitle = page.title;
-    state.currentPageIndex = pageIndex;
-    state.appActions = page.actionsFactory;
+    final newState = state.clone()
+      ..appTitle = page.title
+      ..currentPageIndex = pageIndex
+      ..appActions = page.actionsFactory;
 
-    return state;
+    return newState;
   }
 }
 
+// ignore: one_member_abstracts
 abstract class IsAction {
   AppState handle(AppState state);
 }
 
 AppState reducer<T extends IsAction>(AppState state, T action) {
-  state = state.clone();
-  state = action.handle(state);
-  return state;
+  final newState = action.handle(state);
+  return newState;
 }

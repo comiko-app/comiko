@@ -7,34 +7,33 @@ import 'package:redux/redux.dart';
 class SortPopupMenu extends StatelessWidget {
   final Store<AppState> store;
 
-  SortPopupMenu({
+  const SortPopupMenu({
     @required this.store,
   });
 
   @override
-  Widget build(BuildContext context) {
-    return new PopupMenuButton<SortingCriteria>(
-      icon: const Icon(Icons.sort),
-      onSelected: (SortingCriteria result) {
-        store.dispatch(new UpdateSortingCriteriaAction(result));
-      },
-      itemBuilder: (BuildContext context) => <PopupMenuEntry<SortingCriteria>>[
-            new CheckedPopupMenuItem<SortingCriteria>(
-              checked: store.state.sortingCriteria == SortingCriteria.date,
-              value: SortingCriteria.date,
-              child: const Text('Date'),
-            ),
-            new CheckedPopupMenuItem<SortingCriteria>(
-              checked: store.state.sortingCriteria == SortingCriteria.distance,
-              value: SortingCriteria.distance,
-              child: const Text('Distance'),
-            ),
-            new CheckedPopupMenuItem<SortingCriteria>(
-              checked: store.state.sortingCriteria == SortingCriteria.price,
-              value: SortingCriteria.price,
-              child: const Text('Prix'),
-            ),
-          ],
-    );
-  }
+  Widget build(BuildContext context) => new PopupMenuButton<SortingCriteria>(
+        icon: const Icon(Icons.sort),
+        onSelected: (result) {
+          store.dispatch(new UpdateSortingCriteriaAction(result));
+        },
+        itemBuilder: (context) => <PopupMenuEntry<SortingCriteria>>[
+              new CheckedPopupMenuItem<SortingCriteria>(
+                checked: store.state.sortingCriteria == SortingCriteria.date,
+                value: SortingCriteria.date,
+                child: const Text('Date'),
+              ),
+              new CheckedPopupMenuItem<SortingCriteria>(
+                checked:
+                    store.state.sortingCriteria == SortingCriteria.distance,
+                value: SortingCriteria.distance,
+                child: const Text('Distance'),
+              ),
+              new CheckedPopupMenuItem<SortingCriteria>(
+                checked: store.state.sortingCriteria == SortingCriteria.price,
+                value: SortingCriteria.price,
+                child: const Text('Prix'),
+              ),
+            ],
+      );
 }

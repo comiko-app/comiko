@@ -21,18 +21,16 @@ class EventCard extends StatelessWidget {
   final EventCardViewModel eventCardViewModel;
   final Store<AppState> store;
 
-  EventCard(
+  const EventCard(
     this.eventCardViewModel, {
     @required this.store,
   });
 
   @override
-  Widget build(BuildContext context) {
-    return new GridTile(
-      footer: new _GridBottomBar(eventCardViewModel, store),
-      child: new _GridTileMainWidget(eventCardViewModel.event),
-    );
-  }
+  Widget build(BuildContext context) => new GridTile(
+        footer: new _GridBottomBar(eventCardViewModel, store),
+        child: new _GridTileMainWidget(eventCardViewModel.event),
+      );
 }
 
 class _GridBottomBar extends StatelessWidget {
@@ -43,61 +41,62 @@ class _GridBottomBar extends StatelessWidget {
   _GridBottomBar(this.viewModel, this.store);
 
   @override
-  Widget build(BuildContext context) {
-    return new GestureDetector(
-      onTap: () => navigateToEvent(viewModel.event, context),
-      child: new Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          new Container(
-            margin: new EdgeInsets.only(left: 16.0, bottom: 8.0),
-            child: new FittedBox(
-              fit: BoxFit.scaleDown,
-              alignment: FractionalOffset.centerLeft,
-              child: new Text(
-                viewModel.event.artist,
-                style: Theme.of(context).textTheme.headline,
-              ),
-            ),
-          ),
-          new Container(
-            margin: new EdgeInsets.only(left: 16.0, bottom: 8.0),
-            child: new FittedBox(
-              fit: BoxFit.scaleDown,
-              alignment: FractionalOffset.centerLeft,
-              child: new Text(
-                viewModel.event.name,
-                style: Theme.of(context).textTheme.subhead,
-              ),
-            ),
-          ),
-          new GridTileBar(
-            backgroundColor: Colors.black54,
-            title: new GridTileText(viewModel.event.place ?? ""),
-            subtitle: new GridTileText(formatter.format(viewModel.event.start)),
-            trailing: new GestureDetector(
-              onTap: () =>
-                  store.dispatch(new ToggleFavoriteAction(viewModel.event)),
-              child: new Container(
-                padding: const EdgeInsets.all(22.0),
-                color: Colors.transparent,
-                child: new Icon(
-                  viewModel.isFavorite ? Icons.favorite : Icons.favorite_border,
-                  color: Colors.white,
+  Widget build(BuildContext context) => new GestureDetector(
+        onTap: () => navigateToEvent(viewModel.event, context),
+        child: new Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            new Container(
+              margin: const EdgeInsets.only(left: 16.0, bottom: 8.0),
+              child: new FittedBox(
+                fit: BoxFit.scaleDown,
+                alignment: FractionalOffset.centerLeft,
+                child: new Text(
+                  viewModel.event.artist,
+                  style: Theme.of(context).textTheme.headline,
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
+            new Container(
+              margin: const EdgeInsets.only(left: 16.0, bottom: 8.0),
+              child: new FittedBox(
+                fit: BoxFit.scaleDown,
+                alignment: FractionalOffset.centerLeft,
+                child: new Text(
+                  viewModel.event.name,
+                  style: Theme.of(context).textTheme.subhead,
+                ),
+              ),
+            ),
+            new GridTileBar(
+              backgroundColor: Colors.black54,
+              title: new GridTileText(viewModel.event.place ?? ""),
+              subtitle:
+                  new GridTileText(formatter.format(viewModel.event.start)),
+              trailing: new GestureDetector(
+                onTap: () =>
+                    store.dispatch(new ToggleFavoriteAction(viewModel.event)),
+                child: new Container(
+                  padding: const EdgeInsets.all(22.0),
+                  color: Colors.transparent,
+                  child: new Icon(
+                    viewModel.isFavorite
+                        ? Icons.favorite
+                        : Icons.favorite_border,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
 }
 
 class _GridTileMainWidget extends StatelessWidget {
   final Event event;
 
-  _GridTileMainWidget(this.event);
+  const _GridTileMainWidget(this.event);
 
   @override
   Widget build(BuildContext context) => new GestureDetector(

@@ -19,29 +19,27 @@ void main() {
 
 class MyApp extends StatelessWidget {
   static final Store<AppState> store = new Store(
-    combineReducers([reducer as Reducer]),
+    combineReducers([reducer]),
     initialState: new AppState.initial(),
   );
 
   @override
-  Widget build(BuildContext context) {
-    return new StoreProvider(
-      store: store,
-      child: new MaterialApp(
-        title: 'Comiko',
-        theme: new ThemeData.dark(),
-        home: new MyHomePage(store: store),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => new StoreProvider(
+        store: store,
+        child: new MaterialApp(
+          title: 'Comiko',
+          theme: new ThemeData.dark(),
+          home: new MyHomePage(store: store),
+        ),
+      );
 }
 
 class MyHomePage extends StatefulWidget {
   final Store<AppState> store;
 
-  MyHomePage({
-    Key key,
+  const MyHomePage({
     @required this.store,
+    Key key,
   })
       : super(key: key);
 
@@ -64,10 +62,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<Null> initServices() async {
-    String eventString = await rootBundle.loadString('lib/data/events.json');
-    List<Map<String, dynamic>> eventJson = JSON.decode(eventString);
-    JsonEventService service = ServiceProvider.get(EventService);
-    service.init(eventJson);
+    final eventString = await rootBundle.loadString('lib/data/events.json');
+    final List<Map<String, dynamic>> eventJson = JSON.decode(eventString);
+    final JsonEventService service = ServiceProvider.get(EventService);
+    service.init(eventJson); // ignore: cascade_invocations
     store.dispatch(new FetchEventsAction());
   }
 
@@ -81,32 +79,30 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      drawer: new AccountDrawer(
-        authHelper: _authHelper,
-      ),
-      body: imagesCachingLoader,
-      appBar: new AppBar(
-          title: new Text(store.state.appTitle),
-          actions: store.state.appActions(context)),
-      bottomNavigationBar: new StoreConnector<AppState, int>(
-        converter: (store) => store.state.currentPageIndex,
-        builder: (context, pageIndex) => new BottomNavigationBar(
-              items: [
-                new BottomNavigationBarItem(
-                    icon: new Icon(Icons.event_available),
-                    title: new Text("À venir")),
-                new BottomNavigationBarItem(
-                    icon: new Icon(Icons.mic), title: new Text("Artistes")),
-                new BottomNavigationBarItem(
-                    icon: new Icon(Icons.insert_emoticon),
-                    title: new Text("Comiko")),
-              ],
-              onTap: pageView.navigationTapped,
-              currentIndex: pageIndex,
-            ),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => new Scaffold(
+        drawer: new AccountDrawer(
+          authHelper: _authHelper,
+        ),
+        body: imagesCachingLoader,
+        appBar: new AppBar(
+            title: new Text(store.state.appTitle),
+            actions: store.state.appActions(context)),
+        bottomNavigationBar: new StoreConnector<AppState, int>(
+          converter: (store) => store.state.currentPageIndex,
+          builder: (context, pageIndex) => new BottomNavigationBar(
+                items: [
+                  new BottomNavigationBarItem(
+                      icon: new Icon(Icons.event_available),
+                      title: const Text("À venir")),
+                  new BottomNavigationBarItem(
+                      icon: new Icon(Icons.mic), title: const Text("Artistes")),
+                  new BottomNavigationBarItem(
+                      icon: new Icon(Icons.insert_emoticon),
+                      title: const Text("Comiko")),
+                ],
+                onTap: pageView.navigationTapped,
+                currentIndex: pageIndex,
+              ),
+        ),
+      );
 }
