@@ -37,7 +37,7 @@ class ArtistsPage extends StatelessWidget implements IsPage {
   }
 
   @override
-  List<Widget> actions(_) => null;
+  AppActionsFactory get actionsFactory => (BuildContext context) => [];
 
   @override
   String get title => 'Artistes';

@@ -14,7 +14,6 @@ class AboutUsPage extends StatelessWidget implements IsPage {
           height: 200.0,
           margin: const EdgeInsets.only(
             top: 20.0,
-            bottom: 20.0,
           ),
         ),
         new Container(
@@ -42,7 +41,7 @@ class AboutUsPage extends StatelessWidget implements IsPage {
   }
 
   @override
-  List<Widget> actions(_) => null;
+  AppActionsFactory get actionsFactory => (BuildContext context) => [];
 
   @override
   String get title => "Qui sommes-nous?";
@@ -53,7 +52,7 @@ class AboutUsPage extends StatelessWidget implements IsPage {
     return new Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 12.0,
-        vertical: 16.0,
+        vertical: 8.0,
       ),
       child: new Text(
         text,

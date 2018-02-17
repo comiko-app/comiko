@@ -88,6 +88,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     ];
 
     _pageController = new PageController();
+    store.dispatch(new PageChangedAction(pages[_pageController.initialPage]));
 
     initServices();
     cacheArtistImages();
@@ -127,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   void onPageChanged(BuildContext context, int page) {
     setState(() {
       this._page = page;
-      store.dispatch(new PageChangedAction(context, pages[page]));
+      store.dispatch(new PageChangedAction(pages[page]));
     });
   }
 
@@ -171,9 +172,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       ),
       body: _asyncLoader,
       appBar: new AppBar(
-        title: new Text(store.state.appTitle),
-        actions: store.state.appActions,
-      ),
+          title: new Text(store.state.appTitle),
+          actions: store.state.appActions(context)),
       bottomNavigationBar: new BottomNavigationBar(
         items: [
           new BottomNavigationBarItem(

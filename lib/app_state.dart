@@ -2,14 +2,13 @@ import 'package:comiko/pages/is_page.dart';
 import 'package:comiko/widgets/event_card.dart';
 import 'package:comiko_backend/services.dart';
 import 'package:comiko_shared/models.dart';
-import 'package:flutter/widgets.dart';
 
 class AppState {
   static const String defaultCityFilter = "";
   static const double defaultPriceFilter = 100.0;
   static const int defaultDistanceFilter = 500;
   static const String defaultAppTitle = 'Comiko';
-  static const List<Widget> defaultAppActions = const [];
+  static AppActionsFactory defaultAppActions = (_) => [];
 
   List<Event> events;
   Map<Event, bool> eventsFavoriteState = {};
@@ -18,7 +17,7 @@ class AppState {
   double priceFilter;
   int distanceFilter;
   String appTitle;
-  List<Widget> appActions;
+  AppActionsFactory appActions;
   EventService eventsService = ServiceProvider.get<EventService>(EventService);
 
   AppState.initial() {
@@ -207,15 +206,14 @@ class ResetFiltersAction extends IsAction {
 
 class PageChangedAction extends IsAction {
   final IsPage page;
-  final BuildContext context;
 
-  PageChangedAction(this.context, this.page);
+  PageChangedAction(this.page);
 
   @override
   AppState handle(AppState state) {
     state = state.clone();
     state.appTitle = page.title;
-    state.appActions = page.actions(context);
+    state.appActions = page.actionsFactory;
 
     return state;
   }

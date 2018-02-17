@@ -34,7 +34,7 @@ class UpcomingEventsPage extends StatelessWidget implements IsPage {
   }
 
   @override
-  List<Widget> actions(BuildContext context) => [
+  AppActionsFactory get actionsFactory => (BuildContext context) => [
         new SortPopupMenu(store: store),
         new IconButton(
             icon: new Icon(Icons.search),

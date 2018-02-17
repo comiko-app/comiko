@@ -34,5 +34,5 @@ class LikedEventsPage extends StatelessWidget implements IsPage {
   String get title => 'Favoris';
 
   @override
-  List<Widget> actions(_) => null;
+  AppActionsFactory get actionsFactory => (BuildContext context) => [];
 }

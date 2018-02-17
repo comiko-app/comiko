@@ -119,5 +119,5 @@ class EventPage extends StatelessWidget implements IsPage {
   String get title => event.artist;
 
   @override
-  List<Widget> actions(_) => null;
+  AppActionsFactory get actionsFactory => (BuildContext context) => [];
 }
