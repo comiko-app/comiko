@@ -7,18 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
 
 class RoutingAssistant {
-  static MaterialPageRoute eventPage(Event event) {
-    return new MaterialPageRoute(
-      builder: (_) => new EventPage(event: event),
-    );
-  }
+  static MaterialPageRoute eventPage(Event event) => new MaterialPageRoute(
+        builder: (_) => new EventPage(event: event),
+      );
 
   static void searchPopup(BuildContext context, Store<AppState> store) {
     showDialog(context: context, child: new SearchPopup(store: store));
   }
 
-  static MaterialPageRoute artistPage(Artist artist) {
-    return new MaterialPageRoute(
-        builder: (_) => new ArtistPage(artist: artist));
-  }
+  static MaterialPageRoute artistPage(Artist artist) =>
+      new MaterialPageRoute(builder: (_) => new ArtistPage(artist: artist));
 }

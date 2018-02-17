@@ -9,13 +9,13 @@ import 'package:redux/redux.dart';
 class LikedEventsPage extends StatelessWidget implements IsPage {
   final Store<AppState> store;
 
-  LikedEventsPage({
+  const LikedEventsPage({
     @required this.store,
   });
 
   @override
   Widget build(BuildContext context) {
-    var orientation = MediaQuery.of(context).orientation;
+    final orientation = MediaQuery.of(context).orientation;
     return new StoreConnector<AppState, List<EventCardViewModel>>(
       converter: (store) => store.state.getFavoriteEvents(),
       builder: (context, vms) => new GridView.count(
@@ -23,9 +23,7 @@ class LikedEventsPage extends StatelessWidget implements IsPage {
             padding: const EdgeInsets.all(8.0),
             mainAxisSpacing: 4.0,
             crossAxisSpacing: 4.0,
-            children: vms
-                .map((EventCardViewModel vm) => new EventCard(vm, store: store))
-                .toList(),
+            children: vms.map((vm) => new EventCard(vm, store: store)).toList(),
           ),
     );
   }
@@ -34,5 +32,5 @@ class LikedEventsPage extends StatelessWidget implements IsPage {
   String get title => 'Favoris';
 
   @override
-  AppActionsFactory get actionsFactory => (BuildContext context) => [];
+  AppActionsFactory get actionsFactory => (context) => [];
 }

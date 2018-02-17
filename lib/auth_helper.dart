@@ -17,13 +17,13 @@ class AuthHelper {
 
   FirebaseUser currentUser;
 
-  bool get isLoggedIn => currentUser != null;
-
   AuthHelper() {
-    _firebaseAuth.onAuthStateChanged.listen((FirebaseUser user) {
+    _firebaseAuth.onAuthStateChanged.listen((user) {
       currentUser = user;
     });
   }
+
+  bool get isLoggedIn => currentUser != null;
 
   Future<bool> tryRecoveringSession() async {
     final authFunctions = <AuthFunction>[signInWithGoogle, signInWithFacebook];
@@ -66,9 +66,7 @@ class AuthHelper {
   Future<GoogleSignInAccount> _signInWithGoogle(bool onlySilently) async {
     var googleUser = _googleSignIn.currentUser;
 
-    if (googleUser == null) {
-      googleUser = await _googleSignIn.signInSilently();
-    }
+    googleUser ??= await _googleSignIn.signInSilently();
 
     if (!onlySilently && googleUser == null) {
       googleUser = await _googleSignIn.signIn();
@@ -85,10 +83,10 @@ class AuthHelper {
         return result;
         break;
       case FacebookLoginStatus.cancelledByUser:
-        throw 'oops cancelled fb auth';
+        throw new Exception('oops cancelled fb auth');
         break;
       case FacebookLoginStatus.error:
-        throw 'oops fb auth error';
+        throw new Exception('oops fb auth error');
         break;
     }
 
@@ -96,7 +94,7 @@ class AuthHelper {
   }
 
   Future<FirebaseUser> _tryToLoginWithGoogle() async {
-    var googleUser = _googleSignIn.currentUser;
+    final googleUser = _googleSignIn.currentUser;
 
     if (googleUser == null) {
       return null;

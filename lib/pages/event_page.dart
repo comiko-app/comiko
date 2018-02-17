@@ -12,7 +12,7 @@ class EventPage extends StatelessWidget implements IsPage {
 
   @override
   Widget build(BuildContext context) {
-    final double _appBarHeight = 256.0;
+    final _appBarHeight = 256.0;
 
     return new Scaffold(
       primary: false,
@@ -56,8 +56,8 @@ class EventPage extends StatelessWidget implements IsPage {
   }
 
   List<Widget> eventDetails(Event event, BuildContext context) {
-    String startTime = dateTimeFormatter.format(event.start);
-    String endTime = event.end == null
+    final startTime = dateTimeFormatter.format(event.start);
+    final endTime = event.end == null
         ? ""
         : " - ${dateTimeFormatter.format(
         event.end)}";
@@ -89,12 +89,12 @@ class EventPage extends StatelessWidget implements IsPage {
         new Column(
           children: [
             new Container(
-              margin: new EdgeInsets.all(16.0),
+              margin: const EdgeInsets.all(16.0),
               child: new Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   new Container(
-                    margin: new EdgeInsets.only(right: 32.0),
+                    margin: const EdgeInsets.only(right: 32.0),
                     child: new Icon(Icons.description),
                   ),
                   new Text(
@@ -105,7 +105,7 @@ class EventPage extends StatelessWidget implements IsPage {
               ),
             ),
             new Container(
-              margin: new EdgeInsets.only(
+              margin: const EdgeInsets.only(
                 left: 72.0,
                 right: 16.0,
                 bottom: 16.0,
@@ -125,5 +125,5 @@ class EventPage extends StatelessWidget implements IsPage {
   String get title => event.artist;
 
   @override
-  AppActionsFactory get actionsFactory => (BuildContext context) => [];
+  AppActionsFactory get actionsFactory => (context) => [];
 }

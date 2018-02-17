@@ -9,18 +9,17 @@ import 'package:redux/redux.dart';
 
 class PageViewWrapper extends StatefulWidget {
   final Store<AppState> store;
-  List<IsPage> _pages;
+  final List<IsPage> _pages;
   final PageController _pageController = new PageController();
 
   PageViewWrapper({
     @required this.store,
-  }) {
-    _pages = [
-      new UpcomingEventsPage(store: store),
-      new ArtistsPage(),
-      new AboutUsPage(),
-    ];
-  }
+  })
+      : _pages = [
+          new UpcomingEventsPage(store: store),
+          new ArtistsPage(),
+          new AboutUsPage(),
+        ];
 
   void navigationTapped(int page) {
     _pageController.animateToPage(
@@ -41,13 +40,6 @@ class PageViewWrapper extends StatefulWidget {
 class PageViewState extends State<PageViewWrapper> {
   final PageController pageController;
   final List<IsPage> pages;
-
-  @override
-  void dispose() {
-    super.dispose();
-    pageController.dispose();
-  }
-
   final Store<AppState> store;
 
   PageViewState({
@@ -55,6 +47,12 @@ class PageViewState extends State<PageViewWrapper> {
     @required this.pageController,
     @required this.store,
   });
+
+  @override
+  void dispose() {
+    super.dispose();
+    pageController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) => new PageView(

@@ -6,7 +6,7 @@ import 'package:meta/meta.dart';
 class AccountDrawer extends StatefulWidget {
   final AuthHelper authHelper;
 
-  AccountDrawer({
+  const AccountDrawer({
     @required this.authHelper,
   });
 
@@ -16,7 +16,9 @@ class AccountDrawer extends StatefulWidget {
 }
 
 class _AccountDrawerState extends State<AccountDrawer>
-    with TickerProviderStateMixin {
+    with
+        // ignore: mixin_inherits_from_not_object
+        TickerProviderStateMixin {
   final AuthHelper authHelper;
 
   _AccountDrawerState({
@@ -35,6 +37,7 @@ class _AccountDrawerState extends State<AccountDrawer>
     });
   }
 
+  @override
   void initState() {
     super.initState();
     _controller = new AnimationController(
@@ -65,10 +68,10 @@ class _AccountDrawerState extends State<AccountDrawer>
 
   UserAccountsDrawerHeader createUserAccountsDrawerHeader() {
     if (authHelper.isLoggedIn) {
-      var currentUser = authHelper.currentUser;
+      final currentUser = authHelper.currentUser;
       return new UserAccountsDrawerHeader(
         accountName: new Text(currentUser.displayName),
-        accountEmail: new Text(currentUser.email ?? ""),
+        accountEmail: new Text(currentUser.email ?? ''),
         currentAccountPicture: new CircleAvatar(
           backgroundImage: new NetworkImage(currentUser.photoUrl),
         ),
@@ -81,81 +84,77 @@ class _AccountDrawerState extends State<AccountDrawer>
         },
       );
     } else {
-      return new UserAccountsDrawerHeader(
+      return const UserAccountsDrawerHeader(
         accountName: const Text('Pas connecté'),
         accountEmail: const Text(''),
       );
     }
   }
 
-  List<Widget> createAuthenticationListTiles() {
-    return authHelper.isLoggedIn
-        ? [
-            new ListTile(
-              leading: const Icon(Icons.exit_to_app),
-              title: new Text('Se déconnecter'),
-              onTap: () {
-                authHelper.signOut().then((_) {
+  List<Widget> createAuthenticationListTiles() => authHelper.isLoggedIn
+      ? [
+          new ListTile(
+            leading: const Icon(Icons.exit_to_app),
+            title: const Text('Se déconnecter'),
+            onTap: () {
+              authHelper.signOut().then((_) {
+                _rebuild();
+              });
+            },
+          ),
+        ]
+      : [
+          new ListTile(
+            leading: const Icon(FontAwesomeIcons.google),
+            title: const Text('Connectez-vous avec Google'),
+            onTap: () {
+              authHelper.signInWithGoogle().then((success) {
+                if (success) {
                   _rebuild();
-                });
-              },
-            ),
-          ]
-        : [
-            new ListTile(
-              leading: const Icon(FontAwesomeIcons.google),
-              title: new Text('Connectez-vous avec Google'),
-              onTap: () {
-                authHelper.signInWithGoogle().then((success) {
-                  if (success) {
-                    _rebuild();
-                  }
-                });
-              },
-            ),
-            new ListTile(
-              leading: const Icon(FontAwesomeIcons.facebook),
-              title: new Text('Connectez-vous avec Facebook'),
-              onTap: () {
-                authHelper.signInWithFacebook().then((success) {
-                  if (success) {
-                    _rebuild();
-                  }
-                });
-              },
-            ),
-          ];
-  }
+                }
+              });
+            },
+          ),
+          new ListTile(
+            leading: const Icon(FontAwesomeIcons.facebook),
+            title: const Text('Connectez-vous avec Facebook'),
+            onTap: () {
+              authHelper.signInWithFacebook().then((success) {
+                if (success) {
+                  _rebuild();
+                }
+              });
+            },
+          ),
+        ];
 
   @override
-  Widget build(BuildContext context) {
-    return new Drawer(
-      child: new ListView(
-        children: <Widget>[
-          createUserAccountsDrawerHeader(),
-          new ClipRect(
-            child: new Stack(
-              children: <Widget>[
-                new FadeTransition(
-                  opacity: _drawerContentsOpacity,
-                  child: new Text(''),
-                ),
-                new SlideTransition(
-                  position: _drawerDetailsPosition,
-                  child: new FadeTransition(
-                    opacity: new ReverseAnimation(_drawerContentsOpacity),
-                    child: new Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: createAuthenticationListTiles(),
+  Widget build(BuildContext context) => new Drawer(
+        child: new ListView(
+          children: <Widget>[
+            createUserAccountsDrawerHeader(),
+            new ClipRect(
+              child: new Stack(
+                children: <Widget>[
+                  new FadeTransition(
+                    opacity: _drawerContentsOpacity,
+                    child: const Text(''),
+                  ),
+                  new SlideTransition(
+                    position: _drawerDetailsPosition,
+                    child: new FadeTransition(
+                      opacity: new ReverseAnimation(_drawerContentsOpacity),
+                      child: new Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: createAuthenticationListTiles(),
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
+          ],
+        ),
+      );
 }
