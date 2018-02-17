@@ -5,7 +5,12 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthHelper {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final GoogleSignIn _googleSignIn = new GoogleSignIn();
+  final GoogleSignIn _googleSignIn = new GoogleSignIn(
+    scopes: [
+      'email',
+      'https://www.googleapis.com/auth/contacts.readonly',
+    ],
+  );
 
   GoogleSignInAccount get currentUser => _googleSignIn.currentUser;
 
