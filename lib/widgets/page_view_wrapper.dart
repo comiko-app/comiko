@@ -2,6 +2,7 @@ import 'package:comiko/app_state.dart';
 import 'package:comiko/pages/about_us_page.dart';
 import 'package:comiko/pages/artists_page.dart';
 import 'package:comiko/pages/is_page.dart';
+import 'package:comiko/pages/liked_events_page.dart';
 import 'package:comiko/pages/upcoming_events_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
@@ -17,6 +18,7 @@ class PageViewWrapper extends StatefulWidget {
   })
       : _pages = [
           new UpcomingEventsPage(store: store),
+          new LikedEventsPage(store: store),
           new ArtistsPage(),
           new AboutUsPage(),
         ];

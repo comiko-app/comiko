@@ -91,13 +91,18 @@ class _MyHomePageState extends State<MyHomePage> {
           converter: (store) => store.state.currentPageIndex,
           builder: (context, pageIndex) => new BottomNavigationBar(
                 items: [
-                  new BottomNavigationBarItem(
-                      icon: new Icon(Icons.event_available),
+                  const BottomNavigationBarItem(
+                      icon: const Icon(Icons.event_available),
                       title: const Text("À venir")),
-                  new BottomNavigationBarItem(
-                      icon: new Icon(Icons.mic), title: const Text("Artistes")),
-                  new BottomNavigationBarItem(
-                      icon: new Icon(Icons.insert_emoticon),
+                  const BottomNavigationBarItem(
+                    icon: const Icon(Icons.favorite),
+                    title: const Text('Favoris'),
+                  ),
+                  const BottomNavigationBarItem(
+                      icon: const Icon(Icons.mic),
+                      title: const Text("Artistes")),
+                  const BottomNavigationBarItem(
+                      icon: const Icon(Icons.insert_emoticon),
                       title: const Text("Comiko")),
                 ],
                 onTap: pageView.navigationTapped,
