@@ -5,15 +5,17 @@ import 'package:comiko/pages/is_page.dart';
 import 'package:comiko/pages/liked_events_page.dart';
 import 'package:comiko/pages/upcoming_events_page.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
 
 class PageViewWrapper extends StatefulWidget {
   final List<IsPage> _pages;
   final PageController _pageController = new PageController();
+  final Store<AppState> store;
 
-  PageViewWrapper()
+  PageViewWrapper({
+    @required this.store,
+  })
       : _pages = [
           const UpcomingEventsPage(),
           const LikedEventsPage(),
@@ -33,6 +35,7 @@ class PageViewWrapper extends StatefulWidget {
   State<StatefulWidget> createState() => new PageViewState(
         pages: _pages,
         pageController: _pageController,
+        store: store,
       );
 }
 
@@ -44,6 +47,7 @@ class PageViewState extends State<PageViewWrapper> {
   PageViewState({
     @required this.pages,
     @required this.pageController,
+    @required this.store,
   });
 
   @override
@@ -53,11 +57,10 @@ class PageViewState extends State<PageViewWrapper> {
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+  void initState() {
+    super.initState();
 
-    store = new StoreProvider.of(context).store
-      ..dispatch(new PageChangedAction(pages[0], 0));
+    store.dispatch(new PageChangedAction(pages[0], 0));
   }
 
   @override

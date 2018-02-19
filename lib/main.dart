@@ -11,6 +11,7 @@ import 'package:comiko_backend/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
 
 void main() {
@@ -29,36 +30,39 @@ class MyApp extends StatelessWidget {
         child: new MaterialApp(
           title: 'Comiko',
           theme: new ThemeData.dark(),
-          home: const MyHomePage(),
+          home: new MyHomePage(store: store),
         ),
       );
 }
 
 class MyHomePage extends StatefulWidget {
+  final Store<AppState> store;
+
   const MyHomePage({
+    @required this.store,
     Key key,
   })
       : super(key: key);
 
   @override
-  _MyHomePageState createState() => new _MyHomePageState();
+  _MyHomePageState createState() => new _MyHomePageState(store);
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   final AuthHelper _authHelper = new AuthHelper();
+  final Store<AppState> store;
 
-  Store<AppState> store;
   ImagesCachingLoader imagesCachingLoader;
   PageViewWrapper pageView;
 
   String appTitle;
   AppActionsFactory appActions;
 
-  _MyHomePageState() {
+  _MyHomePageState(this.store) {
     appTitle = AppState.defaultAppTitle;
     appActions = AppState.defaultAppActions;
 
-    pageView = new PageViewWrapper();
+    pageView = new PageViewWrapper(store: store);
     imagesCachingLoader = new ImagesCachingLoader(pageView);
   }
 
@@ -75,16 +79,9 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
 
     _authHelper.tryRecoveringSession();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
     initServices();
     imagesCachingLoader.cacheArtistImages(context);
 
-    store = new StoreProvider.of(context).store;
     store.onChange.listen((state) {
       setState(() {
         appTitle = state.appTitle;
