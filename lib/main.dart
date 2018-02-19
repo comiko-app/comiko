@@ -4,13 +4,13 @@ import 'dart:convert';
 import 'package:comiko/account_drawer.dart';
 import 'package:comiko/app_state.dart';
 import 'package:comiko/auth_helper.dart';
+import 'package:comiko/pages/is_page.dart';
 import 'package:comiko/widgets/image_caching_loader.dart';
 import 'package:comiko/widgets/page_view_wrapper.dart';
 import 'package:comiko_backend/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
 
 void main() {
@@ -29,35 +29,36 @@ class MyApp extends StatelessWidget {
         child: new MaterialApp(
           title: 'Comiko',
           theme: new ThemeData.dark(),
-          home: new MyHomePage(store: store),
+          home: const MyHomePage(),
         ),
       );
 }
 
 class MyHomePage extends StatefulWidget {
-  final Store<AppState> store;
-
   const MyHomePage({
-    @required this.store,
     Key key,
   })
       : super(key: key);
 
   @override
-  _MyHomePageState createState() => new _MyHomePageState(store: store);
+  _MyHomePageState createState() => new _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final Store<AppState> store;
   final AuthHelper _authHelper = new AuthHelper();
 
+  Store<AppState> store;
   ImagesCachingLoader imagesCachingLoader;
   PageViewWrapper pageView;
 
-  _MyHomePageState({
-    @required this.store,
-  }) {
-    pageView = new PageViewWrapper(store: store);
+  String appTitle;
+  AppActionsFactory appActions;
+
+  _MyHomePageState() {
+    appTitle = AppState.defaultAppTitle;
+    appActions = AppState.defaultAppActions;
+
+    pageView = new PageViewWrapper();
     imagesCachingLoader = new ImagesCachingLoader(pageView);
   }
 
@@ -73,9 +74,23 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
 
+    _authHelper.tryRecoveringSession();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
     initServices();
     imagesCachingLoader.cacheArtistImages(context);
-    _authHelper.tryRecoveringSession();
+
+    store = new StoreProvider.of(context).store;
+    store.onChange.listen((state) {
+      setState(() {
+        appTitle = state.appTitle;
+        appActions = state.appActions;
+      });
+    });
   }
 
   @override
@@ -84,9 +99,8 @@ class _MyHomePageState extends State<MyHomePage> {
           authHelper: _authHelper,
         ),
         body: imagesCachingLoader,
-        appBar: new AppBar(
-            title: new Text(store.state.appTitle),
-            actions: store.state.appActions(context)),
+        appBar:
+            new AppBar(title: new Text(appTitle), actions: appActions(context)),
         bottomNavigationBar: new StoreConnector<AppState, int>(
           converter: (store) => store.state.currentPageIndex,
           builder: (context, pageIndex) => new BottomNavigationBar(

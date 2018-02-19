@@ -5,15 +5,9 @@ import 'package:comiko/widgets/event_card.dart';
 import 'package:comiko/widgets/sort_popup_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:meta/meta.dart';
-import 'package:redux/redux.dart';
 
 class UpcomingEventsPage extends StatelessWidget implements IsPage {
-  final Store<AppState> store;
-
-  const UpcomingEventsPage({
-    @required this.store,
-  });
+  const UpcomingEventsPage();
 
   @override
   Widget build(BuildContext context) {
@@ -27,17 +21,17 @@ class UpcomingEventsPage extends StatelessWidget implements IsPage {
             padding: const EdgeInsets.all(8.0),
             mainAxisSpacing: 4.0,
             crossAxisSpacing: 4.0,
-            children: vms.map((vm) => new EventCard(vm, store: store)).toList(),
+            children: vms.map((vm) => new EventCard(vm)).toList(),
           ),
     );
   }
 
   @override
   AppActionsFactory get actionsFactory => (context) => [
-        new SortPopupMenu(store: store),
+        const SortPopupMenu(),
         new IconButton(
             icon: new Icon(Icons.search),
-            onPressed: () => RoutingAssistant.searchPopup(context, store)),
+            onPressed: () => RoutingAssistant.searchPopup(context)),
       ];
 
   @override
