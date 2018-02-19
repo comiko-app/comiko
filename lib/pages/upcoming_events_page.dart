@@ -5,6 +5,7 @@ import 'package:comiko/widgets/event_card.dart';
 import 'package:comiko/widgets/sort_popup_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
 
 class UpcomingEventsPage extends StatelessWidget implements IsPage {
   const UpcomingEventsPage();
@@ -13,7 +14,7 @@ class UpcomingEventsPage extends StatelessWidget implements IsPage {
   Widget build(BuildContext context) {
     final orientation = MediaQuery.of(context).orientation;
     return new StoreConnector<AppState, List<EventCardViewModel>>(
-      converter: (store) => store.state.events
+      converter: (Store<AppState> store) => store.state.events
           .map((e) => store.state.createViewModel(e))
           .toList(),
       builder: (context, vms) => new GridView.count(

@@ -4,14 +4,12 @@ import 'dart:convert';
 import 'package:comiko/account_drawer.dart';
 import 'package:comiko/app_state.dart';
 import 'package:comiko/auth_helper.dart';
-import 'package:comiko/pages/is_page.dart';
 import 'package:comiko/widgets/image_caching_loader.dart';
 import 'package:comiko/widgets/page_view_wrapper.dart';
 import 'package:comiko_backend/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
 
 void main() {
@@ -19,7 +17,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  static final Store<AppState> store = new Store(
+  static final Store<AppState> store = new Store<AppState>(
     combineReducers([reducer]),
     initialState: new AppState.initial(),
   );
@@ -30,43 +28,33 @@ class MyApp extends StatelessWidget {
         child: new MaterialApp(
           title: 'Comiko',
           theme: new ThemeData.dark(),
-          home: new MyHomePage(store: store),
+          home: const MyHomePage(),
         ),
       );
 }
 
 class MyHomePage extends StatefulWidget {
-  final Store<AppState> store;
-
   const MyHomePage({
-    @required this.store,
     Key key,
   })
       : super(key: key);
 
   @override
-  _MyHomePageState createState() => new _MyHomePageState(store);
+  _MyHomePageState createState() => new _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   final AuthHelper _authHelper = new AuthHelper();
-  final Store<AppState> store;
 
   ImagesCachingLoader imagesCachingLoader;
   PageViewWrapper pageView;
 
-  String appTitle;
-  AppActionsFactory appActions;
-
-  _MyHomePageState(this.store) {
-    appTitle = AppState.defaultAppTitle;
-    appActions = AppState.defaultAppActions;
-
-    pageView = new PageViewWrapper(store: store);
+  _MyHomePageState() {
+    pageView = new PageViewWrapper();
     imagesCachingLoader = new ImagesCachingLoader(pageView);
   }
 
-  Future<Null> initServices() async {
+  Future<Null> initServices(Store store) async {
     final eventString = await rootBundle.loadString('lib/data/events.json');
     final List<Map<String, dynamic>> eventJson = JSON.decode(eventString);
     final JsonEventService service = ServiceProvider.get(EventService);
@@ -75,32 +63,24 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
-  void initState() {
-    super.initState();
+  Widget build(BuildContext context) =>
+      new StoreConnector<AppState, Store<AppState>>(
+        onInit: (Store<AppState> store) {
+          _authHelper.tryRecoveringSession();
+          initServices(store);
 
-    _authHelper.tryRecoveringSession();
-    initServices();
-    imagesCachingLoader.cacheArtistImages(context);
-
-    store.onChange.listen((state) {
-      setState(() {
-        appTitle = state.appTitle;
-        appActions = state.appActions;
-      });
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) => new Scaffold(
-        drawer: new AccountDrawer(
-          authHelper: _authHelper,
-        ),
-        body: imagesCachingLoader,
-        appBar:
-            new AppBar(title: new Text(appTitle), actions: appActions(context)),
-        bottomNavigationBar: new StoreConnector<AppState, int>(
-          converter: (store) => store.state.currentPageIndex,
-          builder: (context, pageIndex) => new BottomNavigationBar(
+          imagesCachingLoader.cacheArtistImages(context);
+        },
+        converter: (Store<AppState> store) => store,
+        builder: (context, Store<AppState> store) => new Scaffold(
+              drawer: new AccountDrawer(
+                authHelper: _authHelper,
+              ),
+              body: imagesCachingLoader,
+              appBar: new AppBar(
+                  title: new Text(store.state.appTitle),
+                  actions: store.state.appActions(context)),
+              bottomNavigationBar: new BottomNavigationBar(
                 items: [
                   const BottomNavigationBarItem(
                       icon: const Icon(Icons.event_available),
@@ -117,8 +97,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       title: const Text("Comiko")),
                 ],
                 onTap: pageView.navigationTapped,
-                currentIndex: pageIndex,
+                currentIndex: store.state.currentPageIndex,
               ),
-        ),
+            ),
       );
 }
