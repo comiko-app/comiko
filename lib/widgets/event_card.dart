@@ -3,9 +3,9 @@ import 'package:comiko/routing_assistant.dart';
 import 'package:comiko/widgets/grid_tile_text.dart';
 import 'package:comiko_shared/models.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
-import 'package:redux/redux.dart';
 
 class EventCardViewModel {
   final Event event;
@@ -19,16 +19,14 @@ class EventCardViewModel {
 
 class EventCard extends StatelessWidget {
   final EventCardViewModel eventCardViewModel;
-  final Store<AppState> store;
 
   const EventCard(
-    this.eventCardViewModel, {
-    @required this.store,
-  });
+    this.eventCardViewModel,
+  );
 
   @override
   Widget build(BuildContext context) => new GridTile(
-        footer: new _GridBottomBar(eventCardViewModel, store),
+        footer: new _GridBottomBar(eventCardViewModel),
         child: new _GridTileMainWidget(eventCardViewModel.event),
       );
 }
@@ -36,61 +34,60 @@ class EventCard extends StatelessWidget {
 class _GridBottomBar extends StatelessWidget {
   final EventCardViewModel viewModel;
   final DateFormat formatter = new DateFormat('d MMMM yyyy HH:mm');
-  final Store<AppState> store;
 
-  _GridBottomBar(this.viewModel, this.store);
+  _GridBottomBar(this.viewModel);
 
   @override
-  Widget build(BuildContext context) => new GestureDetector(
-        onTap: () => navigateToEvent(viewModel.event, context),
-        child: new Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            new Container(
-              margin: const EdgeInsets.only(left: 16.0, bottom: 8.0),
-              child: new FittedBox(
-                fit: BoxFit.scaleDown,
-                alignment: FractionalOffset.centerLeft,
-                child: new Text(
-                  viewModel.event.artist,
-                  style: Theme.of(context).textTheme.headline,
+  Widget build(BuildContext context) {
+    final store = new StoreProvider.of(context).store;
+    return new GestureDetector(
+      onTap: () => navigateToEvent(viewModel.event, context),
+      child: new Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          new Container(
+            margin: const EdgeInsets.only(left: 16.0, bottom: 8.0),
+            child: new FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: FractionalOffset.centerLeft,
+              child: new Text(
+                viewModel.event.artist,
+                style: Theme.of(context).textTheme.headline,
+              ),
+            ),
+          ),
+          new Container(
+            margin: const EdgeInsets.only(left: 16.0, bottom: 8.0),
+            child: new FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: FractionalOffset.centerLeft,
+              child: new Text(
+                viewModel.event.name,
+                style: Theme.of(context).textTheme.subhead,
+              ),
+            ),
+          ),
+          new GridTileBar(
+            backgroundColor: Colors.black54,
+            title: new GridTileText(viewModel.event.place ?? ""),
+            subtitle: new GridTileText(formatter.format(viewModel.event.start)),
+            trailing: new GestureDetector(
+              onTap: () =>
+                  store.dispatch(new ToggleFavoriteAction(viewModel.event)),
+              child: new Container(
+                padding: const EdgeInsets.all(22.0),
+                color: Colors.transparent,
+                child: new Icon(
+                  viewModel.isFavorite ? Icons.favorite : Icons.favorite_border,
+                  color: Colors.white,
                 ),
               ),
             ),
-            new Container(
-              margin: const EdgeInsets.only(left: 16.0, bottom: 8.0),
-              child: new FittedBox(
-                fit: BoxFit.scaleDown,
-                alignment: FractionalOffset.centerLeft,
-                child: new Text(
-                  viewModel.event.name,
-                  style: Theme.of(context).textTheme.subhead,
-                ),
-              ),
-            ),
-            new GridTileBar(
-              backgroundColor: Colors.black54,
-              title: new GridTileText(viewModel.event.place ?? ""),
-              subtitle:
-                  new GridTileText(formatter.format(viewModel.event.start)),
-              trailing: new GestureDetector(
-                onTap: () =>
-                    store.dispatch(new ToggleFavoriteAction(viewModel.event)),
-                child: new Container(
-                  padding: const EdgeInsets.all(22.0),
-                  color: Colors.transparent,
-                  child: new Icon(
-                    viewModel.isFavorite
-                        ? Icons.favorite
-                        : Icons.favorite_border,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class _GridTileMainWidget extends StatelessWidget {

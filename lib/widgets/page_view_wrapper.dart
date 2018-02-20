@@ -5,22 +5,20 @@ import 'package:comiko/pages/is_page.dart';
 import 'package:comiko/pages/liked_events_page.dart';
 import 'package:comiko/pages/upcoming_events_page.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
 
 class PageViewWrapper extends StatefulWidget {
-  final Store<AppState> store;
   final List<IsPage> _pages;
   final PageController _pageController = new PageController();
 
-  PageViewWrapper({
-    @required this.store,
-  })
+  PageViewWrapper()
       : _pages = [
-          new UpcomingEventsPage(store: store),
-          new LikedEventsPage(store: store),
-          new ArtistsPage(),
-          new AboutUsPage(),
+          const UpcomingEventsPage(),
+          const LikedEventsPage(),
+          const ArtistsPage(),
+          const AboutUsPage(),
         ];
 
   void navigationTapped(int page) {
@@ -35,19 +33,16 @@ class PageViewWrapper extends StatefulWidget {
   State<StatefulWidget> createState() => new PageViewState(
         pages: _pages,
         pageController: _pageController,
-        store: store,
       );
 }
 
 class PageViewState extends State<PageViewWrapper> {
   final PageController pageController;
   final List<IsPage> pages;
-  final Store<AppState> store;
 
   PageViewState({
     @required this.pages,
     @required this.pageController,
-    @required this.store,
   });
 
   @override
@@ -56,13 +51,19 @@ class PageViewState extends State<PageViewWrapper> {
     pageController.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) => new PageView(
-        children: pages,
-        controller: pageController,
-        onPageChanged: (index) => onPageChanged(context, index),
-      );
-
-  void onPageChanged(BuildContext context, int pageIndex) =>
+  void onPageChanged(
+          BuildContext context, Store<AppState> store, int pageIndex) =>
       store.dispatch(new PageChangedAction(pages[pageIndex], pageIndex));
+
+  @override
+  Widget build(BuildContext context) =>
+      new StoreConnector<AppState, Store<AppState>>(
+        onInit: (Store<AppState> store) => onPageChanged(context, store, 0),
+        builder: (context, Store<AppState> store) => new PageView(
+              children: pages,
+              controller: pageController,
+              onPageChanged: (index) => onPageChanged(context, store, index),
+            ),
+        converter: (Store<AppState> store) => store,
+      );
 }

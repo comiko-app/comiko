@@ -2,6 +2,8 @@ import 'package:comiko/pages/is_page.dart';
 import 'package:flutter/material.dart';
 
 class AboutUsPage extends StatelessWidget implements IsPage {
+  const AboutUsPage();
+
   @override
   Widget build(BuildContext context) => new ListView(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),

@@ -5,6 +5,8 @@ import 'package:comiko_shared/models.dart';
 import 'package:flutter/material.dart';
 
 class ArtistsPage extends StatelessWidget implements IsPage {
+  const ArtistsPage();
+
   @override
   Widget build(BuildContext context) => new StreamBuilder<QuerySnapshot>(
         stream: Firestore.instance
