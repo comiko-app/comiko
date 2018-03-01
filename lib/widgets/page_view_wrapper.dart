@@ -11,26 +11,26 @@ import 'package:redux/redux.dart';
 
 class PageViewWrapper extends StatefulWidget {
   final List<IsPage> _pages;
-  final PageController _pageController = new PageController();
+  final PageController _pageController = PageController();
 
   PageViewWrapper()
       : _pages = [
-          const UpcomingEventsPage(),
-          const LikedEventsPage(),
-          const ArtistsPage(),
-          const AboutUsPage(),
+          UpcomingEventsPage(),
+          LikedEventsPage(),
+          ArtistsPage(),
+          AboutUsPage(),
         ];
 
   void navigationTapped(int page) {
     _pageController.animateToPage(
       page,
-      duration: const Duration(milliseconds: 300),
+      duration: Duration(milliseconds: 300),
       curve: Curves.fastOutSlowIn,
     );
   }
 
   @override
-  State<StatefulWidget> createState() => new PageViewState(
+  State<StatefulWidget> createState() => PageViewState(
         pages: _pages,
         pageController: _pageController,
       );
@@ -53,13 +53,13 @@ class PageViewState extends State<PageViewWrapper> {
 
   void onPageChanged(
           BuildContext context, Store<AppState> store, int pageIndex) =>
-      store.dispatch(new PageChangedAction(pages[pageIndex], pageIndex));
+      store.dispatch(PageChangedAction(pages[pageIndex], pageIndex));
 
   @override
   Widget build(BuildContext context) =>
-      new StoreConnector<AppState, Store<AppState>>(
+      StoreConnector<AppState, Store<AppState>>(
         onInit: (Store<AppState> store) => onPageChanged(context, store, 0),
-        builder: (context, Store<AppState> store) => new PageView(
+        builder: (context, Store<AppState> store) => PageView(
               children: pages,
               controller: pageController,
               onPageChanged: (index) => onPageChanged(context, store, index),

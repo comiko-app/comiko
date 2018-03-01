@@ -9,8 +9,8 @@ class DateTimeItem extends StatelessWidget {
     DateTime dateTime,
   })
       : assert(onChanged != null),
-        date = new DateTime(dateTime.year, dateTime.month, dateTime.day),
-        time = new TimeOfDay(hour: dateTime.hour, minute: dateTime.minute),
+        date = DateTime(dateTime.year, dateTime.month, dateTime.day),
+        time = TimeOfDay(hour: dateTime.hour, minute: dateTime.minute),
         super(key: key);
 
   final DateTime date;
@@ -21,34 +21,34 @@ class DateTimeItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return new DefaultTextStyle(
+    return DefaultTextStyle(
       style: theme.textTheme.subhead,
-      child: new Row(
+      child: Row(
         children: <Widget>[
-          new Expanded(
-            child: new Container(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              decoration: new BoxDecoration(
-                  border: new Border(
-                      bottom: new BorderSide(color: theme.dividerColor))),
-              child: new InkWell(
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 8.0),
+              decoration: BoxDecoration(
+                  border:
+                      Border(bottom: BorderSide(color: theme.dividerColor))),
+              child: InkWell(
                 onTap: () {
                   showDatePicker(
                           context: context,
                           initialDate: date,
-                          firstDate: date.subtract(const Duration(days: 30)),
-                          lastDate: date.add(const Duration(days: 30)))
+                          firstDate: date.subtract(Duration(days: 30)),
+                          lastDate: date.add(Duration(days: 30)))
                       .then<Null>((value) {
                     if (value != null)
-                      onChanged(new DateTime(value.year, value.month, value.day,
+                      onChanged(DateTime(value.year, value.month, value.day,
                           time.hour, time.minute));
                   });
                 },
-                child: new Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    new Text(new DateFormat('yyyy-MM-dd').format(date)),
-                    const Icon(Icons.arrow_drop_down, color: Colors.black54),
+                    Text(DateFormat('yyyy-MM-dd').format(date)),
+                    Icon(Icons.arrow_drop_down, color: Colors.black54),
                   ],
                 ),
               ),

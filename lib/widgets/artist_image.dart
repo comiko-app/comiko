@@ -12,8 +12,8 @@ class ArtistImage extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => new Image(
-        image: new CachedNetworkImageProvider(url),
+  Widget build(BuildContext context) => Image(
+        image: CachedNetworkImageProvider(url),
         fit: BoxFit.cover,
         height: height,
       );

@@ -6,7 +6,7 @@ import 'package:meta/meta.dart';
 
 class EventPage extends StatelessWidget implements IsPage {
   final Event event;
-  final DateFormat dateTimeFormatter = new DateFormat('d MMMM yyyy HH:mm');
+  final DateFormat dateTimeFormatter = DateFormat('d MMMM yyyy HH:mm');
 
   EventPage({@required this.event});
 
@@ -14,29 +14,29 @@ class EventPage extends StatelessWidget implements IsPage {
   Widget build(BuildContext context) {
     final _appBarHeight = 256.0;
 
-    return new Scaffold(
+    return Scaffold(
       primary: false,
-      body: new CustomScrollView(
+      body: CustomScrollView(
         slivers: <Widget>[
-          new SliverAppBar(
+          SliverAppBar(
             automaticallyImplyLeading: false,
             expandedHeight: _appBarHeight,
             pinned: true,
             floating: false,
             snap: false,
-            flexibleSpace: new FlexibleSpaceBar(
-              title: new Text(event.artist),
-              background: new Stack(
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text(event.artist),
+              background: Stack(
                 fit: StackFit.expand,
                 children: <Widget>[
-                  new Image.asset(
+                  Image.asset(
                     event.imageUri,
                     fit: BoxFit.cover,
                     height: _appBarHeight,
                   ),
-                  new Container(
-                    decoration: new BoxDecoration(
-                      gradient: new LinearGradient(
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
                           colors: <Color>[Colors.black54, Colors.transparent],
                           begin: FractionalOffset.bottomCenter),
                     ),
@@ -45,8 +45,8 @@ class EventPage extends StatelessWidget implements IsPage {
               ),
             ),
           ),
-          new SliverList(
-            delegate: new SliverChildListDelegate(
+          SliverList(
+            delegate: SliverChildListDelegate(
               eventDetails(event, context),
             ),
           ),
@@ -65,52 +65,52 @@ class EventPage extends StatelessWidget implements IsPage {
     return ListTile.divideTiles(
       context: context,
       tiles: [
-        new ListTile(
-          leading: const Icon(Icons.slideshow),
-          title: new Text(event.name),
+        ListTile(
+          leading: Icon(Icons.slideshow),
+          title: Text(event.name),
         ),
-        new ListTile(
-          leading: const Icon(Icons.date_range),
-          title: new Text("$startTime$endTime"),
+        ListTile(
+          leading: Icon(Icons.date_range),
+          title: Text("$startTime$endTime"),
         ),
-        new ListTile(
-          leading: const Icon(Icons.location_city),
-          title: new Text(event.place ?? ""),
+        ListTile(
+          leading: Icon(Icons.location_city),
+          title: Text(event.place ?? ""),
         ),
-        new ListTile(
-          leading: const Icon(Icons.location_on),
-          title: new Text(event.address ?? ""),
-          subtitle: new Text(event.city ?? ""),
+        ListTile(
+          leading: Icon(Icons.location_on),
+          title: Text(event.address ?? ""),
+          subtitle: Text(event.city ?? ""),
         ),
-        new ListTile(
-          leading: const Icon(Icons.monetization_on),
-          title: new Text("${event.price.toStringAsFixed(2)}\$"),
+        ListTile(
+          leading: Icon(Icons.monetization_on),
+          title: Text("${event.price.toStringAsFixed(2)}\$"),
         ),
-        new Column(
+        Column(
           children: [
-            new Container(
-              margin: const EdgeInsets.all(16.0),
-              child: new Row(
+            Container(
+              margin: EdgeInsets.all(16.0),
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  new Container(
-                    margin: const EdgeInsets.only(right: 32.0),
-                    child: new Icon(Icons.description),
+                  Container(
+                    margin: EdgeInsets.only(right: 32.0),
+                    child: Icon(Icons.description),
                   ),
-                  new Text(
+                  Text(
                     "Information",
                     style: Theme.of(context).textTheme.title,
                   ),
                 ],
               ),
             ),
-            new Container(
-              margin: const EdgeInsets.only(
+            Container(
+              margin: EdgeInsets.only(
                 left: 72.0,
                 right: 16.0,
                 bottom: 16.0,
               ),
-              child: new Text(
+              child: Text(
                 event.description ?? "",
                 style: Theme.of(context).textTheme.subhead,
               ),
