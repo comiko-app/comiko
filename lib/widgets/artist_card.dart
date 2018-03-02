@@ -26,18 +26,18 @@ class ArtistCard extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => new GridTile(
-        footer: new GestureDetector(
+  Widget build(BuildContext context) => GridTile(
+        footer: GestureDetector(
           onTap: () => navigateToArtist(context),
-          child: new GridTileBar(
+          child: GridTileBar(
             backgroundColor: Colors.black54,
-            title: new GridTileText(artistCardViewModel.artist.name),
-            trailing: new GestureDetector(
+            title: GridTileText(artistCardViewModel.artist.name),
+            trailing: GestureDetector(
               onTap: () => null,
-              child: new Container(
-                padding: const EdgeInsets.only(right: 8.0),
+              child: Container(
+                padding: EdgeInsets.only(right: 8.0),
                 color: Colors.transparent,
-                child: new Icon(
+                child: Icon(
                   artistCardViewModel.isFavorite
                       ? Icons.favorite
                       : Icons.favorite_border,
@@ -47,15 +47,15 @@ class ArtistCard extends StatelessWidget {
             ),
           ),
         ),
-        child: new GestureDetector(
+        child: GestureDetector(
           onTap: () => navigateToArtist(context),
-          child: new Stack(
+          child: Stack(
             fit: StackFit.expand,
             children: <Widget>[
-              new ArtistImage(url: artistCardViewModel.artist.imageUrl),
-              new Container(
-                decoration: new BoxDecoration(
-                  gradient: new LinearGradient(
+              ArtistImage(url: artistCardViewModel.artist.imageUrl),
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
                       colors: <Color>[Colors.black54, Colors.transparent],
                       begin: FractionalOffset.bottomCenter),
                 ),

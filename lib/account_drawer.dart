@@ -15,7 +15,7 @@ class AccountDrawer extends StatefulWidget {
 
   @override
   _AccountDrawerState createState() =>
-      new _AccountDrawerState(authHelper: authHelper);
+      _AccountDrawerState(authHelper: authHelper);
 }
 
 class _AccountDrawerState extends State<AccountDrawer>
@@ -41,20 +41,20 @@ class _AccountDrawerState extends State<AccountDrawer>
   @override
   void initState() {
     super.initState();
-    _controller = new AnimationController(
+    _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 200),
+      duration: Duration(milliseconds: 200),
     );
-    _drawerContentsOpacity = new CurvedAnimation(
-      parent: new ReverseAnimation(_controller),
+    _drawerContentsOpacity = CurvedAnimation(
+      parent: ReverseAnimation(_controller),
       curve: Curves.fastOutSlowIn,
     );
-    _drawerDetailsPosition = new Tween<Offset>(
-      begin: const Offset(0.0, -1.0),
+    _drawerDetailsPosition = Tween<Offset>(
+      begin: Offset(0.0, -1.0),
       end: Offset.zero,
     )
         .animate(
-      new CurvedAnimation(
+      CurvedAnimation(
         parent: _controller,
         curve: Curves.fastOutSlowIn,
       ),
@@ -75,17 +75,17 @@ class _AccountDrawerState extends State<AccountDrawer>
     if (authHelper.isLoggedIn) {
       displayName = authHelper.currentUser.displayName;
       email = authHelper.currentUser.email;
-      accountPicture = new CircleAvatar(
-        backgroundImage: new NetworkImage(authHelper.currentUser.photoUrl),
+      accountPicture = CircleAvatar(
+        backgroundImage: NetworkImage(authHelper.currentUser.photoUrl),
       );
     } else {
       displayName = 'Pas connecté';
       email = '';
     }
 
-    return new UserAccountsDrawerHeader(
-      accountName: new Text(displayName),
-      accountEmail: new Text(email),
+    return UserAccountsDrawerHeader(
+      accountName: Text(displayName),
+      accountEmail: Text(email),
       currentAccountPicture: accountPicture,
       onDetailsPressed: () {
         _showDrawerContents = !_showDrawerContents;
@@ -100,9 +100,9 @@ class _AccountDrawerState extends State<AccountDrawer>
   List<Widget> createAuthenticationListTiles() {
     if (authHelper.isLoggedIn) {
       return [
-        new ListTile(
-          leading: const Icon(Icons.exit_to_app),
-          title: const Text('Se déconnecter'),
+        ListTile(
+          leading: Icon(Icons.exit_to_app),
+          title: Text('Se déconnecter'),
           onTap: () {
             authHelper.signOut().then((_) {
               _rebuild();
@@ -112,9 +112,9 @@ class _AccountDrawerState extends State<AccountDrawer>
       ];
     } else {
       return [
-        new ListTile(
-          leading: const Icon(FontAwesomeIcons.google),
-          title: const Text('Connectez-vous avec Google'),
+        ListTile(
+          leading: Icon(FontAwesomeIcons.google),
+          title: Text('Connectez-vous avec Google'),
           onTap: () {
             authHelper.signInWithGoogle().then((success) {
               if (success) {
@@ -123,9 +123,9 @@ class _AccountDrawerState extends State<AccountDrawer>
             });
           },
         ),
-        new ListTile(
-          leading: const Icon(FontAwesomeIcons.facebook),
-          title: const Text('Connectez-vous avec Facebook'),
+        ListTile(
+          leading: Icon(FontAwesomeIcons.facebook),
+          title: Text('Connectez-vous avec Facebook'),
           onTap: () {
             authHelper.signInWithFacebook().then((success) {
               if (success) {
@@ -140,24 +140,23 @@ class _AccountDrawerState extends State<AccountDrawer>
 
   @override
   Widget build(BuildContext context) =>
-      new StoreConnector<AppState, Store<AppState>>(
+      StoreConnector<AppState, Store<AppState>>(
         converter: (Store<AppState> store) => store,
-        builder: (context, Store<AppState> store) => new Drawer(
-              child: new ListView(
+        builder: (context, Store<AppState> store) => Drawer(
+              child: ListView(
                 children: <Widget>[
                   createUserAccountsDrawerHeader(),
-                  new ClipRect(
-                    child: new Stack(
+                  ClipRect(
+                    child: Stack(
                       children: <Widget>[
-                        new FadeTransition(
+                        FadeTransition(
                           opacity: _drawerContentsOpacity,
                         ),
-                        new SlideTransition(
+                        SlideTransition(
                           position: _drawerDetailsPosition,
-                          child: new FadeTransition(
-                            opacity:
-                                new ReverseAnimation(_drawerContentsOpacity),
-                            child: new Column(
+                          child: FadeTransition(
+                            opacity: ReverseAnimation(_drawerContentsOpacity),
+                            child: Column(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: createAuthenticationListTiles(),

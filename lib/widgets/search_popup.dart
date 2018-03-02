@@ -13,68 +13,68 @@ class SearchPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final store = new StoreProvider.of(context).store;
-    return new AlertDialog(
+    final store = StoreProvider.of(context).store;
+    return AlertDialog(
       actions: [
-        new FlatButton(
-          onPressed: () => store.dispatch(new ResetFiltersAction()),
-          child: const Text('Réinitialiser'),
+        FlatButton(
+          onPressed: () => store.dispatch(ResetFiltersAction()),
+          child: Text('Réinitialiser'),
         ),
-        new FlatButton(
+        FlatButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('OK'),
+          child: Text('OK'),
         ),
       ],
-      title: const Text('Filtres'),
-      content: new Column(
+      title: Text('Filtres'),
+      content: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          new ListTile(
-            leading: new Icon(Icons.location_city),
-            title: new StoreConnector<AppState, String>(
+          ListTile(
+            leading: Icon(Icons.location_city),
+            title: StoreConnector<AppState, String>(
               converter: (store) => store.state.cityFilter,
               builder: (context, city) {
                 final cityFilterTextController =
-                    new TextEditingController(text: store.state.cityFilter)
-                      ..selection = new TextSelection(
+                    TextEditingController(text: store.state.cityFilter)
+                      ..selection = TextSelection(
                         baseOffset: store.state.cityFilter.length,
                         extentOffset: store.state.cityFilter.length,
                       );
-                return new TextField(
+                return TextField(
                   controller: cityFilterTextController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     hintText: 'Entrer le nom de la ville',
                   ),
                   onSubmitted: (value) =>
-                      store.dispatch(new UpdateCityFilterAction(value)),
+                      store.dispatch(UpdateCityFilterAction(value)),
                 );
               },
             ),
           ),
-          new ListTile(
-            leading: new Icon(Icons.attach_money),
-            title: new StoreConnector<AppState, double>(
-                builder: (context, price) => new Slider(
+          ListTile(
+            leading: Icon(Icons.attach_money),
+            title: StoreConnector<AppState, double>(
+                builder: (context, price) => Slider(
                       value: price,
                       min: minPrice,
                       max: maxPrice,
                       label: '${price.toStringAsFixed(0)}\$',
                       onChanged: (value) => store.dispatch(
-                            new UpdatePriceFilterAction(value),
+                            UpdatePriceFilterAction(value),
                           ),
                     ),
                 converter: (store) => store.state.priceFilter),
           ),
-          new ListTile(
-            leading: new Icon(Icons.directions_car),
-            title: new StoreConnector<AppState, int>(
-                builder: (context, value) => new Slider(
+          ListTile(
+            leading: Icon(Icons.directions_car),
+            title: StoreConnector<AppState, int>(
+                builder: (context, value) => Slider(
                     value: value.roundToDouble(),
                     min: minDistance,
                     max: maxDistance,
                     label: '${value}km',
-                    onChanged: (value) => store.dispatch(
-                        new UpdateDistanceFilterAction(value.round()))),
+                    onChanged: (value) => store
+                        .dispatch(UpdateDistanceFilterAction(value.round()))),
                 converter: (store) => store.state.distanceFilter),
           ),
         ],

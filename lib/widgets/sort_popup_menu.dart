@@ -8,27 +8,27 @@ class SortPopupMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final store = new StoreProvider.of(context).store;
-    return new PopupMenuButton<SortingCriteria>(
-      icon: const Icon(Icons.sort),
+    final store = StoreProvider.of(context).store;
+    return PopupMenuButton<SortingCriteria>(
+      icon: Icon(Icons.sort),
       onSelected: (result) {
-        store.dispatch(new UpdateSortingCriteriaAction(result));
+        store.dispatch(UpdateSortingCriteriaAction(result));
       },
       itemBuilder: (context) => <PopupMenuEntry<SortingCriteria>>[
-            new CheckedPopupMenuItem<SortingCriteria>(
+            CheckedPopupMenuItem<SortingCriteria>(
               checked: store.state.sortingCriteria == SortingCriteria.date,
               value: SortingCriteria.date,
-              child: const Text('Date'),
+              child: Text('Date'),
             ),
-            new CheckedPopupMenuItem<SortingCriteria>(
+            CheckedPopupMenuItem<SortingCriteria>(
               checked: store.state.sortingCriteria == SortingCriteria.distance,
               value: SortingCriteria.distance,
-              child: const Text('Distance'),
+              child: Text('Distance'),
             ),
-            new CheckedPopupMenuItem<SortingCriteria>(
+            CheckedPopupMenuItem<SortingCriteria>(
               checked: store.state.sortingCriteria == SortingCriteria.price,
               value: SortingCriteria.price,
-              child: const Text('Prix'),
+              child: Text('Prix'),
             ),
           ],
     );

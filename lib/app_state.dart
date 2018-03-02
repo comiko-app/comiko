@@ -46,14 +46,14 @@ class AppState {
     currentPageIndex = defaultPageIndex;
   }
 
-  EventCardViewModel createViewModel(Event event) => new EventCardViewModel(
+  EventCardViewModel createViewModel(Event event) => EventCardViewModel(
         event: event,
         isFavorite: eventsFavoriteState[event],
       );
 
   List<EventCardViewModel> getFavoriteEvents() => events
       .where((e) => eventsFavoriteState[e])
-      .map((e) => new EventCardViewModel(event: e, isFavorite: true))
+      .map((e) => EventCardViewModel(event: e, isFavorite: true))
       .toList();
 
   void filterEventsWithActiveFilters() {
@@ -85,10 +85,10 @@ class AppState {
   }
 
   AppState clone() {
-    final newState = new AppState._(
-      new List.from(events),
+    final newState = AppState._(
+      List.from(events),
       sortingCriteria,
-      new Map.from(eventsFavoriteState),
+      Map.from(eventsFavoriteState),
       cityFilter,
       priceFilter,
       distanceFilter,

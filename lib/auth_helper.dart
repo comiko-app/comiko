@@ -8,8 +8,8 @@ typedef Future<bool> AuthFunction({bool onlySilently});
 
 class AuthHelper {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final FacebookLogin _facebookLogin = new FacebookLogin();
-  final GoogleSignIn _googleSignIn = new GoogleSignIn(
+  final FacebookLogin _facebookLogin = FacebookLogin();
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
     scopes: [
       'email',
     ],
@@ -61,7 +61,7 @@ class AuthHelper {
     return false;
   }
 
-  Future<GoogleSignInAccount> signOut() => _firebaseAuth.signOut();
+  Future<void> signOut() => _firebaseAuth.signOut();
 
   Future<GoogleSignInAccount> _signInWithGoogle(bool onlySilently) async {
     var googleUser = _googleSignIn.currentUser;
@@ -83,10 +83,10 @@ class AuthHelper {
         return result;
         break;
       case FacebookLoginStatus.cancelledByUser:
-        throw new Exception('oops cancelled fb auth');
+        throw Exception('oops cancelled fb auth');
         break;
       case FacebookLoginStatus.error:
-        throw new Exception('oops fb auth error');
+        throw Exception('oops fb auth error');
         break;
     }
 

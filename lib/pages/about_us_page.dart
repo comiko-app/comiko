@@ -5,20 +5,20 @@ class AboutUsPage extends StatelessWidget implements IsPage {
   const AboutUsPage();
 
   @override
-  Widget build(BuildContext context) => new ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+  Widget build(BuildContext context) => ListView(
+        padding: EdgeInsets.symmetric(horizontal: 16.0),
         children: <Widget>[
-          new Container(
-            child: const Image(
-              image: const AssetImage('lib/assets/comiko_white.png'),
+          Container(
+            child: Image(
+              image: AssetImage('lib/assets/comiko_white.png'),
             ),
             height: 200.0,
-            margin: const EdgeInsets.only(
+            margin: EdgeInsets.only(
               top: 20.0,
             ),
           ),
-          new Container(
-            child: new Column(
+          Container(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 createParagraphWidget(
@@ -49,12 +49,12 @@ class AboutUsPage extends StatelessWidget implements IsPage {
   Widget createParagraphWidget(String text, BuildContext context) {
     final textStyle = Theme.of(context).textTheme.subhead;
 
-    return new Padding(
-      padding: const EdgeInsets.symmetric(
+    return Padding(
+      padding: EdgeInsets.symmetric(
         horizontal: 12.0,
         vertical: 8.0,
       ),
-      child: new Text(
+      child: Text(
         text,
         style: textStyle,
       ),

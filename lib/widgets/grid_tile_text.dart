@@ -6,9 +6,9 @@ class GridTileText extends StatelessWidget {
   final String text;
 
   @override
-  Widget build(BuildContext context) => new FittedBox(
+  Widget build(BuildContext context) => FittedBox(
         fit: BoxFit.scaleDown,
         alignment: FractionalOffset.centerLeft,
-        child: new Text(text),
+        child: Text(text),
       );
 }

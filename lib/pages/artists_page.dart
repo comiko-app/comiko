@@ -8,7 +8,7 @@ class ArtistsPage extends StatelessWidget implements IsPage {
   const ArtistsPage();
 
   @override
-  Widget build(BuildContext context) => new StreamBuilder<QuerySnapshot>(
+  Widget build(BuildContext context) => StreamBuilder<QuerySnapshot>(
         stream: Firestore.instance
             .collection('artists')
             .where("deleted", isEqualTo: false)
@@ -16,12 +16,12 @@ class ArtistsPage extends StatelessWidget implements IsPage {
             .snapshots,
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return const Center(
-              child: const CircularProgressIndicator(),
+            return Center(
+              child: CircularProgressIndicator(),
             );
           }
 
-          return new GridView.count(
+          return GridView.count(
             crossAxisCount:
                 MediaQuery.of(context).orientation == Orientation.portrait
                     ? 2
@@ -29,8 +29,8 @@ class ArtistsPage extends StatelessWidget implements IsPage {
             crossAxisSpacing: 4.0,
             mainAxisSpacing: 4.0,
             children: snapshot.data.documents
-                .map((document) => new Artist.fromJson(document.data))
-                .map((a) => new ArtistCard(new ArtistCardViewModel(artist: a)))
+                .map((document) => Artist.fromJson(document.data))
+                .map((a) => ArtistCard(ArtistCardViewModel(artist: a)))
                 .toList(),
           );
         },

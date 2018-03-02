@@ -11,14 +11,14 @@ class LikedEventsPage extends StatelessWidget implements IsPage {
   @override
   Widget build(BuildContext context) {
     final orientation = MediaQuery.of(context).orientation;
-    return new StoreConnector<AppState, List<EventCardViewModel>>(
+    return StoreConnector<AppState, List<EventCardViewModel>>(
       converter: (Store<AppState> store) => store.state.getFavoriteEvents(),
-      builder: (context, vms) => new GridView.count(
+      builder: (context, vms) => GridView.count(
             crossAxisCount: orientation == Orientation.portrait ? 1 : 3,
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0),
             mainAxisSpacing: 4.0,
             crossAxisSpacing: 4.0,
-            children: vms.map((vm) => new EventCard(vm)).toList(),
+            children: vms.map((vm) => EventCard(vm)).toList(),
           ),
     );
   }

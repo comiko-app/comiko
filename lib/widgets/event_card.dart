@@ -25,59 +25,59 @@ class EventCard extends StatelessWidget {
   );
 
   @override
-  Widget build(BuildContext context) => new GridTile(
-        footer: new _GridBottomBar(eventCardViewModel),
-        child: new _GridTileMainWidget(eventCardViewModel.event),
+  Widget build(BuildContext context) => GridTile(
+        footer: _GridBottomBar(eventCardViewModel),
+        child: _GridTileMainWidget(eventCardViewModel.event),
       );
 }
 
 class _GridBottomBar extends StatelessWidget {
   final EventCardViewModel viewModel;
-  final DateFormat formatter = new DateFormat('d MMMM yyyy HH:mm');
+  final DateFormat formatter = DateFormat('d MMMM yyyy HH:mm');
 
   _GridBottomBar(this.viewModel);
 
   @override
   Widget build(BuildContext context) {
-    final store = new StoreProvider.of(context).store;
-    return new GestureDetector(
+    final store = StoreProvider.of(context).store;
+    return GestureDetector(
       onTap: () => navigateToEvent(viewModel.event, context),
-      child: new Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          new Container(
-            margin: const EdgeInsets.only(left: 16.0, bottom: 8.0),
-            child: new FittedBox(
+          Container(
+            margin: EdgeInsets.only(left: 16.0, bottom: 8.0),
+            child: FittedBox(
               fit: BoxFit.scaleDown,
               alignment: FractionalOffset.centerLeft,
-              child: new Text(
+              child: Text(
                 viewModel.event.artist,
                 style: Theme.of(context).textTheme.headline,
               ),
             ),
           ),
-          new Container(
-            margin: const EdgeInsets.only(left: 16.0, bottom: 8.0),
-            child: new FittedBox(
+          Container(
+            margin: EdgeInsets.only(left: 16.0, bottom: 8.0),
+            child: FittedBox(
               fit: BoxFit.scaleDown,
               alignment: FractionalOffset.centerLeft,
-              child: new Text(
+              child: Text(
                 viewModel.event.name,
                 style: Theme.of(context).textTheme.subhead,
               ),
             ),
           ),
-          new GridTileBar(
+          GridTileBar(
             backgroundColor: Colors.black54,
-            title: new GridTileText(viewModel.event.place ?? ""),
-            subtitle: new GridTileText(formatter.format(viewModel.event.start)),
-            trailing: new GestureDetector(
+            title: GridTileText(viewModel.event.place ?? ""),
+            subtitle: GridTileText(formatter.format(viewModel.event.start)),
+            trailing: GestureDetector(
               onTap: () =>
-                  store.dispatch(new ToggleFavoriteAction(viewModel.event)),
-              child: new Container(
-                padding: const EdgeInsets.all(22.0),
+                  store.dispatch(ToggleFavoriteAction(viewModel.event)),
+              child: Container(
+                padding: EdgeInsets.all(22.0),
                 color: Colors.transparent,
-                child: new Icon(
+                child: Icon(
                   viewModel.isFavorite ? Icons.favorite : Icons.favorite_border,
                   color: Colors.white,
                 ),
@@ -96,18 +96,18 @@ class _GridTileMainWidget extends StatelessWidget {
   const _GridTileMainWidget(this.event);
 
   @override
-  Widget build(BuildContext context) => new GestureDetector(
+  Widget build(BuildContext context) => GestureDetector(
         onTap: () => navigateToEvent(event, context),
-        child: new Stack(
+        child: Stack(
           fit: StackFit.expand,
           children: <Widget>[
-            new Image.asset(
+            Image.asset(
               event.imageUri,
               fit: BoxFit.cover,
             ),
-            new Container(
-              decoration: new BoxDecoration(
-                gradient: new LinearGradient(
+            Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
                     colors: <Color>[Colors.black54, Colors.transparent],
                     begin: FractionalOffset.bottomCenter),
               ),
