@@ -4,13 +4,14 @@ description: Comiko
 dependencies:
   flutter:
     sdk: flutter
-  redux: "^2.1.1"
-  flutter_redux: "^0.3.4"
+  redux: "^3.0.0"
+  flutter_redux: "^0.5.0"
   path: "^1.4.2"
   comiko_shared:
     git: https://github.com/comiko-app/shared.git
   comiko_backend:
-    git: https://github.com/comiko-app/backend.git
+    path: ../comiko_dependencies/backend
+#    https://github.com/comiko-app/backend.git
   cloud_firestore: '^0.2.6'
   font_awesome_flutter: '^6.0.0'
   url_launcher: "^2.0.1"

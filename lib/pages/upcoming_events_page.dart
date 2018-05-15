@@ -29,7 +29,6 @@ class UpcomingEventsPage extends StatelessWidget implements IsPage {
 
   @override
   AppActionsFactory get actionsFactory => (context) => [
-        SortPopupMenu(),
         IconButton(
             icon: Icon(Icons.search),
             onPressed: () => RoutingAssistant.searchPopup(context)),

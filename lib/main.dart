@@ -18,12 +18,12 @@ void main() {
 
 class MyApp extends StatelessWidget {
   static final Store<AppState> store = Store<AppState>(
-    combineReducers([reducer]),
+    combineReducers([reducers()]),
     initialState: AppState.initial(),
   );
 
   @override
-  Widget build(BuildContext context) => StoreProvider(
+  Widget build(BuildContext context) => StoreProvider<AppState>(
         store: store,
         child: MaterialApp(
           title: 'Comiko',
@@ -36,8 +36,7 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({
     Key key,
-  })
-      : super(key: key);
+  }) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -56,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<Null> initServices(Store store) async {
     final eventString = await rootBundle.loadString('lib/data/events.json');
-    final List<Map<String, dynamic>> eventJson = JSON.decode(eventString);
+    final eventJson = json.decode(eventString);
     final JsonEventService service = ServiceProvider.get(EventService);
     service.init(eventJson); // ignore: cascade_invocations
     store.dispatch(FetchEventsAction());

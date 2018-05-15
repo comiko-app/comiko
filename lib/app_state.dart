@@ -2,6 +2,7 @@ import 'package:comiko/pages/is_page.dart';
 import 'package:comiko/widgets/event_card.dart';
 import 'package:comiko_backend/services.dart';
 import 'package:comiko_shared/models.dart';
+import 'package:redux/redux.dart';
 
 class AppState {
   static const String defaultCityFilter = '';
@@ -234,3 +235,22 @@ AppState reducer<T extends IsAction>(AppState state, T action) {
   final newState = action.handle(state);
   return newState;
 }
+
+Reducer<AppState> reducers() => combineReducers([
+      new TypedReducer<AppState, ToggleFavoriteAction>(
+          (state, action) => action.handle(state)),
+      new TypedReducer<AppState, UpdateCityFilterAction>(
+          (state, action) => action.handle(state)),
+      new TypedReducer<AppState, UpdateDistanceFilterAction>(
+          (state, action) => action.handle(state)),
+      new TypedReducer<AppState, UpdatePriceFilterAction>(
+          (state, action) => action.handle(state)),
+      new TypedReducer<AppState, UpdateSortingCriteriaAction>(
+          (state, action) => action.handle(state)),
+      new TypedReducer<AppState, FetchEventsAction>(
+          (state, action) => action.handle(state)),
+      new TypedReducer<AppState, ResetFiltersAction>(
+          (state, action) => action.handle(state)),
+      new TypedReducer<AppState, PageChangedAction>(
+          (state, action) => action.handle(state)),
+    ]);

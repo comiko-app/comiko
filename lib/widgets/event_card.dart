@@ -39,7 +39,7 @@ class _GridBottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final store = StoreProvider.of(context).store;
+    final store = StoreProvider.of<AppState>(context);
     return GestureDetector(
       onTap: () => navigateToEvent(viewModel.event, context),
       child: Column(

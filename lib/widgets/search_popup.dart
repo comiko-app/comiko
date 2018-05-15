@@ -13,7 +13,7 @@ class SearchPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final store = StoreProvider.of(context).store;
+    final store = StoreProvider.of<AppState>(context);
     return AlertDialog(
       actions: [
         FlatButton(
