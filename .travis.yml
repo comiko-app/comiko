@@ -42,6 +42,7 @@ matrix:
         - sdkmanager --list || true
         - ./flutter/bin/flutter doctor
       script:
+        - ./flutter/bin/flutter packages get
         - ./flutter/bin/flutter packages pub run build_runner build apk
         - ./flutter/bin/flutter packages pub run build_runner test
     - os: osx
