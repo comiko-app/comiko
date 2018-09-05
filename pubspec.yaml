@@ -9,7 +9,7 @@ dependencies:
   path: "^1.4.2"
   comiko_backend:
     git: https://github.com/comiko-app/backend
-  cloud_firestore: '^0.7.4'
+  cloud_firestore: '^0.8.0'
   font_awesome_flutter: '^8.0.1'
   url_launcher: "^3.0.3"
   intl: "^0.15.2"
