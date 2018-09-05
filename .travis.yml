@@ -27,7 +27,6 @@ matrix:
             - libstdc++6
             - fonts-droid
       before_script:
-        - cd App/
         - wget http://services.gradle.org/distributions/gradle-3.5-bin.zip
         - unzip -qq gradle-3.5-bin.zip
         - export GRADLE_HOME=$PWD/gradle-3.5
