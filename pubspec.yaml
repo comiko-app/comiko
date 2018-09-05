@@ -13,7 +13,7 @@ dependencies:
   font_awesome_flutter: '^8.0.1'
   url_launcher: "^3.0.3"
   intl: "^0.15.2"
-  cached_network_image: "^0.4.2"
+  cached_network_image: "^0.4.1"
   async_loader: '>=0.1.0 <0.2.0'
   firebase_auth: '^0.5.19'
   google_sign_in: "^3.0.5"
