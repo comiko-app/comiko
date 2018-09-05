@@ -20,7 +20,7 @@ class ImagesCachingLoader extends StatelessWidget {
         .collection('artists')
         .where("deleted", isEqualTo: false)
         .orderBy('name', descending: false)
-        .snapshots
+        .snapshots()
         .first;
 
     final cachedImages = <Future>[];

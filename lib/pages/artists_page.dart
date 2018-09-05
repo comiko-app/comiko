@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:comiko/pages/is_page.dart';
 import 'package:comiko/widgets/artist_card.dart';
@@ -13,7 +15,7 @@ class ArtistsPage extends StatelessWidget implements IsPage {
             .collection('artists')
             .where("deleted", isEqualTo: false)
             .orderBy('name', descending: false)
-            .snapshots,
+            .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Center(
