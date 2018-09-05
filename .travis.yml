@@ -40,6 +40,7 @@ matrix:
         - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
         # Check components status
         - sdkmanager --list || true
+        - ./flutter/bin/flutter doctor
       script:
         - ./flutter/bin/flutter packages pub run build_runner build apk
         - ./flutter/bin/flutter packages pub run build_runner test
