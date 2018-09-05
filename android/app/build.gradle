@@ -19,7 +19,6 @@ android {
     compileSdkVersion 26
     buildToolsVersion '26.0.3'
 
-
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
@@ -30,6 +29,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        multiDexEnabled true
         applicationId "ca.comiko.comiko"
         minSdkVersion 16
         targetSdkVersion 25
