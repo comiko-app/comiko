@@ -55,6 +55,8 @@ matrix:
         - brew install ideviceinstaller
         - brew install ios-deploy
         - git clone https://github.com/flutter/flutter.git -b alpha --depth 1
+      before_script:
+        - ./flutter/bin/flutter packages get
       script:
         - ./flutter/bin/flutter packages pub run build_runner build ios
       cache:
