@@ -52,6 +52,16 @@ Note: If you're not part of the Comiko project on Firebase, you can either ask t
 
 - Place it under `comiko-app/android/app`
 
+## Dart 2
+
+Take note that this repository is now set to use dart2 tools with flutter. Commands like pub build, pub test are no longer supported. Please use build runner now!
+
+```
+❯ flutter packages pub run build_runner test
+
+```
+
+
 ### Debug firebase auth
 Get your debug keystore fingerprint.
 There's no password for debug keystore, just hit enter when asked.
