@@ -42,11 +42,12 @@ matrix:
         - sdkmanager --list || true
         - ./flutter/bin/flutter doctor
       before_script:
+        - cd ..
         - mkdir comiko_dependencies
         - cd comiko_dependencies
         - git clone https://github.com/comiko-app/shared
         - git clone https://github.com/comiko-app/backend
-        - cd ..
+        - cd ../comiko
         - ./flutter/bin/flutter packages get
       script:
         - ./flutter/bin/flutter packages pub run build_runner build apk
