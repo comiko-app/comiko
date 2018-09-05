@@ -26,7 +26,7 @@ matrix:
           packages:
             - libstdc++6
             - fonts-droid
-      before_script:
+      install:
         - wget http://services.gradle.org/distributions/gradle-3.5-bin.zip
         - unzip -qq gradle-3.5-bin.zip
         - export GRADLE_HOME=$PWD/gradle-3.5
@@ -41,8 +41,14 @@ matrix:
         # Check components status
         - sdkmanager --list || true
         - ./flutter/bin/flutter doctor
-      script:
+      before_script:
+        - mkdir comiko_dependencies
+        - cd comiko_dependencies
+        - git clone https://github.com/comiko-app/shared
+        - git clone https://github.com/comiko-app/backend
+        - cd ..
         - ./flutter/bin/flutter packages get
+      script:
         - ./flutter/bin/flutter packages pub run build_runner build apk
         - ./flutter/bin/flutter packages pub run build_runner test
     - os: osx
