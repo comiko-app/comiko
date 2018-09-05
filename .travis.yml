@@ -49,7 +49,7 @@ matrix:
     - os: osx
       language: generic
       osx_image: xcode8.3
-      before_script:
+      install:
         - brew update
         - brew install libimobiledevice
         - brew install ideviceinstaller
