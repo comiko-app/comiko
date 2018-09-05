@@ -1,5 +1,5 @@
 name: comiko
-description: Comiko
+description: comiko
 
 dependencies:
   flutter:
@@ -7,8 +7,6 @@ dependencies:
   redux: "^3.0.0"
   flutter_redux: "^0.5.0"
   path: "^1.4.2"
-  comiko_shared:
-    git: https://github.com/comiko-app/shared
   comiko_backend:
     git: https://github.com/comiko-app/backend
   cloud_firestore: '^0.7.4'
@@ -24,7 +22,7 @@ dependencies:
 dev_dependencies:
   json_annotation: "^1.1.0"
   build_runner: "^0.10.1"
-  build_test: "0.10.3"
+  build_test: "^0.10.3"
   flutter_test:
     sdk: flutter
 
