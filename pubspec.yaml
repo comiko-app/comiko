@@ -8,22 +8,29 @@ dependencies:
   flutter_redux: "^0.5.0"
   path: "^1.4.2"
   comiko_shared:
-    git: https://github.com/comiko-app/shared.git
+    path: ../comiko_dependencies/shared
   comiko_backend:
     path: ../comiko_dependencies/backend
-#    https://github.com/comiko-app/backend.git
-  cloud_firestore: '^0.2.6'
-  font_awesome_flutter: '^6.0.0'
-  url_launcher: "^2.0.1"
+  cloud_firestore: '^0.7.4'
+  font_awesome_flutter: '^8.0.1'
+  url_launcher: "^3.0.3"
   intl: "^0.15.2"
-  cached_network_image: "^0.3.0"
+  cached_network_image: "^0.4.2"
   async_loader: '>=0.1.0 <0.2.0'
-  firebase_auth: '^0.4.5'
-  google_sign_in: "^2.1.0"
+  firebase_auth: '^0.5.19'
+  google_sign_in: "^3.0.5"
   flutter_facebook_login: '>=1.0.3 <2.0.0'
+
 dev_dependencies:
+  json_annotation: "^1.1.0"
+  build_runner: "^0.10.1+1"
+  build_test: "0.10.3+1"
   flutter_test:
     sdk: flutter
+
+# git & path require json annotation 0.2.2
+dependency_override:
+  json_annotation: "^1.1.0"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
