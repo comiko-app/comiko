@@ -63,7 +63,7 @@ packages:
       name: build_runner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.10.0"
+    version: "0.10.1+1"
   build_runner_core:
     dependency: transitive
     description:
@@ -186,7 +186,7 @@ packages:
       name: firebase_auth
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.19"
+    version: "0.5.20"
   firebase_core:
     dependency: transitive
     description:
